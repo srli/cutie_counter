@@ -1,16 +1,65 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>Hello World!</title>
-</head>
-<body>
-<h1>Hello World!</h1>
-We are using Node.js <span id="node-version"></span>,
-Chromium <span id="chrome-version"></span>,
-and Electron <span id="electron-version"></span>.
+  <title>Cutie Counter</title>
 
-<!-- You can also require other files to run in this process -->
-<script src="./dist/renderer.js"></script>
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/ext/photon.min.css">
+  <link rel="stylesheet" href="css/ext/quill.snow.css">
+
+  <!-- Javascript -->
+  <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+
+  <script>const exports = {"__esModule": true};</script>
+  <script src="ext_js/jquery-3.4.1.min.js" type="text/javascript"></script>
+  <script src="dist/index.js" charset="utf-8"></script>
+
+  <script>if (window.module) module = window.module;</script>
+</head>
+
+<body>
+<div class="window">
+
+<header class="toolbar toolbar-header">
+  <div class="toolbar-actions">
+    <div class="btn-group">
+      <button class="btn btn-default" onclick="loadFile()">
+        <span class="icon icon-folder"></span>
+      </button>
+      <button class="btn btn-default" onclick="saveFile()">
+        <span class="icon icon-floppy"></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="window-content">
+  <div class="pane-group">
+    <!-- NOTE: Keep cutie related code inside this div   -->
+    <div class="pane" id="cutie" style="min-width: 350px;">
+
+<!--            TODO: Figure out how to overlay images-->
+<!--        <div id="cutie-background" class="under">-->
+<!--          <img style='height: 100%; width: 100%; object-fit: contain' src="assets/mugenpaintover.png" alt="Background">-->
+<!--        </div>-->
+        <div id="cutie-img" class="over">
+          <img style='height: 100%; width: 100%; object-fit: contain' src="assets/ryder_normal.png" alt="Ryder Normal">
+        </div>
+    </div>
+
+    <div class="pane">
+      <div id="editor"></div>
+    </div>
+
+  </div>
+</div>
+
+</div>
+
+<script>
+  $(document).ready(function() {
+    $.getScript("dist/editor.js");
+  });
+</script>
 </body>
 </html>

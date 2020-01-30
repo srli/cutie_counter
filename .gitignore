@@ -3,6 +3,3 @@ node_modules
 out
 .DS_Store
 .idea
-*.d.ts
-*.js.map
-src/*.js

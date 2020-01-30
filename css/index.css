@@ -4,3 +4,21 @@ body {
   max-width: 38rem;
   padding: 2rem;
 }
+
+#cutie {
+  position: relative;
+}
+
+.under {
+  position: relative;
+  left: 0;
+  top: 0;
+  z-index: -100;
+}
+
+.over {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  z-index: 200;
+}
