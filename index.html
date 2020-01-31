@@ -36,15 +36,8 @@
 <div class="window-content">
   <div class="pane-group">
     <!-- NOTE: Keep cutie related code inside this div   -->
-    <div class="pane" id="cutie" style="min-width: 350px;">
-
-<!--            TODO: Figure out how to overlay images-->
-<!--        <div id="cutie-background" class="under">-->
-<!--          <img style='height: 100%; width: 100%; object-fit: contain' src="assets/mugenpaintover.png" alt="Background">-->
-<!--        </div>-->
-        <div id="cutie-img" class="over">
-          <img style='height: 100%; width: 100%; object-fit: contain' src="assets/ryder_normal.png" alt="Ryder Normal">
-        </div>
+    <div class="pane" style="min-width: 350px;">
+      <div id="cutie"></div>
     </div>
 
     <div class="pane">
@@ -59,7 +52,10 @@
 <script>
   $(document).ready(function() {
     $.getScript("dist/editor.js");
+    $.getScript("dist/cutie.js");
   });
+
+  // require('dist/renderer.js');
 </script>
 </body>
 </html>
