@@ -1,5 +1,11 @@
 import { app, BrowserWindow } from 'electron'
 import * as path from 'path'
+declare const MAIN_WINDOW_WEBPACK_ENTRY: any;
+
+// Handle creating/removing shortcuts on Windows when installing/uninstalling.
+if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
+  app.quit();
+}
 
 let mainWindow: Electron.BrowserWindow | null;
 
@@ -9,7 +15,6 @@ async function createWindow() {
     height: 800,
     width: 1000,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: true
     },
     titleBarStyle: 'hidden',
@@ -21,7 +26,7 @@ async function createWindow() {
   // splash.loadURL(`file://${__dirname}/splash.html`);
 
   // and load the index.html of the app.
-  await mainWindow.loadFile(path.join(__dirname, '../index.html'));
+  await mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
   // Emitted when the window is closed.
   mainWindow.on('closed', () => {

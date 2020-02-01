@@ -4,7 +4,16 @@ body {
   max-width: 38rem;
   padding: 2rem;
 }
-
 #cutie {
-  position: relative;
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+}
+
+#textbox {
+  position: absolute;
+  left:0;
+  bottom:0;
+  height:30vh;
+  width: 50vw;
 }
