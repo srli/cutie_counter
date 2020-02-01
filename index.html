@@ -36,7 +36,11 @@
   <div class="pane-group">
     <div class="pane" style="min-width: 350px;">
       <!-- NOTE: Keep cutie related code inside this div   -->
-      <div id="cutie"></div>
+      <div id="cutie">
+        <img id="cutieBg" src="" style="position: absolute; height: 100%; width: 100%; object-fit: cover; z-index: 1" alt="background_image">
+        <img id="cutieImage" src="" style="position: absolute; left: -250px; margin-top: 50px; margin-bottom: 0; height: 100%; width: 100%; object-fit: cover; z-index:2" alt="cutie_image">
+      </div>
+
       <div id="textbox">
         <div id="cutieName" class="characterName" style="position: absolute; left: 15px; top: 15px; z-index: 101"></div>
         <img src="assets/ui/textbox.png" style="position: absolute; bottom: 0; width: 100%; object-fit: cover; z-index: 100" alt="dialogue_box">

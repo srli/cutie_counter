@@ -1,7 +1,7 @@
 import Quill from 'quill';
 import * as fs from 'fs';
 import { ipcRenderer } from "electron";
-import {CutieEvents} from "./constants";
+import {CutieEvent} from "./constants";
 
 const dialog = require('electron').remote.require('electron').dialog;
 
@@ -40,7 +40,7 @@ export class QuillPane {
 
     constructor() {
         const wordCallback = (numWords: number) => {
-            ipcRenderer.send(CutieEvents.WORD_COUNT_UPDATE, numWords);
+            ipcRenderer.send(CutieEvent.WORD_COUNT_UPDATE, numWords);
         };
 
         this.editor = new Quill('#editor', {

@@ -1,34 +1,41 @@
-import { ipcRenderer } from "electron";
-import { CutiePane } from "./cutie";
-import { QuillPane } from "./editor";
-import { CutieEvents, CutieName } from "./constants";
+import {ipcRenderer} from "electron";
+import {CutiePane} from "./cutie";
+import {QuillPane} from "./editor";
+import {CutieEvent, CutieName} from "./constants";
+import {EventFlags} from "./event_flags";
 
-const cpane: CutiePane = new CutiePane("#cutie", '#cutieName','#cutieDialogue', CutieName.HOLMES);
+const cpane: CutiePane = new CutiePane(CutieName.HOLMES);
 const qpane: QuillPane = new QuillPane();
 
 class Monitor {
-    constructor(readonly totalWordGoal: number, readonly dailyWordGoal: number, readonly dailyInitialCount: number) {}
 
-    // TODO: Actually make this trigger do something
-    public triggerWordCountEvent(wordCount: number) {
-        const dailyPercentage: string = ((wordCount - this.dailyInitialCount) / this.dailyWordGoal).toFixed(2);
-        const totalPercentage: string = (wordCount / this.totalWordGoal).toFixed(2);
+    private specialDailyPercentages: string[] = ['0.10', '0.33', '0.75', '1.00', '1.10', '1.50', '2.00'];
+    private specialTotalPercentages: string[] = ['0.10', '0.25', '0.33', '0.50', '0.66', '0.75', '0.90', '1.00'];
 
-        // TODO: Actually trigger based off percentages here
-        if (wordCount == 4) {
-            cpane.triggerEvent(CutieEvents.WORD_COUNT_UPDATE, '10');
-        } else if (wordCount == 6) {
-            cpane.triggerEvent(CutieEvents.WORD_COUNT_UPDATE, '20');
-        }  else if (wordCount == 2) {
-            cpane.triggerEvent(CutieEvents.WORD_COUNT_UPDATE, '0');
-        }
+    private readonly flags: EventFlags;
+
+    constructor() {
+        this.flags = new EventFlags();
     }
 
+    public triggerWordCountEvent(wordCount: number) {
+        // Calculate percentage of daily goal
+        const dailyPercentage: number = (wordCount - this.flags.initialWordCount) / this.flags.dailyWordGoal;
+        console.log(`calculated: ${dailyPercentage.toFixed(2)}, trying to match ${this.specialDailyPercentages[0]}, it is ${dailyPercentage.toFixed(2) === this.specialDailyPercentages[0]}`);
+        if (this.specialDailyPercentages[0] <= dailyPercentage.toFixed(2)) {
+            console.log(`hit daily goal`);
+            cpane.triggerEvent(CutieEvent.DAILY_WC_GOAL,[this.specialDailyPercentages.shift()])
+        }
+        // Calculate percentage of total goal
+        const totalPercentage: number = wordCount / this.flags.totalWordGoal;
+        if (this.specialTotalPercentages[0] <= totalPercentage.toFixed(2)) {
+            cpane.triggerEvent(CutieEvent.TOTAL_WC_GOAL,[this.specialTotalPercentages.shift()])
+        }
+    }
 }
 
-const monitor: Monitor = new Monitor(10, 1, 0);
-ipcRenderer.on(CutieEvents.PANE_CHANGE , function(event , data){
-    console.log('got event');
+const monitor: Monitor = new Monitor();
+ipcRenderer.on(CutieEvent.PANE_CHANGE , function(event , data){
     monitor.triggerWordCountEvent(data);
 });
 

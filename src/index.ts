@@ -1,5 +1,5 @@
 import {app, BrowserWindow, ipcMain } from 'electron'
-import {CutieEventCodes, CutieEvents} from "./constants";
+import {CutieEventCode, CutieEvent} from "./constants";
 declare const MAIN_WINDOW_WEBPACK_ENTRY: any;
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -61,7 +61,7 @@ app.on('activate', async () => {
 
 // In this file you can include the rest of your app"s specific main process
 // code. You can also put them in separate files and require them here.
-ipcMain.on(CutieEvents.WORD_COUNT_UPDATE, (event, arg) => {
-  mainWindow.webContents.send(CutieEvents.PANE_CHANGE, arg);
-  event.returnValue =  CutieEventCodes.SUCCESSFUL
+ipcMain.on(CutieEvent.WORD_COUNT_UPDATE, (event, arg) => {
+  mainWindow.webContents.send(CutieEvent.PANE_CHANGE, arg);
+  event.returnValue =  CutieEventCode.SUCCESSFUL
 });

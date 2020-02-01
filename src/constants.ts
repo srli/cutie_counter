@@ -1,5 +1,14 @@
 // The enums in this file represent constants used throughout the package
 
+// Container IDs are tied to the name given in index.html, do not change
+export enum HtmlElementId {
+    NAME_BOX= '#cutieName',
+    TEXT_BOX= '#cutieDialogue',
+    BG_IMG= '#cutieBg',
+    CUTIE_IMG = '#cutieImage',
+    PANE_ID = '#cutie',
+}
+
 /**
  * Currently available cuties
  */
@@ -30,18 +39,20 @@ export enum BackgroundState {
  *
  * TODO: Decide on what actually needs to be an event
  */
-export enum CutieEvents {
+export enum CutieEvent {
     WORD_COUNT_UPDATE = 'word_count',
+    DAILY_WC_GOAL = 'daily_wc_goal',
+    TOTAL_WC_GOAL = 'total_wc_goal',
+    NEXT_DIALOGUE = 'next_dialogue',
+    CG_TRIGGER = 'cg_trigger',
+    TIME_UPDATE = 'time_update',
     PANE_CHANGE = 'pane_change',
-    EXPRESSION_CHANGE = 'expression_change',
-    BACKGROUND_CHANGE = 'background_change',
-    CG_TRIGGER = 'cg_trigger'
 }
 
 /**
  * Custom event codes
  */
-export enum CutieEventCodes {
+export enum CutieEventCode {
     SUCCESSFUL ,
     ERROR,
 }
