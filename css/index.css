@@ -1,9 +1,29 @@
+@font-face {
+  font-family: poetsen;
+  src: url('../fonts/PoetsenOne-Regular.otf');
+}
+
+@font-face {
+  font-family: sansita;
+  src: url('../fonts/Sansita-Regular.otf');
+}
+
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   margin: auto;
   max-width: 38rem;
   padding: 2rem;
 }
+
+.dialogue {
+  font-family: sansita, sans-serif;
+  font-size: x-large;
+}
+
+.characterName {
+  font-family: poetsen, sans-serif;
+  font-size: xx-large;
+}
+
 #cutie {
   position: absolute;
   height: 100vh;

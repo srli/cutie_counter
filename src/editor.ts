@@ -1,12 +1,48 @@
 import Quill from 'quill';
 import * as fs from 'fs';
+import { ipcRenderer } from "electron";
+import {CutieEvents} from "./constants";
+
 const dialog = require('electron').remote.require('electron').dialog;
 
+// ---- Custom module that will call an input callback every word change
+const Counter = function(quill: Quill, options: any) {
+    this.quill = quill;
+    this.options = options;
+    quill.on('text-change', this.update.bind(this));
+    this.update();  // Account for initial contents
+};
+
+Counter.prototype.calculate = function() {
+    let text = this.quill.getText();
+    if (this.options.unit === 'word') {
+        text = text.trim();
+        // Splitting empty text returns a non-empty array
+        return text.length > 0 ? text.split(/\s+/).length : 0;
+    } else {
+        return text.length;
+    }
+};
+
+Counter.prototype.update = function() {
+    const length = this.calculate();
+    this.options.callback(length);
+};
+
+Quill.register('modules/counter', Counter);
+
+/**
+ * This class handles the quill pane in its entirety
+ */
 export class QuillPane {
     private readonly editor: Quill;
     private loadedfs: string | null = null;
 
     constructor() {
+        const wordCallback = (numWords: number) => {
+            ipcRenderer.send(CutieEvents.WORD_COUNT_UPDATE, numWords);
+        };
+
         this.editor = new Quill('#editor', {
             theme: 'snow',
             modules: {
@@ -14,10 +50,15 @@ export class QuillPane {
                     [{ header: [1, 2, false] }],
                     ['bold', 'italic', 'underline'],
                     ['image', 'code-block']
-                ]
+                ],
+                counter: {
+                    unit: "word",
+                    callback: wordCallback,
+                }
             },
             placeholder: 'Jot down a thought...',
         });
+
     }
 
     public async saveFile() {
