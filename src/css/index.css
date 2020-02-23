@@ -1,17 +1,15 @@
 @font-face {
   font-family: poetsen;
-  src: url('../fonts/PoetsenOne-Regular.otf');
+  src: url('../static/fonts/PoetsenOne-Regular.otf');
 }
 
 @font-face {
   font-family: sansita;
-  src: url('../fonts/Sansita-Regular.otf');
+  src: url('../static/fonts/Sansita-Regular.otf');
 }
 
-body {
-  margin: auto;
-  max-width: 38rem;
-  padding: 2rem;
+::-webkit-scrollbar {
+  display: none;
 }
 
 .dialogue {
@@ -26,7 +24,7 @@ body {
 
 #cutie {
   position: absolute;
-  height: 100vh;
+  height: 90vh;
   width: 100vw;
 }
 

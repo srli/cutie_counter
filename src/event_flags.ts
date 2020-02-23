@@ -9,7 +9,7 @@ export class EventFlags {
     readonly dailyWordGoal: number = 10;
     readonly initialWordCount: number;
 
-    constructor() {
-        this.initialWordCount = 0;
+    constructor () {
+      this.initialWordCount = 0
     }
 }

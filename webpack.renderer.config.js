@@ -7,6 +7,8 @@ rules.push({
 });
 
 module.exports = {
+  context: __dirname,
+
   module: {
     rules,
   },

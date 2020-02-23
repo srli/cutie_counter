@@ -1,4 +1,7 @@
-// The enums in this file represent constants used throughout the package
+// The enums and functions in this file represent constants used throughout the package
+import RequireContext = __WebpackModuleApi.RequireContext;
+import isDev from "electron-is-dev";
+import * as path from "path";
 
 // Container IDs are tied to the name given in index.html, do not change
 export enum HtmlElementId {
@@ -53,6 +56,22 @@ export enum CutieEvent {
  * Custom event codes
  */
 export enum CutieEventCode {
-    SUCCESSFUL ,
+    SUCCESSFUL,
     ERROR,
+}
+
+export function importAll(r: RequireContext): {[key: string]: string} {
+    const keyDict: {[key: string]: string} = {};
+    for (const k of r.keys()) {
+        if (isDev) {
+            keyDict[k] = r(k)['default'];
+            console.log(`IN DEV: ${keyDict[k]}`);
+        } else {
+            // keyDict[k] = path.join('resources/app/.webpack/renderer', r(k)['default']);
+            keyDict[k] = path.join('..', r(k)['default']);
+            console.log(`IN PROD: ${keyDict[k]}`);
+        }
+    }
+
+    return keyDict;
 }

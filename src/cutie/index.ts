@@ -1,2 +1,2 @@
-export * from './pane';
-export * from './delta';
+export * from './pane'
+export * from './delta'

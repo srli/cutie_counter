@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+  <title>Cutie Counter</title>
+</head>
+
+<body>
+<div class="window">
+
+  <header class="toolbar toolbar-header">
+    <div class="toolbar-actions">
+      <div class="btn-group">
+        <button class="btn btn-default" onclick="window.close()">
+          <span class="icon icon-cancel"/>
+        </button>
+        <button class="btn btn-default" onclick="loadFile()">
+          <span class="icon icon-folder"/>
+        </button>
+        <button class="btn btn-default" onclick="saveFile()">
+          <span class="icon icon-floppy"/>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="window-content">
+    <div class="pane-group">
+      <div class="pane" style="min-width: 350px;">
+        <!-- NOTE: Keep cutie related code inside this div   -->
+        <div id="cutie">
+          <img id="cutieBg" src="" style="position: absolute; height: 100%; width: 100%; object-fit: cover; z-index: 1" alt="background_image">
+          <img id="cutieImage" src="" style="position: absolute; left: -250px; margin-top: 50px; margin-bottom: 0; height: 100%; width: 100%; object-fit: cover; z-index:2" alt="cutie_image">
+        </div>
+
+        <div id="textbox">
+          <div id="cutieName" class="characterName" style="position: absolute; left: 15px; top: 15px; z-index: 101"></div>
+          <img id="textboxImage" src="" style="position: absolute; bottom: 0; width: 100%; object-fit: cover; z-index: 100" alt="dialogue_box">
+          <div id="cutieDialogue" class="dialogue" style="position: absolute; left: 15px; top: 75px; z-index: 101"></div>
+        </div>
+      </div>
+
+      <div class="pane">
+        <div id="editor"></div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
