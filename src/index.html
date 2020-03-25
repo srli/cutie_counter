@@ -25,21 +25,21 @@
 
   <div class="window-content">
     <div class="pane-group">
-      <div class="pane" style="min-width: 350px;">
+      <div class="pane cutie-pane">
         <!-- NOTE: Keep cutie related code inside this div   -->
-        <div id="cutie">
-          <img id="cutieBg" src="" style="position: absolute; height: 100%; width: 100%; object-fit: cover; z-index: 1" alt="background_image">
-          <img id="cutieImage" src="" style="position: absolute; left: -250px; margin-top: 50px; margin-bottom: 0; height: 100%; width: 100%; object-fit: cover; z-index:2" alt="cutie_image">
+        <div class="cutie" id="cutie">
+          <img class="cutie-background" id="cutieBg" src="" alt="background_image">
+          <img class="cutie-image" id="cutieImage" src="" alt="cutie_image">
         </div>
 
-        <div id="textbox">
-          <div id="cutieName" class="characterName" style="position: absolute; left: 15px; top: 15px; z-index: 101"></div>
-          <img id="textboxImage" src="" style="position: absolute; bottom: 0; width: 100%; object-fit: cover; z-index: 100" alt="dialogue_box">
-          <div id="cutieDialogue" class="dialogue" style="position: absolute; left: 15px; top: 75px; z-index: 101"></div>
+        <div class="textbox" id="textbox">
+          <div class="textbox-name" id="cutieName" ></div>
+          <img class="textbox-image" id="textboxImage" src=""  alt="dialogue_box">
+          <div class="textbox-text" id="cutieDialogue"></div>
         </div>
       </div>
 
-      <div class="pane">
+      <div class="pane editor-pane">
         <div id="editor"></div>
       </div>
 

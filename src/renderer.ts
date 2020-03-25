@@ -33,7 +33,7 @@ import './css/ext/quill.snow.css';
 import { ipcRenderer } from 'electron'
 import { CutiePane } from './cutie'
 import { QuillPane } from './editor'
-import { CutieEvent, CutieName } from './constants'
+import { CutieEvent, CutieName, TimeOfDay } from './constants'
 import { EventFlags } from './event_flags'
 
 
@@ -48,6 +48,7 @@ class Monitor {
 
     constructor () {
         this.flags = new EventFlags()
+        this.TimeEvent()
     }
 
     public triggerWordCountEvent (wordCount: number) {
@@ -63,6 +64,21 @@ class Monitor {
         if (this.specialTotalPercentages[0] <= totalPercentage.toFixed(2)) {
             cpane.triggerEvent(CutieEvent.TOTAL_WC_GOAL, [this.specialTotalPercentages.shift()])
         }
+    }
+
+    public TimeEvent (){
+      const time = new Date().getHours()
+      if (time >= 5 && time < 11 ) {
+          cpane.triggerEvent(CutieEvent.TIME_UPDATE, [TimeOfDay.MORNING])
+      } else if (time >= 11 && time < 16){
+          cpane.triggerEvent(CutieEvent.TIME_UPDATE, [TimeOfDay.DAY])
+      } else if (time >= 16 && time < 23) {
+          cpane.triggerEvent(CutieEvent.TIME_UPDATE, [TimeOfDay.EVENING])
+      } else if (time >= 2 && time < 5) {
+          cpane.triggerEvent(CutieEvent.TIME_UPDATE, [TimeOfDay.LATE_NIGHT])
+      } else{
+        cpane.triggerEvent(CutieEvent.TIME_UPDATE, [TimeOfDay.MIDNIGHT])
+      }
     }
 }
 

@@ -7,11 +7,13 @@ const images = importAll(require.context('../static', true, /\.(png|jpe?g|svg)$/
  * This class houses interfacing with the GUI components on the cutie pane
  */
 export class CutieGui {
+  private directory = "../";
+
   constructor (readonly cutieName: string) {
     const img: HTMLImageElement = document.querySelector('#textboxImage');
     img.src = images[`./ui/textbox.png`];
 
-    fs.readdirSync('./resources/app/.webpack/renderer').forEach(file => {
+    fs.readdirSync(this.directory).forEach(file => {
       console.log(file);
     });
   }
