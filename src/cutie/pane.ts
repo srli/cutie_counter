@@ -25,6 +25,8 @@ export class CutiePane {
      */
     public triggerEvent (event: CutieEvent, args: string[]) {
       const delta: Delta = this.dialogue.getDelta(event, args)
+
+      //TODO: change background according to time?
       if (delta.background !== null) { this.gui.changeBackground(delta.background) }
       if (delta.expression !== null) { this.gui.changeExpression(delta.expression) }
       if (delta.text !== null) { this.gui.changeText(delta.character, delta.text) }

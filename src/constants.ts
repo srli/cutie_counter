@@ -53,6 +53,18 @@ export enum CutieEvent {
 }
 
 /**
+* Times of day
+*/
+
+export enum TimeOfDay {
+  MORNING = 'morning',
+  DAY = 'day',
+  EVENING = 'evening',
+  MIDNIGHT = 'midnight',
+  LATE_NIGHT = 'late_night',
+}
+
+/**
  * Custom event codes
  */
 export enum CutieEventCode {

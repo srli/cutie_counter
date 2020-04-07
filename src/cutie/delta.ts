@@ -1,4 +1,4 @@
-import { BackgroundState, CutieExpression, CutieName } from '../constants'
+import { BackgroundState, CutieExpression, CutieName, TimeOfDay } from '../constants'
 
 /**
  * This interface encapsulates a change to the UI in the cutie pane.
@@ -48,9 +48,44 @@ const holmes3: Delta = {
   text: 'Your work ethic is admirable.'
 } as Delta
 
+const holmesMorning: Delta = {
+  character: null,
+  expression: CutieExpression.HAPPY,
+  background: BackgroundState.ROOM_DAY,
+  text: 'Good morning. And so begins the first day of the month in which you\'ll complete your story. Feeling excited?'
+} as Delta
+
+const holmesDay: Delta = {
+  character: null,
+  expression: CutieExpression.CURIOUS,
+  background: BackgroundState.ROOM_DAY,
+  text: 'Did you get lunch yet?'
+} as Delta
+
+const holmesEvening: Delta = {
+  character: null,
+  expression: CutieExpression.NEUTRAL,
+  background: BackgroundState.ROOM_NIGHT,
+  text: 'Evening. It\'s been a long day, hasn\'t it? It\'s good to relax.'
+} as Delta
+
+const holmesMidnight: Delta = {
+  character: null,
+  expression: CutieExpression.CURIOUS,
+  background: BackgroundState.ROOM_NIGHT,
+  text: 'It\'s pretty late. If you want to write now, you can, but I\'d otherwise recommend getting some sleep. There\'s a whole month ahead of us.'
+} as Delta
+
+const holmesLatenight: Delta = {
+  character: null,
+  expression: CutieExpression.CURIOUS,
+  background: BackgroundState.ROOM_NIGHT,
+  text: '... Agh! Could you give a bit of warning before you pop up like a serial killer in a movie? I didn\'t know you\'d be awake now... Ahem. '
+} as Delta
+
 const sampleDailyWC: Trigger = { '0.10': holmes1, 0.25: holmes3, 0.33: holmes2, 0.75: holmes3 }
 const sampleTotalWC: Trigger = { '0.10': holmes1, 0.25: holmes2 }
-const sampleTime: Trigger = { day: holmes3 } // TODO: this should prob be an enum
+const sampleTime: Trigger = { morning: holmesMorning, day: holmesDay, evening: holmesEvening, midnight: holmesMidnight, late_night: holmesLatenight } // TODO: this should prob be an enum
 const sampleSpecial: Trigger = { keymash: holmes3 }
 
 /**

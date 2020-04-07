@@ -12,26 +12,64 @@
   display: none;
 }
 
-.dialogue {
-  font-family: sansita, sans-serif;
-  font-size: x-large;
+/* CUTIE PANE CSS */
+.cutie-pane{
+  min-width: 450px;
+  max-width: 450px;
 }
 
-.characterName {
-  font-family: poetsen, sans-serif;
-  font-size: xx-large;
-}
-
-#cutie {
+.cutie {
+  display: flex;
+  justify-content: center;
   position: absolute;
-  height: 90vh;
-  width: 100vw;
+  width: 100%;
+  height: 100%;
 }
 
-#textbox {
+.cutie-background{
+  position: absolute;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1
+}
+
+.cutie-image{
+  position: absolute;
+  bottom: 0px;
+  height: 90%;
+  z-index:2
+}
+
+.textbox {
   position: absolute;
   left:0;
   bottom:0;
-  height:30vh;
-  width: 50vw;
+  height:300px;
+  width: 450px;
+}
+
+.textbox-name {
+  font-family: poetsen, sans-serif;
+  font-size: xx-large;
+  position: absolute;
+  left: 15px;
+  top: 97px;
+  z-index: 101
+}
+
+.textbox-text {
+  font-family: sansita, sans-serif;
+  font-size: x-large;
+  position: absolute;
+  left: 15px;
+  top: 140px;
+  z-index: 101
+}
+
+.textbox-image{
+  position: absolute;
+  bottom: 0;
+  width: 450px;
+  object-fit: cover;
+  z-index: 100
 }

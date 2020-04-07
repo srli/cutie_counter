@@ -27,7 +27,7 @@ export class CutieDialogue {
       } else if (event === CutieEvent.NEXT_DIALOGUE) {
         // do something to continue?
       } else if (event === CutieEvent.TIME_UPDATE) {
-        return this.cutieTriggerCollection.time.morning
+        return this.cutieTriggerCollection.time[args[0]]
       } else {
         console.warn(`An unsupported event: ${event} was passed to the dialogue engine.`)
 

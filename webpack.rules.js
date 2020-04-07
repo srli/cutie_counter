@@ -4,14 +4,14 @@ module.exports = [
     test: /\.node$/,
     use: 'node-loader',
   },
-  // {
-  //   test: /\.(?:png|jpg|svg)$/,
-  //   use: {
-  //     loader: 'url-loader',
-  //   },
-  // },
   {
-    test: /\.(woff|woff2|eot|ttf|otf|png|jpg|svg)$/,
+    test: /\.(otf|ttf|woff)$/,
+    use: {
+      loader: 'url-loader',
+    },
+  },
+  {
+    test: /\.(woff2|eot|png|jpg|svg)$/,
     use: "file-loader"
   },
   {
