@@ -36,8 +36,11 @@
 .cutie-image{
   position: absolute;
   bottom: 0px;
-  height: 90%;
-  z-index:2
+  height: 200%;
+  top: 2vh;
+  left: -10w;
+  margin-left: -25px;
+  z-index: 2;
 }
 
 .textbox {

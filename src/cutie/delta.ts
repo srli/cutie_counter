@@ -28,7 +28,14 @@ export enum TriggerType {
 // ------ NOTE: This is an example implementation of a sequence of deltas
 // ------       For more complex behaviors, some sort of class that generates a tree of these is probably necessary
 const holmes1: Delta = {
-  character: CutieName.HOLMES,
+  character: null,
+  expression: CutieExpression.NEUTRAL,
+  background: BackgroundState.ROOM_DAY,
+  text: 'Let\'s begin, shall we?'
+} as Delta
+
+const ryder1: Delta = {
+  character: null,
   expression: CutieExpression.NEUTRAL,
   background: BackgroundState.ROOM_DAY,
   text: 'Let\'s begin, shall we?'
@@ -57,7 +64,7 @@ const holmesMorning: Delta = {
 
 const holmesDay: Delta = {
   character: null,
-  expression: CutieExpression.CURIOUS,
+  expression: CutieExpression.HAPPY,
   background: BackgroundState.ROOM_DAY,
   text: 'Did you get lunch yet?'
 } as Delta
