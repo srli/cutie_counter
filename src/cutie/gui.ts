@@ -43,6 +43,8 @@ export class CutieGui {
      * @param expression: The corresponding expression to load
      */
   public changeExpression (expression: CutieExpression) {
+    console.log(images);
+    console.log(`./cutie_images/${this.cutieName}/${expression}.png`);
     const img: HTMLImageElement = document.querySelector(HtmlElementId.CUTIE_IMG);
     img.src = images[`./cutie_images/${this.cutieName}/${expression}.png`];
   }

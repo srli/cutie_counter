@@ -37,7 +37,7 @@ import { CutieEvent, CutieName, TimeOfDay } from './constants'
 import { EventFlags } from './event_flags'
 
 
-const cpane: CutiePane = new CutiePane(CutieName.HOLMES);
+const cpane: CutiePane = new CutiePane(CutieName.RYDER);
 const qpane: QuillPane = new QuillPane();
 
 class Monitor {
