@@ -1,0 +1,51 @@
+/* MENU CSS */
+body {
+    background-image: linear-gradient(#fefefe, #9ad1d4);
+}
+
+.window-content {
+    height: 100vh;
+    width: 100vw;
+}
+
+#main-menu {
+    padding-top: 30px;
+    margin: auto;
+    width: 50%;
+}
+
+#menu-image {
+    background-image: url("../static/ui/menuscreenlogo.png");
+    margin: auto;
+    width: 370px;
+    height: 200px;
+}
+
+a:link, a:visited, a:active {
+    color: #629AB6;
+    text-decoration: none;
+}
+
+/* TODO: Figure out how to get the hover effect for the hearts
+         https://stackoverflow.com/a/38933335 */
+.heart-icon {
+    background-image: url("../static/ui/select-heart.png");
+    width: 27px;
+    height: 26px;
+}
+
+.icon {
+    visibility: visible;
+}
+
+/*.menu-option:hover + .heart-icon {*/
+/*    text-decoration: none;*/
+/*    display: inline-block;*/
+/*}*/
+
+.menu-option {
+    padding-bottom: 10px;
+    text-align: center;
+    font-family: sansita, sans-serif;
+    font-size: xx-large;
+}
