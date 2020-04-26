@@ -1,0 +1,13 @@
+@font-face {
+    font-family: poetsen;
+    src: url('../static/fonts/PoetsenOne-Regular.otf');
+}
+
+@font-face {
+    font-family: sansita;
+    src: url('../static/fonts/Sansita-Regular.otf');
+}
+
+::-webkit-scrollbar {
+    display: none;
+}

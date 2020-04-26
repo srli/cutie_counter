@@ -6,43 +6,14 @@
 
 <body>
 <div class="window">
-
-  <header class="toolbar toolbar-header">
-    <div class="toolbar-actions">
-      <div class="btn-group">
-        <button class="btn btn-default" onclick="window.close()">
-          <span class="icon icon-cancel"/>
-        </button>
-        <button class="btn btn-default" onclick="loadFile()">
-          <span class="icon icon-folder"/>
-        </button>
-        <button class="btn btn-default" onclick="saveFile()">
-          <span class="icon icon-floppy"/>
-        </button>
-      </div>
-    </div>
-  </header>
-
   <div class="window-content">
-    <div class="pane-group">
-      <div class="pane cutie-pane">
-        <!-- NOTE: Keep cutie related code inside this div   -->
-        <div class="cutie" id="cutie">
-          <img class="cutie-background" id="cutieBg" src="" alt="background_image">
-          <img class="cutie-image" id="cutieImage" src="" alt="cutie_image">
-        </div>
+    <div id="menu-image">
+    </div>
 
-        <div class="textbox" id="textbox">
-          <div class="textbox-name" id="cutieName" ></div>
-          <img class="textbox-image" id="textboxImage" src=""  alt="dialogue_box">
-          <div class="textbox-text" id="cutieDialogue"></div>
-        </div>
-      </div>
-
-      <div class="pane editor-pane">
-        <div id="editor"></div>
-      </div>
-
+    <div id="main-menu">
+      <div class="menu-option"><a href="/setup">New Story</a></div>
+      <div id="loadStory" class="menu-option"><a href="#">Load Story</a></div>
+      <div class="menu-option"><a href="/app">[DEV ONLY] Open App</a></div>
     </div>
   </div>
 

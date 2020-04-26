@@ -26,7 +26,8 @@
  * ```
  */
 
-import './css/index.css';
+import './css/app.css';
+import './css/common.css';
 import './css/ext/photon.min.css';
 import './css/ext/quill.snow.css';
 
@@ -46,17 +47,17 @@ class Monitor {
 
     private readonly flags: EventFlags;
 
-    constructor () {
-        this.flags = new EventFlags()
+    constructor() {
+        this.flags = new EventFlags();
         this.TimeEvent()
     }
 
-    public triggerWordCountEvent (wordCount: number) {
+    public triggerWordCountEvent(wordCount: number): void {
         // Calculate percentage of daily goal
         const dailyPercentage: number = (wordCount - this.flags.initialWordCount) / this.flags.dailyWordGoal
         console.log(`calculated: ${dailyPercentage.toFixed(2)}, trying to match ${this.specialDailyPercentages[0]}, it is ${dailyPercentage.toFixed(2) === this.specialDailyPercentages[0]}`)
         if (this.specialDailyPercentages[0] <= dailyPercentage.toFixed(2)) {
-            console.log('hit daily goal')
+            console.log('hit daily goal');
             cpane.triggerEvent(CutieEvent.DAILY_WC_GOAL, [this.specialDailyPercentages.shift()])
         }
         // Calculate percentage of total goal
@@ -66,8 +67,8 @@ class Monitor {
         }
     }
 
-    public TimeEvent (){
-      const time = new Date().getHours()
+    public TimeEvent(): void {
+      const time = new Date().getHours();
       if (time >= 5 && time < 11 ) {
           cpane.triggerEvent(CutieEvent.TIME_UPDATE, [TimeOfDay.MORNING])
       } else if (time >= 11 && time < 16){

@@ -1,6 +1,6 @@
 {
-  "name": "counter2",
-  "productName": "counter2",
+  "name": "cutie-counter",
+  "productName": "Cutie Counter",
   "version": "1.0.0",
   "description": "My Electron application description",
   "main": ".webpack/main",
@@ -21,7 +21,7 @@
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "counter2"
+            "name": "counter"
           }
         },
         {
@@ -49,8 +49,18 @@
               "entryPoints": [
                 {
                   "html": "./src/index.html",
-                  "js": "./src/renderer.ts",
+                  "js": "./src/index_renderer.ts",
                   "name": "main_window"
+                },
+                {
+                  "html": "./src/main_app.html",
+                  "js": "./src/main_app_renderer.ts",
+                  "name": "app"
+                },
+                {
+                  "html": "./src/project_setup.html",
+                  "js": "./src/project_setup_renderer.ts",
+                  "name": "setup"
                 }
               ]
             }
@@ -71,7 +81,7 @@
     "@typescript-eslint/eslint-plugin": "^2.20.0",
     "@typescript-eslint/parser": "^2.20.0",
     "css-loader": "^3.4.2",
-    "electron": "8.0.1",
+    "electron": "~8.2.3",
     "eslint": "^6.8.0",
     "eslint-plugin-import": "^2.20.1",
     "file-loader": "^5.1.0",

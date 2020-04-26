@@ -10,7 +10,7 @@ if (require('electron-squirrel-startup')) { // eslint-disable-line global-requir
 
 let mainWindow: BrowserWindow | null;
 
-const createWindow = () => {
+const createWindow = (): void => {
   // Create the browser window.
    mainWindow = new BrowserWindow({
     height: 800,
@@ -22,7 +22,6 @@ const createWindow = () => {
     },
     titleBarStyle: 'hidden',
     show: true,
-    frame: false
   });
 
   // and load the index.html of the app.

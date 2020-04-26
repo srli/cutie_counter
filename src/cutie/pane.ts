@@ -23,8 +23,8 @@ export class CutiePane {
      * @param event: The event that was triggered
      * @param args: The argument passed into the event, it is a list of strings   // TODO: Determine required arguments
      */
-    public triggerEvent (event: CutieEvent, args: string[]) {
-      const delta: Delta = this.dialogue.getDelta(event, args)
+    public triggerEvent (event: CutieEvent, args: string[]): void {
+      const delta: Delta = this.dialogue.getDelta(event, args);
 
       //TODO: change background according to time?
       if (delta.background !== null) { this.gui.changeBackground(delta.background) }
@@ -37,9 +37,9 @@ export class CutiePane {
      *
      * TODO: Load this from a delta?
      */
-    private initialize () {
-      this.gui.changeText(this.cutieName, 'Hello.')
-      this.gui.changeExpression(CutieExpression.NEUTRAL)
-      this.gui.changeBackground(BackgroundState.ROOM_DAY)
+    private initialize (): void {
+      this.gui.changeText(this.cutieName, 'Hello.');
+      this.gui.changeExpression(CutieExpression.NEUTRAL);
+      this.gui.changeBackground(BackgroundState.ROOM_DAY);
     }
 }
