@@ -26,9 +26,8 @@ a:link, a:visited, a:active {
     text-decoration: none;
 }
 
-/* TODO: Figure out how to get the hover effect for the hearts
-         https://stackoverflow.com/a/38933335 */
 .heart-icon {
+    display: none;
     background-image: url("../static/ui/select-heart.png");
     width: 27px;
     height: 26px;
@@ -38,10 +37,10 @@ a:link, a:visited, a:active {
     visibility: visible;
 }
 
-/*.menu-option:hover + .heart-icon {*/
-/*    text-decoration: none;*/
-/*    display: inline-block;*/
-/*}*/
+.menu-option:hover > * {
+   text-decoration: none;
+   display: inline-block;
+}
 
 .menu-option {
     padding-bottom: 10px;
