@@ -1,4 +1,8 @@
 /* CUTIE PANE CSS */
+.pane{
+  overflow-y: hidden !important;
+}
+
 .cutie-pane{
   min-width: 450px;
   max-width: 450px;
