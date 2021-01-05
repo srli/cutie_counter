@@ -27,7 +27,7 @@
   position: absolute;
   bottom: 0px;
   height: 200%;
-  top: 2vh;
+  top: 10vh;
   left: -10w;
   margin-left: -25px;
   z-index: 2;
@@ -37,7 +37,7 @@
   position: absolute;
   left:0;
   bottom:0;
-  height:300px;
+  height:200px;
   width: 450px;
 }
 
@@ -46,7 +46,7 @@
   font-size: xx-large;
   position: absolute;
   left: 15px;
-  top: 97px;
+  top: -7px;
   z-index: 101
 }
 
@@ -55,7 +55,7 @@
   font-size: x-large;
   position: absolute;
   left: 15px;
-  top: 140px;
+  top: 50px;
   z-index: 101
 }
 

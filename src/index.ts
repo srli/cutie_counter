@@ -28,7 +28,7 @@ const createWindow = (): void => {
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
   // Open the DevTools.
-  // mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools();
 };
 
 // This method will be called when Electron has finished
@@ -53,12 +53,13 @@ app.on('activate', () => {
   }
 });
 
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and import them here.
-
 // In this file you can include the rest of your app"s specific main process
 // code. You can also put them in separate files and require them here.
 ipcMain.on(CutieEvent.WORD_COUNT_UPDATE, (event, arg) => {
   mainWindow.webContents.send(CutieEvent.PANE_CHANGE, arg);
   event.returnValue = CutieEventCode.SUCCESSFUL
+});
+ipcMain.on(CutieEvent.INITIALIZE, (event, arg) => {
+    mainWindow.webContents.send(CutieEvent.LOAD_DIALOGUE, arg);
+    event.returnValue = CutieEventCode.SUCCESSFUL
 });

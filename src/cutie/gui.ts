@@ -8,6 +8,7 @@ const images = importAll(require.context('../static', true, /\.(png|jpe?g|svg)$/
  */
 export class CutieGui {
   private directory = "../";
+  // private directory = "./resources/app/.webpack/renderer";
 
   constructor (readonly cutieName: string) {
     const img: HTMLImageElement = document.querySelector('#textboxImage');
@@ -24,7 +25,7 @@ export class CutieGui {
      * @param text: The new text to set to the box
      * @param name: name of the person speaking
      */
-  public changeText (name: string | null, text: string) {
+  public changeText (name: string | null, text: string): void {
     if (name !== null) {
       // Set the name to the speaking character
       const nameDiv = document.querySelector(HtmlElementId.NAME_BOX);
@@ -42,7 +43,7 @@ export class CutieGui {
      *
      * @param expression: The corresponding expression to load
      */
-  public changeExpression (expression: CutieExpression) {
+  public changeExpression (expression: CutieExpression): void {
     console.log(images);
     console.log(`./cutie_images/${this.cutieName}/${expression}.png`);
     const img: HTMLImageElement = document.querySelector(HtmlElementId.CUTIE_IMG);
@@ -55,7 +56,7 @@ export class CutieGui {
      *
      * @param background: The background image to use
      */
-  public changeBackground (background: BackgroundState) {
+  public changeBackground (background: BackgroundState): void {
     const img: HTMLImageElement = document.querySelector(HtmlElementId.BG_IMG);
     img.src = images[`./backgrounds/${background}.png`]
   }

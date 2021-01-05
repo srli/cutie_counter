@@ -9,12 +9,12 @@ import { CutieDialogue } from './dialogue'
 export class CutiePane {
     private readonly gui: CutieGui;
     private readonly dialogue: CutieDialogue;
+    private initialized: boolean;
 
     constructor (readonly cutieName: CutieName) {
-      this.gui = new CutieGui(this.cutieName);
-      this.dialogue = new CutieDialogue(this.cutieName);
-
-      this.initialize()
+        this.gui = new CutieGui(this.cutieName);
+        this.dialogue = new CutieDialogue(this.cutieName);
+        this.initialized = false;
     }
 
     /**
@@ -24,12 +24,31 @@ export class CutiePane {
      * @param args: The argument passed into the event, it is a list of strings   // TODO: Determine required arguments
      */
     public triggerEvent (event: CutieEvent, args: string[]): void {
-      const delta: Delta = this.dialogue.getDelta(event, args);
+        if (!this.initialized) {
+            console.warn('The cutie pane has not been initialized, call the initialize function.');
+            return;
+        }
+        const delta: Delta = this.dialogue.getDelta(event, args);
+        if (delta == null) {
+            console.warn(`No dialogue found for ${event}: ${args}`);
+            return;
+        }
 
-      //TODO: change background according to time?
-      if (delta.background !== null) { this.gui.changeBackground(delta.background) }
-      if (delta.expression !== null) { this.gui.changeExpression(delta.expression) }
-      if (delta.text !== null) { this.gui.changeText(delta.character, delta.text) }
+        const speaker = delta.character ? delta.character : this.cutieName;
+        console.log(`BACKGROUND NULL? ${delta.background == null}; the value is ${delta.background}`);
+        //TODO: change background according to time?
+        if (delta.background) {
+            console.warn(`TRYING TO CHANGE BG: ${delta.background}`);
+            this.gui.changeBackground(delta.background);
+        }
+        if (delta.expression) { this.gui.changeExpression(delta.expression) }
+        if (delta.text) { this.gui.changeText(speaker, delta.text) }
+    }
+
+    public resetGui (): void {
+        this.gui.changeText(this.cutieName, '');
+        this.gui.changeExpression(CutieExpression.NEUTRAL);
+        this.gui.changeBackground(BackgroundState.ROOM_DAY);
     }
 
     /**
@@ -37,9 +56,19 @@ export class CutiePane {
      *
      * TODO: Load this from a delta?
      */
-    private initialize (): void {
-      this.gui.changeText(this.cutieName, 'Hello.');
-      this.gui.changeExpression(CutieExpression.NEUTRAL);
-      this.gui.changeBackground(BackgroundState.ROOM_DAY);
+    public async initialize (): Promise<void> {
+        this.gui.changeText(this.cutieName, 'Hello.');
+        this.gui.changeExpression(CutieExpression.NEUTRAL);
+        this.gui.changeBackground(BackgroundState.ROOM_DAY);
+        await this.dialogue.initialize();
+        this.initialized = true;
     }
+
+    // public initialize (): void {
+    //     this.gui.changeText(this.cutieName, 'Hello.');
+    //     this.gui.changeExpression(CutieExpression.NEUTRAL);
+    //     this.gui.changeBackground(BackgroundState.ROOM_DAY);
+    //     // await this.dialogue.initialize();
+    //     this.initialized = true;
+    // }
 }

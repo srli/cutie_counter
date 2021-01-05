@@ -50,12 +50,12 @@
                 {
                   "html": "./src/index.html",
                   "js": "./src/index_renderer.ts",
-                  "name": "main_window"
+                  "name": "app"
                 },
                 {
                   "html": "./src/main_app.html",
                   "js": "./src/main_app_renderer.ts",
-                  "name": "app"
+                  "name": "main_window"
                 },
                 {
                   "html": "./src/project_setup.html",

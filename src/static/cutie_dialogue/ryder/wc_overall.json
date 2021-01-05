@@ -1,0 +1,44 @@
+{
+  "0": [
+    {
+      "expression": "neutral",
+      "text": "You intend to finish a novel this month?"
+    },
+    {
+      "expression": "smile",
+      "text": "Admirable goal. I suppose I can do my best to support you, but no promises made."
+    }
+  ],
+  "10": {
+    "expression": "serious",
+    "text": "I'll give credit where it's due: you've put a sizeable dent into your goal. I look forward to seeing how things go this month."
+  },
+  "25": {
+    "expression": "serious",
+    "text": "placeholder 25"
+  },
+  "33": {
+    "expression": "serious",
+    "text": "placeholder 33"
+  },
+  "50": {
+    "expression": "serious",
+    "text": "placeholder 50"
+  },
+  "66": {
+    "expression": "serious",
+    "text": "placeholder 66"
+  },
+  "75": {
+    "expression": "serious",
+    "text": "placeholder 75"
+  },
+  "90": {
+    "expression": "serious",
+    "text": "placeholder 90"
+  },
+  "100": {
+    "expression": "serious",
+    "text": "placeholder 100"
+  }
+}

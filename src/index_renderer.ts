@@ -6,7 +6,7 @@ const { dialog } = require('electron').remote;
 async function loadProject() {
     try {
         const loadPromise = dialog.showOpenDialog({ properties: ['openFile'],   filters: [
-                { name: 'Counter Project', extensions: ['cc'] },
+                { name: 'Counter Project', extensions: ['cwp'] }, // cwp: counter word project
                 { name: 'All Files', extensions: ['*'] }
             ] });
         const chosenFiles = await loadPromise;

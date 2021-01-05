@@ -43,6 +43,8 @@ export enum BackgroundState {
  * TODO: Decide on what actually needs to be an event
  */
 export enum CutieEvent {
+    INITIALIZE = 'initialize',
+    LOAD_DIALOGUE = 'load_dialogue',
     WORD_COUNT_UPDATE = 'word_count',
     DAILY_WC_GOAL = 'daily_wc_goal',
     TOTAL_WC_GOAL = 'total_wc_goal',
@@ -55,7 +57,6 @@ export enum CutieEvent {
 /**
 * Times of day
 */
-
 export enum TimeOfDay {
   MORNING = 'morning',
   DAY = 'day',
@@ -80,7 +81,7 @@ export function importAll(r: RequireContext): {[key: string]: string} {
             console.log(`IN DEV: ${keyDict[k]}`);
         } else {
             // keyDict[k] = path.join('resources/app/.webpack/renderer', r(k)['default']);
-            keyDict[k] = path.join('..', r(k)['default']);
+            keyDict[k] = r(k)['default'];
             console.log(`IN PROD: ${keyDict[k]}`);
         }
     }

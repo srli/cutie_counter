@@ -1,0 +1,36 @@
+{
+  "1": {
+    "morning": {
+      "expression": "smile",
+      "text": "Good morning. And so begins the first day of the month in which you'll complete your story. Feeling excited?"
+    },
+    "late_morning": {
+      "expression": "smile",
+      "text": "Did you eat lunch yet?",
+      "choice": {
+        "A": {
+          "choice_text": "No, not yet.",
+          "expression": "serious",
+          "text": "Try to eat when you get the chance."
+        },
+        "B": {
+          "choice_text": "Yep.",
+          "expression": "muse",
+          "text": "Good to hear. I just had a grilled cheese sandwich and it was as wonderful as I'd imagined."
+        }
+      }
+    },
+    "evening": {
+      "expression": "smile",
+      "text": "Evening. It's been a long day, hasn't it? It's good to relax."
+    },
+    "midnight": {
+      "expression": "neutral",
+      "text": "It's pretty late. If you want to write now, you can, but I'd otherwise recommend getting some sleep. There's a whole month ahead of us."
+    },
+    "ultra_late": {
+      "expression": "shocked",
+      "text": "... Agh! Could you give a bit of warning before you pop up like a serial killer in a movie? I didn't know you'd be awake now... Ahem. "
+    }
+  }
+}

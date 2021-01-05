@@ -6,10 +6,12 @@ import { Delta, getTriggerCollection, TriggerCollection } from './delta'
  * It is meant to house dialogue trees, and return the right delta based on the get function
  */
 export class CutieDialogue {
-    private readonly cutieTriggerCollection: TriggerCollection;
+    private cutieTriggerCollection: TriggerCollection;
 
-    constructor (readonly name: CutieName) {
-      this.cutieTriggerCollection = getTriggerCollection(name, 0)
+    constructor (readonly name: CutieName) {}
+
+    public async initialize(): Promise<void> {
+        this.cutieTriggerCollection = await getTriggerCollection(this.name, 1)
     }
 
     /**
