@@ -12,7 +12,16 @@ module.exports = [
   },
   {
     test: /\.(woff2|eot|png|jpg|svg)$/,
-    use: "file-loader"
+    use: [
+      {
+        loader: 'file-loader',
+        options: {
+          name: '[hash]-[name].[ext]',
+          outputPath: 'static',
+          publicPath: '../static',
+        },
+      },
+    ],
   },
   {
     test: /\.(m?js|node)$/,
