@@ -32,5 +32,38 @@
       "expression": "shocked",
       "text": "... Agh! Could you give a bit of warning before you pop up like a serial killer in a movie? I didn't know you'd be awake now... Ahem. "
     }
+  },
+  "2": {
+    "morning": {
+      "expression": "smile",
+      "text": "Up and at 'em. Have a good, productive day."
+    },
+    "late_morning": {
+      "expression": "thinking",
+      "text": "{thinking} I can't bother to make lunch today. I think I'll order takeout... ...are you judging me?"
+    },
+    "evening": {
+      "expression": "neutral",
+      "text": "Before I start writing...",
+      "choice": {
+        "A": {
+          "choice_text": "Why are you here all day, every day?",
+          "expression": "serious",
+          "text": "Because I live here and I'm a freelance writer. No more questions. Now write."
+        },
+        "B": {
+          "choice_text": "Tell me I did a good job!",
+          "expression": "muse",
+          "text": "Write first, then we'll talk."
+        }
+      }    },
+    "midnight": {
+      "expression": "neutral",
+      "text": "Good to see you. It's a bit late. Thinking of writing?"
+    },
+    "ultra_late": {
+      "expression": "muse",
+      "text": "Is staying up late like this typical for you? I'm not used to people being awake at the same time as me this late."
+    }
   }
 }
