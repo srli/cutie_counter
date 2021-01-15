@@ -1,24 +1,6 @@
 {
   "1": {
     "morning": {
-<<<<<<< HEAD
-      "expression": "smile",
-      "text": "Good morning. And so begins the first day of the month in which you'll complete your story. Feeling excited?"
-    },
-    "late_morning": {
-      "expression": "smile",
-      "text": "Did you eat lunch yet?",
-      "choice": {
-        "A": {
-          "choice_text": "No, not yet.",
-          "expression": "serious",
-          "text": "Try to eat when you get the chance."
-        },
-        "B": {
-          "choice_text": "Yep.",
-          "expression": "muse",
-          "text": "Good to hear. I just had a grilled cheese sandwich and it was as wonderful as I'd imagined."
-=======
       "delta": {
         "expression": "smile",
         "text": "Good morning. And so begins the first day of the month in which you'll complete your story. Feeling excited?"
@@ -43,23 +25,10 @@
             "expression": "muse",
             "text": "Good to hear. I just had a grilled cheese sandwich and it was as wonderful as I'd imagined."
           }
->>>>>>> fix merge
         }
       }
     },
     "evening": {
-<<<<<<< HEAD
-      "expression": "smile",
-      "text": "Evening. It's been a long day, hasn't it? It's good to relax."
-    },
-    "midnight": {
-      "expression": "neutral",
-      "text": "It's pretty late. If you want to write now, you can, but I'd otherwise recommend getting some sleep. There's a whole month ahead of us."
-    },
-    "ultra_late": {
-      "expression": "shocked",
-      "text": "... Agh! Could you give a bit of warning before you pop up like a serial killer in a movie? I didn't know you'd be awake now... Ahem. "
-=======
       "delta": {
         "expression": "smile",
         "text": "Evening. It's been a long day, hasn't it? It's good to relax."
@@ -76,42 +45,10 @@
         "expression": "shocked",
         "text": "... Agh! Could you give a bit of warning before you pop up like a serial killer in a movie? I didn't know you'd be awake now... Ahem. "
       }
->>>>>>> fix merge
     }
   },
   "2": {
     "morning": {
-<<<<<<< HEAD
-      "expression": "smile",
-      "text": "Up and at 'em. Have a good, productive day."
-    },
-    "late_morning": {
-      "expression": "thinking",
-      "text": "{thinking} I can't bother to make lunch today. I think I'll order takeout... ...are you judging me?"
-    },
-    "evening": {
-      "expression": "neutral",
-      "choice": {
-        "text": "Before I start writing...",
-        "A": {
-          "choice_text": "Why are you here all day, every day?",
-          "expression": "serious",
-          "text": "Because I live here and I'm a freelance writer. No more questions. Now write."
-        },
-        "B": {
-          "choice_text": "Tell me I did a good job!",
-          "expression": "muse",
-          "text": "Write first, then we'll talk."
-        }
-      }    },
-    "midnight": {
-      "expression": "neutral",
-      "text": "Good to see you. It's a bit late. Thinking of writing?"
-    },
-    "ultra_late": {
-      "expression": "muse",
-      "text": "Is staying up late like this typical for you? I'm not used to people being awake at the same time as me this late."
-=======
       "delta": {
         "expression": "smile",
         "text": "Up and at 'em. Have a good, productive day."
@@ -237,7 +174,6 @@
         "expression": "smile",
         "text": "Good morning, [PLAYER_NAME]. I hope you slept well last night so you can have a good start today."
       }
->>>>>>> fix merge
     }
   }
 }
