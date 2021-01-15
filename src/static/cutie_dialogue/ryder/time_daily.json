@@ -44,8 +44,8 @@
     },
     "evening": {
       "expression": "neutral",
-      "text": "Before I start writing...",
       "choice": {
+        "text": "Before I start writing...",
         "A": {
           "choice_text": "Why are you here all day, every day?",
           "expression": "serious",
