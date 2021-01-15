@@ -68,20 +68,18 @@ class Monitor {
         //     return;
         // }
 
-        // Calculate percentage of daily goal
-        const dailyPercentage: number = ((wordCount - this.flags.initialWordCount) / this.flags.dailyWordGoal) * 100
-        console.log(`calculated: ${dailyPercentage.toString()}, trying to match ${this.specialDailyPercentages[0]}, it is ${dailyPercentage.toString() === this.specialDailyPercentages[0]}`)
-        if (this.specialDailyPercentages[0] <= dailyPercentage.toString()) {
-            console.log('hit daily goal');
-            cpane.triggerEvent(CutieEvent.DAILY_WC_GOAL, [this.specialDailyPercentages.shift()])
-            this.eventTriggered = true;
-            return;
-        }
-
         // Calculate percentage of total goal
         const totalPercentage: number = wordCount / this.flags.totalWordGoal
         if (this.specialTotalPercentages[0] <= totalPercentage.toString()) {
             cpane.triggerEvent(CutieEvent.TOTAL_WC_GOAL, [this.specialTotalPercentages.shift()])
+            this.eventTriggered = true;
+            return;
+        }
+
+        // Calculate percentage of daily goal
+        const dailyPercentage: number = ((wordCount - this.flags.initialWordCount) / this.flags.dailyWordGoal) * 100
+        if (this.specialDailyPercentages[0] <= dailyPercentage.toString()) {
+            cpane.triggerEvent(CutieEvent.DAILY_WC_GOAL, [this.specialDailyPercentages.shift()])
             this.eventTriggered = true;
             return;
         }
