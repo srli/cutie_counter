@@ -1,6 +1,7 @@
 {
   "1": {
     "morning": {
+<<<<<<< HEAD
       "expression": "smile",
       "text": "Good morning. And so begins the first day of the month in which you'll complete your story. Feeling excited?"
     },
@@ -17,10 +18,37 @@
           "choice_text": "Yep.",
           "expression": "muse",
           "text": "Good to hear. I just had a grilled cheese sandwich and it was as wonderful as I'd imagined."
+=======
+      "delta": {
+        "expression": "smile",
+        "text": "Good morning. And so begins the first day of the month in which you'll complete your story. Feeling excited?"
+      }
+    },
+    "late_morning": {
+      "delta": {
+        "expression": "smile",
+        "text": "Did you eat lunch yet?"
+      },
+      "choice": {
+        "A": {
+          "choice_text": "No, not yet.",
+          "delta": {
+            "expression": "serious",
+            "text": "Try to eat when you get the chance."
+          }
+        },
+        "B": {
+          "choice_text": "Yep.",
+          "delta": {
+            "expression": "muse",
+            "text": "Good to hear. I just had a grilled cheese sandwich and it was as wonderful as I'd imagined."
+          }
+>>>>>>> fix merge
         }
       }
     },
     "evening": {
+<<<<<<< HEAD
       "expression": "smile",
       "text": "Evening. It's been a long day, hasn't it? It's good to relax."
     },
@@ -31,10 +59,29 @@
     "ultra_late": {
       "expression": "shocked",
       "text": "... Agh! Could you give a bit of warning before you pop up like a serial killer in a movie? I didn't know you'd be awake now... Ahem. "
+=======
+      "delta": {
+        "expression": "smile",
+        "text": "Evening. It's been a long day, hasn't it? It's good to relax."
+      }
+    },
+    "midnight": {
+      "delta": {
+        "expression": "neutral",
+        "text": "It's pretty late. If you want to write now, you can, but I'd otherwise recommend getting some sleep. There's a whole month ahead of us."
+      }
+    },
+    "ultra_late": {
+      "delta": {
+        "expression": "shocked",
+        "text": "... Agh! Could you give a bit of warning before you pop up like a serial killer in a movie? I didn't know you'd be awake now... Ahem. "
+      }
+>>>>>>> fix merge
     }
   },
   "2": {
     "morning": {
+<<<<<<< HEAD
       "expression": "smile",
       "text": "Up and at 'em. Have a good, productive day."
     },
@@ -64,6 +111,133 @@
     "ultra_late": {
       "expression": "muse",
       "text": "Is staying up late like this typical for you? I'm not used to people being awake at the same time as me this late."
+=======
+      "delta": {
+        "expression": "smile",
+        "text": "Up and at 'em. Have a good, productive day."
+      }
+    },
+    "late_morning": {
+      "delta": {
+        "expression": "thinking",
+        "text": "{thinking} I can't bother to make lunch today. I think I'll order takeout... ...are you judging me?"
+      }
+    },
+    "evening": {
+      "delta": {
+        "expression": "neutral"
+      },
+      "choice": {
+        "user_text": "Before I start writing...",
+        "A": {
+          "choice_text": "Why are you here all day, every day?",
+          "delta": {
+            "expression": "serious",
+            "text": "Because I live here and I'm a freelance writer. No more questions. Now write."
+          }
+        },
+        "B": {
+          "choice_text": "Tell me I did a good job!",
+          "delta": {
+            "expression": "muse",
+            "text": "Write first, then we'll talk."
+          }
+        }
+      }
+    },
+    "midnight": {
+      "delta": {
+        "expression": "neutral",
+        "text": "Good to see you. It's a bit late. Thinking of writing?"
+      }
+    },
+    "ultra_late": {
+      "delta": {
+        "expression": "muse",
+        "text": "Is staying up late like this typical for you? I'm not used to people being awake at the same time as me this late."
+      }
+    }
+  },
+  "8": {
+    "morning": {
+      "condition": {
+        "variable": "[MISSED_DAYS]",
+        "operator": "=",
+        "value": "0"
+      },
+      "if_true": {
+        "delta": {
+          "expression": "happy",
+          "text": "You know, you've been at this for a week and you haven't missed a single day yet. You're really committed to this, aren't you?"
+        }
+      },
+      "if_false": {
+        "delta": {
+          "expression": "muse",
+          "text": "We've missed a few days this past week. It's fine. Let's take today to get back on track and get writing. I believe in you. Don't forget that. Understood? "
+        }
+      }
+    },
+    "late_morning": {
+      "delta": {
+        "expression": "happy",
+        "text": "Thinking about it, it's honestly inspiring that you've made a goal for yourself and you're pursuing it so diligently, [PLAYER_NAME]. I'll support you all the way."
+      }
+    }
+  },
+  "12": {
+    "condition": {
+      "variable": "[COUNT_MORNING_TEXT]",
+      "operator": ">",
+      "value": "10"
+    },
+    "if_true": {
+      "delta": {
+        "expression": "smile",
+        "text": "Up early as usual? That's impressive. I'll admit, if I were you I'd be sleeping in right now."
+      }
+    },
+    "if_false": {
+      "delta": {
+        "expression": "muse",
+        "text": "Up early today? That's admirable. I hope you got a good night's sleep."
+      }
+    }
+  },
+  "19": {
+    "condition": {
+      "variable": "[READ_ULTRA_LATE_TEXT]",
+      "operator": "true",
+      "value": "18"
+    },
+    "if_true": {
+      "delta": {
+        "expression": "smile",
+        "text": "Good morning, [PLAYER_NAME]. I hope you slept well last night so you can have a good start today."
+      },
+      "choice": {
+        "A": {
+          "choice_text": "You slept well, huh?",
+          "delta": {
+            "expression": "serious",
+            "text": "Yes, actually. How could you tell? Ah... oh, no, you were there last night, weren't you?"
+          }
+        },
+        "B": {
+          "choice_text": "You're even cuter when you're sleeping.",
+          "delta": {
+            "expression": "flushed",
+            "text": "Ah, um, err... w-what? I... I'm going to ignore that. For my sanity's sake."
+          }
+        }
+      }
+    },
+    "if_false": {
+      "delta": {
+        "expression": "smile",
+        "text": "Good morning, [PLAYER_NAME]. I hope you slept well last night so you can have a good start today."
+      }
+>>>>>>> fix merge
     }
   }
 }
