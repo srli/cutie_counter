@@ -1,46 +1,66 @@
 {
   "1": {
     "10": {
-      "expression": "smile",
-      "text": "It's a start. Keep going."
+      "delta": {
+        "expression": "smile",
+        "text": "It's a start. Keep going."
+      }
     },
     "33": {
-      "expression": "smile",
-      "text": "Already a third there."
+      "delta": {
+        "expression": "smile",
+        "text": "Already a third there."
+      }
     },
     "50": {
-      "expression": "smile",
-      "text": "Halfway there. Don't stop writing."
+      "delta": {
+        "expression": "smile",
+        "text": "Halfway there. Don't stop writing."
+      }
     },
     "75": {
-      "expression": "neutral",
-      "text": "Just a quarter left now..."
+      "delta": {
+        "expression": "neutral",
+        "text": "Just a quarter left now..."
+      }
     },
     "100": {
-      "expression": "veryhappy",
-      "text": "Off to a great start! Excellent progress."
+      "delta": {
+        "expression": "veryhappy",
+        "text": "Off to a great start! Excellent progress."
+      }
     }
   },
   "2": {
     "10": {
-      "expression": "smile",
-      "text": "Let's try to reach our daily goal, shall we?"
+      "delta": {
+        "expression": "smile",
+        "text": "Let's try to reach our daily goal, shall we?"
+      }
     },
     "33": {
-      "expression": "smile",
-      "text": "We're making good progress."
+      "delta": {
+        "expression": "smile",
+        "text": "We're making good progress."
+      }
     },
     "50": {
-      "expression": "happy",
-      "text": "Very nice, you've already finished half of your daily goal!"
+      "delta": {
+        "expression": "happy",
+        "text": "Very nice, you've already finished half of your daily goal!"
+      }
     },
     "75": {
-      "expression": "neutral",
-      "text": "Almost there now."
+      "delta": {
+        "expression": "neutral",
+        "text": "Almost there now."
+      }
     },
     "100": {
-      "expression": "happy",
-      "text": "And you've met your writing goal for today. Well done."
+      "delta": {
+        "expression": "happy",
+        "text": "And you've met your writing goal for today. Well done."
+      }
     }
   }
 }
