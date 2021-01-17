@@ -47,10 +47,10 @@ class Monitor {
 
     private readonly flags: EventFlags;
     private eventTriggered: boolean;
+    private tf = false;
 
     constructor() {
         this.flags = new EventFlags();
-        this.triggerTimeEvent();
         setInterval(this.triggerTimeEvent, 1.8e+6); // Run the timer event every 30 minutes
         ipcRenderer.send(CutieEvent.INITIALIZE)
         // this.TimeEvent()
@@ -58,6 +58,7 @@ class Monitor {
 
     public async initialize(): Promise<void> {
         await cpane.initialize()
+        this.triggerTimeEvent();
     }
 
     public triggerWordCountEvent(wordCount: number): void {
@@ -73,20 +74,28 @@ class Monitor {
         if (this.specialTotalPercentages[0] <= totalPercentage.toString()) {
             cpane.triggerEvent(CutieEvent.TOTAL_WC_GOAL, [this.specialTotalPercentages.shift()])
             this.eventTriggered = true;
+
             return;
         }
 
         // Calculate percentage of daily goal
         const dailyPercentage: number = ((wordCount - this.flags.initialWordCount) / this.flags.dailyWordGoal) * 100
         if (this.specialDailyPercentages[0] <= dailyPercentage.toString()) {
-            cpane.triggerEvent(CutieEvent.DAILY_WC_GOAL, [this.specialDailyPercentages.shift()])
-            this.eventTriggered = true;
+            if (this.tf == false) {
+                console.log('CMON MORNING')
+                cpane.triggerEvent(CutieEvent.TIME_UPDATE, [TimeOfDay.MORNING])
+                this.tf = true;
+            } else {
+                cpane.triggerEvent(CutieEvent.DAILY_WC_GOAL, [this.specialDailyPercentages.shift()])
+                this.eventTriggered = true;
+            }
             return;
         }
     }
 
     public triggerTimeEvent(): void {
       const time = new Date().getHours();
+      console.log('TRYING TO START TIME EVENT')
       if (time >= 5 && time < 11 ) {
           cpane.triggerEvent(CutieEvent.TIME_UPDATE, [TimeOfDay.MORNING])
       } else if (time >= 11 && time < 16){

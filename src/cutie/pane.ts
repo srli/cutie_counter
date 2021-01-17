@@ -1,7 +1,7 @@
 import { BackgroundState, CutieEvent, CutieExpression, CutieName } from '../constants'
 import { Delta } from './delta'
 import { CutieGui } from './gui'
-import { CutieDialogue } from './dialogue'
+import {CutieDialogue, DialogueGroup} from './dialogue'
 
 /**
  * This master class encompasses all the cutie related actions
@@ -28,21 +28,21 @@ export class CutiePane {
             console.warn('The cutie pane has not been initialized, call the initialize function.');
             return;
         }
-        const delta: Delta = this.dialogue.getDelta(event, args);
-        if (delta == null) {
-            console.warn(`No dialogue found for ${event}: ${args}`);
-            return;
-        }
 
-        const speaker = delta.character ? delta.character : this.cutieName;
-        console.log(`BACKGROUND NULL? ${delta.background == null}; the value is ${delta.background}`);
-        //TODO: change background according to time?
-        if (delta.background) {
-            console.warn(`TRYING TO CHANGE BG: ${delta.background}`);
-            this.gui.changeBackground(delta.background);
+        const dialogue: DialogueGroup = this.dialogue.getDialogue(event, args);
+        const delta: Delta = dialogue.delta;
+
+        if (delta != undefined) {
+            const speaker = delta.character ? delta.character : this.cutieName;
+            console.log(`BACKGROUND NULL? ${delta.background == null}; the value is ${delta.background}`);
+            //TODO: change background according to time?
+            if (delta.background) {
+                console.warn(`TRYING TO CHANGE BG: ${delta.background}`);
+                this.gui.changeBackground(delta.background);
+            }
+            if (delta.expression) { this.gui.changeExpression(delta.expression) }
+            if (delta.text) { this.gui.changeText(speaker, delta.text) }
         }
-        if (delta.expression) { this.gui.changeExpression(delta.expression) }
-        if (delta.text) { this.gui.changeText(speaker, delta.text) }
     }
 
     public resetGui (): void {

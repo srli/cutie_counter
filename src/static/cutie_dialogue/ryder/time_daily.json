@@ -12,6 +12,7 @@
         "text": "Did you eat lunch yet?"
       },
       "choice": {
+        "choices": ["A", "B"],
         "A": {
           "choice_text": "No, not yet.",
           "delta": {
@@ -66,6 +67,7 @@
       },
       "choice": {
         "user_text": "Before I start writing...",
+        "choices": ["A", "B"],
         "A": {
           "choice_text": "Why are you here all day, every day?",
           "delta": {
@@ -142,37 +144,75 @@
     }
   },
   "19": {
-    "condition": {
-      "variable": "[READ_ULTRA_LATE_TEXT]",
-      "operator": "true",
-      "value": "18"
-    },
-    "if_true": {
+    "morning": {
       "delta": {
         "expression": "smile",
         "text": "Good morning, [PLAYER_NAME]. I hope you slept well last night so you can have a good start today."
       },
-      "choice": {
-        "A": {
-          "choice_text": "You slept well, huh?",
-          "delta": {
-            "expression": "serious",
-            "text": "Yes, actually. How could you tell? Ah... oh, no, you were there last night, weren't you?"
-          }
-        },
-        "B": {
-          "choice_text": "You're even cuter when you're sleeping.",
-          "delta": {
-            "expression": "flushed",
-            "text": "Ah, um, err... w-what? I... I'm going to ignore that. For my sanity's sake."
+      "condition": {
+        "variable": "[READ_ULTRA_LATE_TEXT]",
+        "operator": "true",
+        "value": "18"
+      },
+      "if_true": {
+        "choice": {
+          "choices": ["A", "B"],
+          "A": {
+            "choice_text": "You slept well, huh?",
+            "delta": {
+              "expression": "serious",
+              "text": "Yes, actually. How could you tell? Ah... oh, no, you were there last night, weren't you?"
+            }
+          },
+          "B": {
+            "choice_text": "You're even cuter when you're sleeping.",
+            "delta": {
+              "expression": "flushed",
+              "text": "Ah, um, err... w-what? I... I'm going to ignore that. For my sanity's sake."
+            }
           }
         }
       }
     },
-    "if_false": {
+    "late_morning": {
       "delta": {
-        "expression": "smile",
-        "text": "Good morning, [PLAYER_NAME]. I hope you slept well last night so you can have a good start today."
+        "expression": "thinking",
+        "text": "{thinking} I can't bother to make lunch today. I think I'll order takeout... ...are you judging me?"
+      }
+    },
+    "evening": {
+      "delta": {
+        "expression": "neutral"
+      },
+      "choice": {
+        "user_text": "Before I start writing...",
+        "choices": ["A", "B"],
+        "A": {
+          "choice_text": "Why are you here all day, every day?",
+          "delta": {
+            "expression": "serious",
+            "text": "Because I live here and I'm a freelance writer. No more questions. Now write."
+          }
+        },
+        "B": {
+          "choice_text": "Tell me I did a good job!",
+          "delta": {
+            "expression": "muse",
+            "text": "Write first, then we'll talk."
+          }
+        }
+      }
+    },
+    "midnight": {
+      "delta": {
+        "expression": "neutral",
+        "text": "Good to see you. It's a bit late. Thinking of writing?"
+      }
+    },
+    "ultra_late": {
+      "delta": {
+        "expression": "muse",
+        "text": "Is staying up late like this typical for you? I'm not used to people being awake at the same time as me this late."
       }
     }
   }
