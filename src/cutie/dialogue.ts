@@ -150,7 +150,7 @@ export class CutieDialogue {
     }
 
     public async initialize(): Promise<void> {
-        this.cutieTriggerCollection = await getTriggerCollection(this.name, 19)
+        this.cutieTriggerCollection = await getTriggerCollection(this.name, 1)
     }
 
     /**
