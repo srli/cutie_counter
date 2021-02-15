@@ -45,6 +45,7 @@ class Monitor {
     private specialDailyPercentages: string[] = ['10', '33', '75', '100', '110', '150', '200'];
     private specialTotalPercentages: string[] = ['10', '25', '33', '50', '66', '75', '90', '100'];
 
+    // TODO: REMOVE hardcoded values from event flags
     private readonly flags: EventFlags;
     private eventTriggered: boolean;
     private tf = false;
@@ -52,6 +53,7 @@ class Monitor {
     constructor() {
         this.flags = new EventFlags();
         setInterval(this.triggerTimeEvent, 1.8e+6); // Run the timer event every 30 minutes
+        cpane.setGuiFlags(this.flags);
         ipcRenderer.send(CutieEvent.INITIALIZE)
         // this.TimeEvent()
     }
@@ -62,6 +64,7 @@ class Monitor {
     }
 
     public triggerWordCountEvent(wordCount: number): void {
+        cpane.updateProgressBars(wordCount);
         // TODO: Should expressions be reset as the user keeps typing?
         // if (this.eventTriggered) {
         //     cpane.resetGui();

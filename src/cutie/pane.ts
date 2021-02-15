@@ -2,6 +2,7 @@ import { BackgroundState, CutieEvent, CutieExpression, CutieName } from '../cons
 import { Delta } from './delta'
 import { CutieGui } from './gui'
 import {CutieDialogue, DialogueGroup} from './dialogue'
+import {EventFlags} from "../event_flags";
 
 /**
  * This master class encompasses all the cutie related actions
@@ -45,12 +46,19 @@ export class CutiePane {
         }
     }
 
-    public resetGui (): void {
+    public resetGui(): void {
         this.gui.changeText(this.cutieName, '');
         this.gui.changeExpression(CutieExpression.NEUTRAL);
         this.gui.changeBackground(BackgroundState.ROOM_DAY);
     }
 
+    public setGuiFlags(flags: EventFlags): void {
+        this.gui.setFlags(flags);
+    }
+
+    public updateProgressBars(wordCount: number): void {
+        this.gui.changeWordCount(wordCount);
+    }
     /**
      * Set the UI to some default state
      *
@@ -63,12 +71,4 @@ export class CutiePane {
         await this.dialogue.initialize();
         this.initialized = true;
     }
-
-    // public initialize (): void {
-    //     this.gui.changeText(this.cutieName, 'Hello.');
-    //     this.gui.changeExpression(CutieExpression.NEUTRAL);
-    //     this.gui.changeBackground(BackgroundState.ROOM_DAY);
-    //     // await this.dialogue.initialize();
-    //     this.initialized = true;
-    // }
 }

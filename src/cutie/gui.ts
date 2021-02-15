@@ -1,5 +1,6 @@
 import { BackgroundState, CutieExpression, HtmlElementId, importAll } from '../constants'
 import fs from 'fs'
+import {EventFlags} from "../event_flags";
 
 const images = importAll(require.context('../static', true, /\.(png|jpe?g|svg)$/));
 
@@ -9,14 +10,66 @@ const images = importAll(require.context('../static', true, /\.(png|jpe?g|svg)$/
 export class CutieGui {
   private directory = "../";
   // private directory = "./resources/app/.webpack/renderer";
+  private dailyWcText: HTMLDivElement;
+  private dailyProgressBar: HTMLImageElement;
+
+  private totalWcText: HTMLDivElement;
+  private totalProgressBar: HTMLImageElement;
+
+  private eventFlags: EventFlags;
+  private progressBarWidth = 266;
 
   constructor (readonly cutieName: string) {
-    const img: HTMLImageElement = document.querySelector('#textboxImage');
-    img.src = images[`./ui/textbox.png`];
+    // Load in static elements
+    (document.querySelector('#textboxImage') as HTMLImageElement).src = images[`./ui/textbox.png`];
 
+    // Progress bar elements
+    (document.querySelector('#dailyCountBtn') as HTMLImageElement).src = images[`./ui/showdailycount_normal.png`];
+    (document.querySelector('#dailyCountEmptyBar') as HTMLImageElement).src = images[`./ui/dailycountmeter_empty.png`];
+    this.dailyWcText = document.querySelector('#dailyWordcountText');
+    this.dailyProgressBar = document.querySelector('#dailyCountFullBar');
+    this.dailyProgressBar.src = images[`./ui/dailycountmeter_full.png`];
+    this.dailyProgressBar.width = 0;
+
+    (document.querySelector('#totalCountBtn') as HTMLImageElement).src = images[`./ui/showtotalcount_normal.png`];
+    (document.querySelector('#totalCountEmptyBar') as HTMLImageElement).src = images[`./ui/totalcountmeter_empty.png`];
+    this.totalProgressBar = document.querySelector('#totalCountFullBar');
+    this.totalProgressBar.src = images[`./ui/totalcountmeter_full.png`];
+    this.totalProgressBar.width = 0;
+    this.totalWcText = document.querySelector('#totalWordcountText');
+
+    // TODO: Delete log line
     fs.readdirSync(this.directory).forEach(file => {
       console.log(file);
     });
+  }
+
+  /**
+   * Initialize the progress bars based on event flags
+   *
+   * @param flags: flags to set for this gui instance
+   */
+  public setFlags(flags: EventFlags): void {
+    this.eventFlags = flags;
+
+    this.changeWordCount(this.eventFlags.initialWordCount);
+  }
+
+  /**
+   * Change the word count displayed in progress bars
+   *
+   * @param count: the number to update
+   */
+  public changeWordCount(count: number): void {
+    let dailyPercentage = ((count - this.eventFlags.initialWordCount) / this.eventFlags.dailyWordGoal);
+    dailyPercentage = (dailyPercentage > 1) ? 1 : dailyPercentage;
+    this.dailyProgressBar.width = Math.round(this.progressBarWidth * dailyPercentage);
+    this.dailyWcText.innerHTML = `${count}/${this.eventFlags.dailyWordGoal}`;
+
+    let totalPercentage = count / this.eventFlags.totalWordGoal;
+    totalPercentage = (totalPercentage > 1) ? 1 : totalPercentage;
+    this.totalProgressBar.width = Math.round(this.progressBarWidth * totalPercentage);
+    this.totalWcText.innerHTML = `${count}/${this.eventFlags.totalWordGoal}`;
   }
 
   /**
