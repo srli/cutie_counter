@@ -2,6 +2,7 @@ import './css/common.css';
 import './css/menu.css';
 import fs from 'fs';
 const { dialog } = require('electron').remote;
+import isDev from "electron-is-dev";
 
 async function loadProject() {
     try {
@@ -22,10 +23,31 @@ async function loadProject() {
 
                 // TODO: Handle file content
                 console.log("The file content is : " + data);
+                if (isDev) {
+                    location.assign("/app");
+                } else {
+                    location.assign("../app/index.html");
+                }
             });
         }
     } catch (err) {
         console.log(`ERR ${err}`);
+    }
+}
+
+async function continueProject() {
+    if (isDev) {
+        location.assign("/app");
+    } else {
+        location.assign("../app/index.html");
+    }
+}
+
+async function newStory() {
+    if (isDev) {
+        location.assign("/setup");
+    } else {
+        location.assign("../setup/index.html");
     }
 }
 
@@ -34,3 +56,30 @@ document
     .addEventListener('click', () => {
         loadProject();
     });
+
+document
+    .querySelector('#continueStory')
+    .addEventListener('click', () => {
+        continueProject();
+    });
+
+document
+    .querySelector('#newStory')
+    .addEventListener('click', () => {
+        newStory();
+    });
+
+document
+    .querySelector('#devOpen')
+    .addEventListener('click', () => {
+        continueProject();
+    });
+
+// const newStoryTag = document.createElement('a');
+// if (isDev) {
+//     newStoryTag.setAttribute('href', "/setup");
+// } else {
+//     newStoryTag.setAttribute('href',"../setup/index.html");
+// }
+// newStoryTag.innerText = "[DEV ONLY] Open APP";
+// document.querySelector('#devOpen').appendChild(appTag);
