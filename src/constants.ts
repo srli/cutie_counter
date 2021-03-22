@@ -3,6 +3,28 @@ import RequireContext = __WebpackModuleApi.RequireContext;
 import isDev from "electron-is-dev";
 import * as path from "path";
 
+/**
+ * Currently available cuties
+ */
+export enum CutieName {
+    RYDER = 'ryder',
+    EMBER = 'ember'
+}
+
+/**
+ * TODO: THIS IS PRETTY SHITTY, FIX
+ */
+export enum CutieIntroduction {
+    RYDER = 'Ryder is a dedicated freelance writer. He spends his days working from home, ' +
+        'and loves having someone to bounce some of his stranger thoughts off of.' +
+        ' His down to earth style of encouragement is well suited to writers looking for someone to rely on.',
+    EMBER = 'Ember is a bright, young aspiring novelist. She works at the local library during the afternoons, ' +
+        'although she often slacks off by reading the works she is supposed to be organizing. ' +
+        'She enjoys searching for inspiration for her own novel in the writing of those she admires. ' +
+        'Her dream is to live in a huge library with the one she loves most. ' +
+        'Her bright and cheery encouragement is well suited to writers who need a good friend.',
+}
+
 // Container IDs are tied to the name given in index.html, do not change
 export enum HtmlElementId {
     NAME_BOX= '#cutieName',
@@ -10,14 +32,6 @@ export enum HtmlElementId {
     BG_IMG= '#cutieBg',
     CUTIE_IMG = '#cutieImage',
     PANE_ID = '#cutie',
-}
-
-/**
- * Currently available cuties
- */
-export enum CutieName {
-    RYDER = 'ryder',
-    HOLMES = 'holmes',
 }
 
 /**

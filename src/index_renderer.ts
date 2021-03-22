@@ -74,12 +74,3 @@ document
     .addEventListener('click', () => {
         continueProject();
     });
-
-// const newStoryTag = document.createElement('a');
-// if (isDev) {
-//     newStoryTag.setAttribute('href', "/setup");
-// } else {
-//     newStoryTag.setAttribute('href',"../setup/index.html");
-// }
-// newStoryTag.innerText = "[DEV ONLY] Open APP";
-// document.querySelector('#devOpen').appendChild(appTag);

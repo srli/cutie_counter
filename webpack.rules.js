@@ -11,7 +11,7 @@ module.exports = [
     },
   },
   {
-    test: /\.(woff2|eot|png|jpg|svg)$/,
+    test: /\.(woff2|eot|png|jpg|svg|txt)$/,
     use: [
       {
         loader: 'file-loader',
