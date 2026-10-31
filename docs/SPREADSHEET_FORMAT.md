@@ -66,7 +66,7 @@ Inside `[if …]` or the **If** column. Join with `and`.
 | `missed yesterday` · `wrote yesterday` | whether they wrote yesterday |
 | `daily goal done` · `daily goal not done` | today's goal |
 | `saw day 18 ultra-late` · `saw whole goal 50%` · `saw <scene name>` | that moment has played before |
-| `morning visits > 10` · `ultra-late visits > 4` | how many times they've talked at that time of day |
+| `morning visits > 10` · `ultra-late visits > 4` | how many days you've been here at that time of day |
 | `stage = Friend` | current affinity stage |
 | `it's ultra-late` | current time of day |
 | `likes chocolate = yes` · `hugs > 3` | something remembered with `[set]` / `[add]` |
@@ -108,7 +108,7 @@ Inside `[if …]` or the **If** column. Join with `and`.
 
 - Grid cells become beats with ids like `d8-morning`, `d8-morning-if`, `any-daily-100`, `total-25`, `intro`, `date-10-31`.
 - `[if]` branches share a trigger; earlier branches get higher priority, so the first true one plays. `Any` rows get priority −10.
-- Time-of-day beats add 1 to the flag `<slot>_talks` (what "morning visits" reads).
+- "morning visits" reads the engine's built-in `visits_<slot>` counter (days the writer was here at that time).
 - Scenes become a chain: `scene`, `scene.1`, `scene.2.A` …, linked with `after` triggers. Later branch rows check
   `flag:choice:<beat>`; shared rows follow `branchA|branchB|previous`, so paths rejoin.
 - `src/sheet/`: `xlsx.ts` (read/write, no dependencies beyond fflate), `markup.ts` (cells), `workbook.ts` (tabs ⇄ beats).

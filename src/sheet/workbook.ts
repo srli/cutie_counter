@@ -90,22 +90,24 @@ export function formatWhen(t: Trigger, day: number | undefined, ctx: Context): s
 
 // ---------------------------------------------------------------- options
 
-interface Options { repeat?: Repeat; cooldownMinutes?: number; priority?: number; weight?: number }
+interface Options { repeat?: Repeat; cooldownMinutes?: number; priority?: number; weight?: number; textbox?: boolean }
 function parseOptions(s: string): Options {
   const o: Options = {}
   for (const part of s.split(/[,;]+/).map((x) => x.trim()).filter(Boolean)) {
     let m
     if (/^(once|daily|always)$/i.test(part)) o.repeat = part.toLowerCase() as Repeat
     else if (/^once a day$/i.test(part)) o.repeat = 'daily'
+    else if (/^(in the )?textbox$/i.test(part)) o.textbox = true
     else if ((m = part.match(/^wait (\d+)(?: min(?:utes)?)?$/i))) o.cooldownMinutes = Number(m[1])
     else if ((m = part.match(/^priority (-?\d+)$/i))) o.priority = Number(m[1])
     else if ((m = part.match(/^odds (\d+(?:\.\d+)?)$/i))) o.weight = Number(m[1])
-    else throw new MarkupError(`I don't understand the option "${part}". Try: once, daily, wait 30 min, priority 2, odds 3.`)
+    else throw new MarkupError(`I don't understand the option "${part}". Try: once, daily, wait 30 min, priority 2, odds 3, textbox.`)
   }
   return o
 }
-function formatOptions(b: Beat): string {
+function formatOptions(b: Beat, inScenes = false): string {
   return [
+    inScenes && b.display !== 'scene' ? 'textbox' : '',
     b.repeat && b.repeat !== 'always' ? b.repeat : '',
     b.cooldownMinutes ? `wait ${b.cooldownMinutes} min` : '',
     b.priority ? `priority ${b.priority}` : '',
@@ -139,7 +141,7 @@ function pctOf(label: string): number | null {
   return null
 }
 
-const TALK = (slot: string): FlagEffect => ({ flag: `${slot}_talks`, op: 'add', value: 1 })
+// Older scripts counted visits by hand; the engine now does it (`visits_<slot>`), so exports drop these.
 const isTalk = (e: FlagEffect) => e.op === 'add' && e.value === 1 && /_talks$/.test(e.flag)
 const dayIs = (day: number): Condition => ({ var: 'day', op: '==', value: day })
 
@@ -225,7 +227,7 @@ export function importCutie(sheets: Sheet[], manifest: CutieManifest): ImportRes
           tryCell(at(r, `${day === 'any' ? 'Any' : `Day ${day}`}, ${col.label}`), () => {
             const branches = parseCell(text, ctx)
             if (col.kind === 'slot') {
-              beats.push(...branchBeats(`${prefix}-${col.slot}`, { type: 'time_slot', value: col.slot }, d, branches, { effects: [TALK(col.slot)] }))
+              beats.push(...branchBeats(`${prefix}-${col.slot}`, { type: 'time_slot', value: col.slot }, d, branches))
             } else if (col.kind === 'pct') {
               beats.push(...branchBeats(`${prefix}-daily-${col.pct}`, { type: 'daily_pct', value: col.pct }, d, branches))
             } else {
@@ -373,7 +375,9 @@ function importScenes(sheet: Sheet, ctx: Context, problems: Problem[]): Beat[] {
       }
 
       const when = [...(w.day !== undefined ? [dayIs(w.day)] : []), ...cond]
-      const headBeat = withOptions({ id: head, trigger: w.trigger, lines: [], ...(when.length ? { when } : {}), ...(o.priority ? { priority: o.priority } : {}) }, o)
+      // Scenes play full screen unless Options say "textbox".
+      const display = o.textbox ? {} : { display: 'scene' as const }
+      const headBeat = withOptions({ id: head, trigger: w.trigger, lines: [], ...(when.length ? { when } : {}), ...(o.priority ? { priority: o.priority } : {}), ...display }, o)
       beats.push(headBeat)
       let seg: Beat = headBeat // where shared lines go
       let asker: Beat | null = null // last beat that showed choices
@@ -382,7 +386,7 @@ function importScenes(sheet: Sheet, ctx: Context, problems: Problem[]): Beat[] {
       let anchor = head // what the next beat follows
       let n = 0
       const next = (): Beat => {
-        const b: Beat = { id: `${head}.${++n}`, trigger: { type: 'after', value: [...branchRun.map((x) => x.id), anchor].join('|') }, lines: [] }
+        const b: Beat = { id: `${head}.${++n}`, trigger: { type: 'after', value: [...branchRun.map((x) => x.id), anchor].join('|') }, lines: [], ...display }
         beats.push(b)
         branchRun = []
         answering = false
@@ -415,7 +419,7 @@ function importScenes(sheet: Sheet, ctx: Context, problems: Problem[]): Beat[] {
             const num = branchRun.length ? branchRun[0].id.match(SCENE_ID)![2] : String(++n)
             const value = letters.length === 1 ? letters[0] : letters
             b = { id: `${head}.${num}.${tag}`, trigger: { type: 'after', value: anchor }, priority: 1,
-              when: [{ var: `flag:choice:${asker.id}`, op: letters.length === 1 ? '==' : 'in', value }], lines: [] }
+              when: [{ var: `flag:choice:${asker.id}`, op: letters.length === 1 ? '==' : 'in', value }], lines: [], ...display }
             beats.push(b)
             branchRun.push(b)
           }
@@ -447,7 +451,7 @@ const HEADERS: Record<TabName, string[]> = {
 
 const dayCond = (b: Beat) => (b.when ?? []).filter((c) => c.var === 'day' && c.op === '==' && typeof c.value === 'number')
 const otherConds = (b: Beat) => (b.when ?? []).filter((c) => !dayCond(b).includes(c))
-const cellSafe = (b: Beat) => !b.repeat && !b.cooldownMinutes && (b.weight === undefined || b.weight === 1) && dayCond(b).length <= 1
+const cellSafe = (b: Beat) => !b.display && !b.repeat && !b.cooldownMinutes && (b.weight === undefined || b.weight === 1) && dayCond(b).length <= 1
 const plainEffects = (b: Beat) => (b.effects ?? []).filter((e) => !isTalk(e))
 const bodyOf = (b: Beat) => ({ variants: b.variants?.length ? b.variants : [b.lines ?? []], prompt: b.prompt, choices: b.choices, effects: plainEffects(b) })
 
@@ -533,7 +537,7 @@ export function exportCutie(manifest: CutieManifest, script: Script, expressions
   const wholeRows: string[][] = []
   const byPct = new Map<number, Beat[]>()
   for (const b of [...left]) {
-    if (dayCond(b).length || b.cooldownMinutes || (b.weight ?? 1) !== 1 || isSceneChain(b)) continue
+    if (dayCond(b).length || b.cooldownMinutes || (b.weight ?? 1) !== 1 || isSceneChain(b) || b.display) continue
     if (b.trigger.type === 'total_pct' && !b.repeat) byPct.set(Number(b.trigger.value), [...(byPct.get(Number(b.trigger.value)) ?? []), b])
     if (b.trigger.type === 'session_start' && b.repeat === 'once' && (b.priority ?? 0) >= 10) byPct.set(0, [...(byPct.get(0) ?? []), b])
   }
@@ -548,7 +552,7 @@ export function exportCutie(manifest: CutieManifest, script: Script, expressions
   // Special days
   const specialRows: string[][] = []
   for (const b of [...left]) {
-    if (b.repeat || b.cooldownMinutes || (b.when ?? []).length || isSceneChain(b)) continue
+    if (b.repeat || b.cooldownMinutes || (b.when ?? []).length || isSceneChain(b) || b.display) continue
     if (b.trigger.type === 'date') specialRows.push([String(b.trigger.value), formatBody(bodyOf(b))])
     else if (b.trigger.type === 'day_start' && b.trigger.value !== undefined) specialRows.push([`Day ${b.trigger.value}`, formatBody(bodyOf(b))])
     else continue
@@ -561,7 +565,7 @@ export function exportCutie(manifest: CutieManifest, script: Script, expressions
     const conds = b.when ?? []
     const stageOnly = conds.length === 0 || (conds.length === 1 && conds[0].var === 'stage' && conds[0].op === '==')
     if (b.trigger.type !== 'random' || !stageOnly || b.choices?.length || b.effects?.length || b.repeat || b.priority
-      || (b.cooldownMinutes ?? 0) !== 30 || isSceneChain(b)) continue
+      || (b.cooldownMinutes ?? 0) !== 30 || isSceneChain(b) || b.display) continue
     const stage = conds[0] ? ctx.stages.find((s) => s.id === conds[0].value)?.name ?? String(conds[0].value) : ''
     for (const v of b.variants?.length ? b.variants : [b.lines ?? []]) chatterRows.push([stage, formatLines(v)])
     take(b)
@@ -577,10 +581,10 @@ export function exportCutie(manifest: CutieManifest, script: Script, expressions
     chain.forEach(take)
   }
 
-  // Reactions: anything else without an "after" link or a day; the rest become one-row scenes.
+  // Reactions: the simple react_… moments; everything else keeps its name as a scene.
   const reactionRows: string[][] = []
   for (const b of [...left]) {
-    if (b.trigger.type === 'after' || dayCond(b).length || b.prompt) continue
+    if (!b.id.startsWith('react_') || b.display || b.trigger.type === 'after' || dayCond(b).length || b.prompt) continue
     reactionRows.push([formatWhen(b.trigger, undefined, ctx), otherConds(b).map((c) => formatCondition(c, ctx)).join(' and '),
       formatBody(bodyOf(b)), formatOptions(b), b.note ?? ''])
     take(b)
@@ -618,7 +622,7 @@ function sceneToRows(head: Beat, chain: Beat[], ctx: Context): string[][] {
   const rows = segRows(head)
   if (!rows.length) rows.push(Array(9).fill(''))
   rows[0] = [head.id, formatWhen(head.trigger, day, ctx), otherConds(head).map((c) => formatCondition(c, ctx)).join(' and '),
-    ...rows[0].slice(3, 7), formatOptions(head), head.note ?? '']
+    ...rows[0].slice(3, 7), formatOptions(head, true), head.note ?? '']
   for (const b of chain) rows.push(...segRows(b, [...(b.id.match(SCENE_ID)?.[3] ?? '')].join(', ')))
   rows.push(Array(9).fill(''))
   return rows
@@ -670,7 +674,7 @@ export function helpSheets(): WriteSheet[] {
     ['missed yesterday   ·   wrote yesterday', 'Whether they wrote yesterday'],
     ['daily goal done   ·   daily goal not done', 'Today\'s goal'],
     ['saw day 18 ultra-late   ·   saw whole goal 50%   ·   saw <scene name>', 'That moment has played before'],
-    ['morning visits > 10   ·   ultra-late visits > 4', 'How many times they\'ve talked at that time of day'],
+    ['morning visits > 10   ·   ultra-late visits > 4', 'How many days you\'ve been here at that time of day'],
     ['stage = Friend', 'Current affinity stage'],
     ['it\'s ultra-late', 'Current time of day'],
     ['likes chocolate = yes   ·   hugs > 3', 'Something remembered with [set] or [add]'],

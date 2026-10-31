@@ -24,7 +24,7 @@ export interface StepResult {
 }
 
 export const MAX_SCENES_PER_STEP = 3
-const MAX_FOLLOW_UPS = 5
+const MAX_FOLLOW_UPS = 30 // long scenes are chains of follow-ups
 
 /** Events that should show a placeholder when the script has nothing for them. */
 const PLACEHOLDER_EVENTS: TriggerType[] = ['reopen', 'time_slot', 'daily_pct', 'total_pct', 'stage']
@@ -204,6 +204,7 @@ function playBeat(beat: Beat, project: Project, stats: Stats, pack: Pack, rng: R
     lines: fill(lines, project, stats, pack),
     prompt: beat.prompt ? fillTemplate(beat.prompt, ctx) : undefined,
     choices: fillChoices(beat.choices, project, stats, pack),
+    ...(beat.display ? { display: beat.display } : {}),
   }
 }
 
@@ -303,7 +304,7 @@ export function step(prev: Project, input: Input, pack: Pack, now: Date, rng: Rn
       project.flags[`choice:${beat.id}`] = choice.id
       const scenes: Scene[] = []
       if (choice.lines?.length) {
-        scenes.push({ beatId: `${beat.id}/${choice.id}`, lines: fill(choice.lines, project, stats, pack) })
+        scenes.push({ beatId: `${beat.id}/${choice.id}`, lines: fill(choice.lines, project, stats, pack), ...(beat.display ? { display: beat.display } : {}) })
       }
       // A follow-up for this exact choice wins; otherwise continue with whatever follows the beat itself.
       const exact = followUps(`${beat.id}/${choice.id}`, project, stats, pack, rng)

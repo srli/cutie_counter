@@ -18,13 +18,6 @@
         {
           "text": "Good morning. And so begins the first day of the month in which you'll complete your story. Feeling excited?"
         }
-      ],
-      "effects": [
-        {
-          "flag": "morning_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -65,13 +58,6 @@
             }
           ]
         }
-      ],
-      "effects": [
-        {
-          "flag": "late_morning_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -90,13 +76,6 @@
       "lines": [
         {
           "text": "Evening. It's been a long day, hasn't it? It's good to relax."
-        }
-      ],
-      "effects": [
-        {
-          "flag": "evening_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -118,13 +97,6 @@
           "expression": "neutral",
           "text": "It's pretty late. If you want to write now, you can, but I'd otherwise recommend getting some sleep. There's a whole month ahead of us."
         }
-      ],
-      "effects": [
-        {
-          "flag": "midnight_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -145,13 +117,6 @@
           "expression": "shocked",
           "text": "... Agh! Could you give a bit of warning before you pop up like a serial killer in a movie? I didn't know you'd be awake now... Ahem."
         }
-      ],
-      "effects": [
-        {
-          "flag": "ultra_late_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -170,13 +135,6 @@
       "lines": [
         {
           "text": "Up and at 'em. Have a good, productive day."
-        }
-      ],
-      "effects": [
-        {
-          "flag": "morning_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -197,13 +155,6 @@
         {
           "expression": "thinking",
           "text": "I can't bother to make lunch today. I think I'll order takeout... ...are you judging me?"
-        }
-      ],
-      "effects": [
-        {
-          "flag": "late_morning_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -246,13 +197,6 @@
             }
           ]
         }
-      ],
-      "effects": [
-        {
-          "flag": "evening_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -271,13 +215,6 @@
       "lines": [
         {
           "text": "Good to see you. It's a bit late. Thinking of writing?"
-        }
-      ],
-      "effects": [
-        {
-          "flag": "midnight_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -299,13 +236,6 @@
           "expression": "muse",
           "text": "Is staying up late like this typical for you? I'm not used to people being awake at the same time as me this late."
         }
-      ],
-      "effects": [
-        {
-          "flag": "ultra_late_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -324,13 +254,6 @@
       "lines": [
         {
           "text": "Morning, {player}. Day 3 and we're off to a pretty good start, aren't we?"
-        }
-      ],
-      "effects": [
-        {
-          "flag": "morning_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -352,13 +275,6 @@
           "expression": "muse",
           "text": "This may sound utterly foolish, but there's a certain priceless je ne sais quoi to the way squirrels stuff nuts in their cheeks."
         }
-      ],
-      "effects": [
-        {
-          "flag": "late_morning_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -378,13 +294,6 @@
         {
           "expression": "serious",
           "text": "As a freelance writer, I may not do a physically demanding job, but work can still be mentally exhausting some days. Today was rough."
-        }
-      ],
-      "effects": [
-        {
-          "flag": "evening_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -426,13 +335,6 @@
             }
           ]
         }
-      ],
-      "effects": [
-        {
-          "flag": "midnight_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -453,13 +355,6 @@
           "expression": "upset",
           "text": "I'm honestly unsure which one's the hallucination at the moment: the time on the clock or you."
         }
-      ],
-      "effects": [
-        {
-          "flag": "ultra_late_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -478,13 +373,6 @@
       "lines": [
         {
           "text": "Good morning. I hope you slept well."
-        }
-      ],
-      "effects": [
-        {
-          "flag": "morning_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -506,13 +394,6 @@
           "expression": "neutral",
           "text": "Lunchtime. Don't forget to eat. You need the energy."
         }
-      ],
-      "effects": [
-        {
-          "flag": "late_morning_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -533,13 +414,6 @@
           "expression": "thinking",
           "text": "It seems people will make anything into a dating sim these days. Cookbooks, personal trainers, racing games, idle clickers... what's next?"
         }
-      ],
-      "effects": [
-        {
-          "flag": "evening_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -559,13 +433,6 @@
         {
           "expression": "neutral",
           "text": "Hey, it's late. Good luck with writing tonight, though."
-        }
-      ],
-      "effects": [
-        {
-          "flag": "midnight_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -607,13 +474,6 @@
             }
           ]
         }
-      ],
-      "effects": [
-        {
-          "flag": "ultra_late_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -632,13 +492,6 @@
       "lines": [
         {
           "text": "Good morning. It's a beautiful day to be productive, wouldn't you say?"
-        }
-      ],
-      "effects": [
-        {
-          "flag": "morning_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -660,13 +513,6 @@
           "expression": "neutral",
           "text": "Writing can be hard, but just keep your eyes on the goal. Won't it be rewarding to have a finished story at the end of this month?"
         }
-      ],
-      "effects": [
-        {
-          "flag": "late_morning_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -685,13 +531,6 @@
       "lines": [
         {
           "text": "Gonna write again this evening? Let's aim for that goal again today."
-        }
-      ],
-      "effects": [
-        {
-          "flag": "evening_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -713,13 +552,6 @@
           "expression": "upset",
           "text": "Geez... don't you ever sleep? Well, I hope tonight's a productive one."
         }
-      ],
-      "effects": [
-        {
-          "flag": "midnight_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -739,13 +571,6 @@
         {
           "expression": "muse",
           "text": "You're awake? I'm glad. Because... uh, I watched a horror film and suddenly I feel like we could definitely improve the lighting around here. It's quite shadowy, isn't it?"
-        }
-      ],
-      "effects": [
-        {
-          "flag": "ultra_late_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -787,13 +612,6 @@
             }
           ]
         }
-      ],
-      "effects": [
-        {
-          "flag": "morning_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -817,13 +635,6 @@
         {
           "text": "An ordinary grilled cheese sandwich, or so it seems... but the secret is you add cream cheese. Heavenly... <3"
         }
-      ],
-      "effects": [
-        {
-          "flag": "late_morning_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -842,13 +653,6 @@
       "lines": [
         {
           "text": "Good evening. Thinking about getting in some writing?"
-        }
-      ],
-      "effects": [
-        {
-          "flag": "evening_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -870,13 +674,6 @@
           "expression": "neutral",
           "text": "It's rather late. I'd recommend getting some shut-eye if you can, but that's purely my opinion."
         }
-      ],
-      "effects": [
-        {
-          "flag": "midnight_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -895,13 +692,6 @@
       "lines": [
         {
           "text": "You're up, huh? Well, I won't say no to company."
-        }
-      ],
-      "effects": [
-        {
-          "flag": "ultra_late_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -924,13 +714,6 @@
         },
         {
           "text": "Isn't that a wonderful thing? Not that I'll let you catch me in them..."
-        }
-      ],
-      "effects": [
-        {
-          "flag": "morning_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -972,13 +755,6 @@
             }
           ]
         }
-      ],
-      "effects": [
-        {
-          "flag": "late_morning_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -998,13 +774,6 @@
         {
           "expression": "neutral",
           "text": "It's been a long day, hasn't it? May as well do some writing, I suppose?"
-        }
-      ],
-      "effects": [
-        {
-          "flag": "evening_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -1026,13 +795,6 @@
           "expression": "neutral",
           "text": "Did you plan on getting any more writing done? Or were you going to sleep now?"
         }
-      ],
-      "effects": [
-        {
-          "flag": "midnight_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -1052,13 +814,6 @@
         {
           "expression": "thinking",
           "text": "I have to wonder... did you get up early or did you not sleep?"
-        }
-      ],
-      "effects": [
-        {
-          "flag": "ultra_late_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -1084,13 +839,6 @@
       "lines": [
         {
           "text": "Good morning. You know, you've been at this for a week and you haven't missed a single day yet. You're really committed to this, aren't you?"
-        }
-      ],
-      "effects": [
-        {
-          "flag": "morning_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -1120,13 +868,6 @@
         {
           "text": "But we're just a quarter of the way through the month, so let's keep our eyes on the prize, shall we?"
         }
-      ],
-      "effects": [
-        {
-          "flag": "morning_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -1146,13 +887,6 @@
         {
           "text": "Good morning. We've missed a few days this past week. It's fine. Let's take today to get back on track and get writing. I believe in you. Don't forget that. Understood?"
         }
-      ],
-      "effects": [
-        {
-          "flag": "morning_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -1171,13 +905,6 @@
       "lines": [
         {
           "text": "Thinking about it, it's honestly inspiring that you've made a goal for yourself and you're pursuing it so diligently, {player}. I'll support you all the way."
-        }
-      ],
-      "effects": [
-        {
-          "flag": "late_morning_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -1219,13 +946,6 @@
             }
           ]
         }
-      ],
-      "effects": [
-        {
-          "flag": "evening_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -1245,13 +965,6 @@
         {
           "expression": "neutral",
           "text": "Hey there. I'll be up if you need me as usual, but I do hope you'll at least try to get some rest."
-        }
-      ],
-      "effects": [
-        {
-          "flag": "midnight_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -1273,13 +986,6 @@
           "expression": "neutral",
           "text": "I suppose I won't be the only one burning the midnight oil tonight."
         }
-      ],
-      "effects": [
-        {
-          "flag": "ultra_late_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -1300,13 +1006,6 @@
           "expression": "neutral",
           "text": "The early bird gets the worm, as they say. They also say breakfast is the most important meal of the day. Don't skip it."
         }
-      ],
-      "effects": [
-        {
-          "flag": "morning_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -1326,13 +1025,6 @@
         {
           "expression": "upset",
           "text": "I think... that last week's takeout didn't age particularly well."
-        }
-      ],
-      "effects": [
-        {
-          "flag": "late_morning_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -1360,13 +1052,6 @@
           "expression": "upset",
           "text": "Ugh, I've been feeling terrible since lunch. I'm glad you've gotten your writing for the day done already. I think I need to rest."
         }
-      ],
-      "effects": [
-        {
-          "flag": "evening_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -1386,13 +1071,6 @@
         {
           "expression": "upset",
           "text": "Ugh, I've been feeling terrible since lunch. I'll be out here until you've met your goal for the day, but after that, I'm going to lie down..."
-        }
-      ],
-      "effects": [
-        {
-          "flag": "evening_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -1434,13 +1112,6 @@
             }
           ]
         }
-      ],
-      "effects": [
-        {
-          "flag": "midnight_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -1466,13 +1137,6 @@
         {
           "text": "Can't sleep, or did you not want to? You honestly worked hard today. I think you should try to get some rest."
         }
-      ],
-      "effects": [
-        {
-          "flag": "ultra_late_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -1491,13 +1155,6 @@
       "lines": [
         {
           "text": "Can't sleep, or did you not want to? Either way, if you're not going to bed, you may as well get some more writing done."
-        }
-      ],
-      "effects": [
-        {
-          "flag": "ultra_late_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -1538,13 +1195,6 @@
             }
           ]
         }
-      ],
-      "effects": [
-        {
-          "flag": "morning_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -1563,13 +1213,6 @@
       "lines": [
         {
           "text": "I'd really like to read a new book but I don't have a clue what to read. I look forward to reading your novel come the end of the month... if that's alright with you."
-        }
-      ],
-      "effects": [
-        {
-          "flag": "late_morning_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -1594,13 +1237,6 @@
         {
           "text": "It would appear that it was the librarian's...?"
         }
-      ],
-      "effects": [
-        {
-          "flag": "evening_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -1620,13 +1256,6 @@
         {
           "expression": "serious",
           "text": "I won't lie. My leg is still aching from today's feline-perpetrated assault. I can't wait to go to sleep and get off of it."
-        }
-      ],
-      "effects": [
-        {
-          "flag": "midnight_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -1648,13 +1277,6 @@
           "expression": "surprised",
           "text": "You're up this late? Don't push yourself."
         }
-      ],
-      "effects": [
-        {
-          "flag": "ultra_late_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -1673,13 +1295,6 @@
       "lines": [
         {
           "text": "Good morning. I wonder if it's best to get writing done in the morning or at night. I suppose it would depend on the person."
-        }
-      ],
-      "effects": [
-        {
-          "flag": "morning_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -1700,13 +1315,6 @@
         {
           "text": "Hey, there, {player}. While you're writing, I'd just like to remind you to drink water. Too easily, one can get into writing and never notice that they're dehydrated."
         }
-      ],
-      "effects": [
-        {
-          "flag": "late_morning_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -1725,13 +1333,6 @@
       "lines": [
         {
           "text": "Good evening, {player}. Have you eaten dinner yet?"
-        }
-      ],
-      "effects": [
-        {
-          "flag": "evening_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -1753,13 +1354,6 @@
           "expression": "neutral",
           "text": "It's pretty late, don't you think? If you're planning on doing some writing, I hope you go to sleep afterwards."
         }
-      ],
-      "effects": [
-        {
-          "flag": "midnight_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -1775,7 +1369,7 @@
           "value": 11
         },
         {
-          "var": "flag:ultra_late_talks",
+          "var": "flag:visits_ultra_late",
           "op": ">",
           "value": 4
         }
@@ -1785,13 +1379,6 @@
         {
           "expression": "upset",
           "text": "This sleep pattern of yours cannot possibly be healthy. Am I... am I enabling you?"
-        }
-      ],
-      "effects": [
-        {
-          "flag": "ultra_late_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -1813,13 +1400,6 @@
           "expression": "upset",
           "text": "-yawn- If you want to write at this hour, I can't stop you. I won't say no to your company. I just pray you slept."
         }
-      ],
-      "effects": [
-        {
-          "flag": "ultra_late_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -1835,7 +1415,7 @@
           "value": 12
         },
         {
-          "var": "flag:morning_talks",
+          "var": "flag:visits_morning",
           "op": ">",
           "value": 10
         }
@@ -1844,13 +1424,6 @@
       "lines": [
         {
           "text": "Up early as usual? That's impressive. I'll admit, if I were you I'd be sleeping in right now."
-        }
-      ],
-      "effects": [
-        {
-          "flag": "morning_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -1877,13 +1450,6 @@
         {
           "text": "Up early? It's admirable that you want to get up so early, but you really ought to go to bed early, too. I hope you feel rested enough..."
         }
-      ],
-      "effects": [
-        {
-          "flag": "morning_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -1902,13 +1468,6 @@
       "lines": [
         {
           "text": "Up early today? That's admirable. I hope you got a good night's sleep."
-        }
-      ],
-      "effects": [
-        {
-          "flag": "morning_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -1929,13 +1488,6 @@
         {
           "text": "Hey, there. I brought you something. I checked out the local library today and they were giving away chocolate cake. Apparently, this is a fairly regular occurrence there."
         }
-      ],
-      "effects": [
-        {
-          "flag": "late_morning_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -1954,13 +1506,6 @@
       "lines": [
         {
           "text": "Good evening, {player}. Let's get to work."
-        }
-      ],
-      "effects": [
-        {
-          "flag": "evening_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -2001,13 +1546,6 @@
             }
           ]
         }
-      ],
-      "effects": [
-        {
-          "flag": "midnight_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -2028,13 +1566,6 @@
           "expression": "muse",
           "text": "So tired... but I really ought to get just a little bit more work done before heading off. Was that your plan, too?"
         }
-      ],
-      "effects": [
-        {
-          "flag": "ultra_late_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -2053,13 +1584,6 @@
       "lines": [
         {
           "text": "Good morning, {player}. I wish you another productive day."
-        }
-      ],
-      "effects": [
-        {
-          "flag": "morning_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -2081,13 +1605,6 @@
           "expression": "muse",
           "text": "Sometimes I wonder what it'd be like to have siblings. If I had a little sister, would we be close? Or would we always get on each other's nerves?"
         }
-      ],
-      "effects": [
-        {
-          "flag": "late_morning_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -2107,13 +1624,6 @@
         {
           "text": "Evening. Let's get some more writing done, shall we?"
         }
-      ],
-      "effects": [
-        {
-          "flag": "evening_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -2132,13 +1642,6 @@
       "lines": [
         {
           "text": "Hey, {player}. You're up still? You'd probably write better well-rested, but I'm glad you're still dedicated."
-        }
-      ],
-      "effects": [
-        {
-          "flag": "midnight_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -2160,13 +1663,6 @@
           "expression": "neutral",
           "text": "Let's both head to bed after this, alright?"
         }
-      ],
-      "effects": [
-        {
-          "flag": "ultra_late_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -2187,13 +1683,6 @@
           "expression": "veryhappy",
           "text": "Good morning. Don't mind the burning smell or the horror in the garbage. It's just my attempted eggs Benedict."
         }
-      ],
-      "effects": [
-        {
-          "flag": "morning_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -2213,13 +1702,6 @@
         {
           "expression": "upset",
           "text": "I don't understand those capable of cooking without a recipe. Personally, I learned my lesson about experimentation this morning."
-        }
-      ],
-      "effects": [
-        {
-          "flag": "late_morning_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -2260,13 +1742,6 @@
             }
           ]
         }
-      ],
-      "effects": [
-        {
-          "flag": "evening_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -2290,13 +1765,6 @@
         {
           "text": "But on the bright side, I can now tell you how marshmallows are made!"
         }
-      ],
-      "effects": [
-        {
-          "flag": "midnight_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -2316,13 +1784,6 @@
         {
           "expression": "tired",
           "text": "Can't... stop... yawning. How do you do it?"
-        }
-      ],
-      "effects": [
-        {
-          "flag": "ultra_late_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -2344,13 +1805,6 @@
           "expression": "happy",
           "text": "Good morning. We're halfway through the month. I hope you feel proud of yourself, because I'm proud of you."
         }
-      ],
-      "effects": [
-        {
-          "flag": "morning_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -2370,13 +1824,6 @@
         {
           "expression": "happy",
           "text": "Hey, there. Did you just want to exchange greetings or were you planning on writing, too?"
-        }
-      ],
-      "effects": [
-        {
-          "flag": "late_morning_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -2398,13 +1845,6 @@
           "expression": "upset",
           "text": "I wanted to be adventurous today and bought some sort of veggie smoothie and now I'm filled with regret. Smoothies need fruits. End of story."
         }
-      ],
-      "effects": [
-        {
-          "flag": "evening_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -2424,13 +1864,6 @@
         {
           "expression": "neutral",
           "text": "Hey, {player}. It's late. Why don't you get some rest? Tomorrow's another day."
-        }
-      ],
-      "effects": [
-        {
-          "flag": "midnight_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -2452,13 +1885,6 @@
           "expression": "neutral",
           "text": "If you're gonna be out here, I'll stay up with you. Otherwise, I'll be going to sleep, alright?"
         }
-      ],
-      "effects": [
-        {
-          "flag": "ultra_late_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -2477,13 +1903,6 @@
       "lines": [
         {
           "text": "Morning. I can't help but look forward to the completion of your book."
-        }
-      ],
-      "effects": [
-        {
-          "flag": "morning_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -2525,13 +1944,6 @@
             }
           ]
         }
-      ],
-      "effects": [
-        {
-          "flag": "late_morning_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -2554,13 +1966,6 @@
         {
           "text": "Shall I let you know how it went in a week?"
         }
-      ],
-      "effects": [
-        {
-          "flag": "evening_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -2579,13 +1984,6 @@
       "lines": [
         {
           "text": "Are you going to be up writing tonight, too? I'll likely be here all night. You know how it is... those documentaries don't watch themselves."
-        }
-      ],
-      "effects": [
-        {
-          "flag": "midnight_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -2609,13 +2007,6 @@
         },
         {
           "text": "And I'd love to tell you I didn't trip and fall off the treadmill shrieking in terror, but that would be a lie."
-        }
-      ],
-      "effects": [
-        {
-          "flag": "ultra_late_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -2656,13 +2047,6 @@
             }
           ]
         }
-      ],
-      "effects": [
-        {
-          "flag": "morning_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -2686,13 +2070,6 @@
         {
           "text": "The \"while I work\" part quickly disappeared and was replaced with a burning desire to know what will become of Antonio and Maria's budding secret romance... Telenovelas are riveting."
         }
-      ],
-      "effects": [
-        {
-          "flag": "late_morning_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -2712,13 +2089,6 @@
         {
           "expression": "upset",
           "text": "Good evening. I made you a paper crane but... it blew away in the wind."
-        }
-      ],
-      "effects": [
-        {
-          "flag": "evening_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -2740,13 +2110,6 @@
           "expression": "surprised",
           "text": "You're writing at this time of night? Well, I certainly admire your drive!"
         }
-      ],
-      "effects": [
-        {
-          "flag": "midnight_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -2767,13 +2130,6 @@
           "expression": "tired",
           "text": "I'm beyond tired. Aren't you?"
         }
-      ],
-      "effects": [
-        {
-          "flag": "ultra_late_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -2792,13 +2148,6 @@
       "lines": [
         {
           "text": "Morning, {player}. Let's write again today, shall we?"
-        }
-      ],
-      "effects": [
-        {
-          "flag": "morning_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -2820,13 +2169,6 @@
           "expression": "neutral",
           "text": "Don't you think cats are underrated? People often dismiss them as aloof, but cats can be quite loving. You just need to be nice to them first. Like with people."
         }
-      ],
-      "effects": [
-        {
-          "flag": "late_morning_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -2845,13 +2187,6 @@
       "lines": [
         {
           "text": "Good evening, {player}. It's a great night to work on your novel. As was every other night the past 20 or so days. Presumably you get the idea."
-        }
-      ],
-      "effects": [
-        {
-          "flag": "evening_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -2872,13 +2207,6 @@
         {
           "expression": "tired",
           "text": "{player}, I'm honestly dead tired. I'll try to stay up with you, but don't be surprised if you hear me fall asleep."
-        }
-      ],
-      "effects": [
-        {
-          "flag": "midnight_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -2919,13 +2247,6 @@
               "text": "...{player}? Oh... good morning..."
             }
           ]
-        }
-      ],
-      "effects": [
-        {
-          "flag": "ultra_late_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -2972,13 +2293,6 @@
             }
           ]
         }
-      ],
-      "effects": [
-        {
-          "flag": "morning_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -2998,13 +2312,6 @@
         {
           "text": "Good morning, {player}. I hope you slept well last night so you can have a good start today."
         }
-      ],
-      "effects": [
-        {
-          "flag": "morning_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -3023,13 +2330,6 @@
       "lines": [
         {
           "text": "Nothing beats relaxing with a good book. Wouldn't you agree?"
-        }
-      ],
-      "effects": [
-        {
-          "flag": "late_morning_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -3057,13 +2357,6 @@
           "expression": "neutral",
           "text": "So, that book my friend lent me."
         }
-      ],
-      "effects": [
-        {
-          "flag": "evening_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -3084,13 +2377,6 @@
           "expression": "neutral",
           "text": "I just finished reading a book my friend lent me. It was... not bad. It wasn't good either but... well, perhaps I'll order the next one at some point."
         }
-      ],
-      "effects": [
-        {
-          "flag": "evening_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -3109,13 +2395,6 @@
       "lines": [
         {
           "text": "It's been a long day. We should both get some sleep."
-        }
-      ],
-      "effects": [
-        {
-          "flag": "midnight_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -3143,13 +2422,6 @@
         {
           "text": "Hm..."
         }
-      ],
-      "effects": [
-        {
-          "flag": "ultra_late_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -3169,13 +2441,6 @@
         {
           "expression": "veryhappy",
           "text": "Morning. I had this stupid dream last night... I don't remember the details much but you were in it and we were... skydiving? And then we... ah, never mind. Anyway! Writing."
-        }
-      ],
-      "effects": [
-        {
-          "flag": "morning_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -3197,13 +2462,6 @@
           "expression": "muse",
           "text": "I'm thinking about going to a cafe. I'm really in the mood for a cinnameg spice frappe. And you better not judge me for that."
         }
-      ],
-      "effects": [
-        {
-          "flag": "late_morning_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -3223,13 +2481,6 @@
         {
           "expression": "upset",
           "text": "Hey, I brought back food from a cafe I went to earlier. The food was wonderful but I don't think I'll be going back. When the server told me to enjoy my meal, I said \"you, too\"..."
-        }
-      ],
-      "effects": [
-        {
-          "flag": "evening_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -3251,13 +2502,6 @@
           "expression": "muse",
           "text": "Say... do you ever wonder how your book would be as a movie? You know, who you might cast and all that."
         }
-      ],
-      "effects": [
-        {
-          "flag": "midnight_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -3277,13 +2521,6 @@
         {
           "expression": "thinking",
           "text": "I've been wondering... It's never too late to pick up a second language, is it? Maybe I'll try studying Esperanto. Or maybe I should just try sleeping."
-        }
-      ],
-      "effects": [
-        {
-          "flag": "ultra_late_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -3305,13 +2542,6 @@
           "expression": "muse",
           "text": "Good morning. I'd really like to sleep in sometime. Maybe I should add it to my agenda."
         }
-      ],
-      "effects": [
-        {
-          "flag": "morning_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -3331,13 +2561,6 @@
         {
           "expression": "neutral",
           "text": "{player}. I know you must be busy right now, so would you like me to buy us lunch?"
-        }
-      ],
-      "effects": [
-        {
-          "flag": "late_morning_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -3379,13 +2602,6 @@
             }
           ]
         }
-      ],
-      "effects": [
-        {
-          "flag": "evening_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -3409,13 +2625,6 @@
         {
           "text": "Because I had to spend an hour looking for my glasses again."
         }
-      ],
-      "effects": [
-        {
-          "flag": "midnight_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -3435,13 +2644,6 @@
         {
           "text": "Let's go to bed soon. There's always tomorrow."
         }
-      ],
-      "effects": [
-        {
-          "flag": "ultra_late_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -3460,13 +2662,6 @@
       "lines": [
         {
           "text": "Morning. Another day of work ahead of us, but we'll get it done."
-        }
-      ],
-      "effects": [
-        {
-          "flag": "morning_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -3508,13 +2703,6 @@
             }
           ]
         }
-      ],
-      "effects": [
-        {
-          "flag": "late_morning_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -3534,13 +2722,6 @@
         {
           "expression": "thinking",
           "text": "So I decided last week to challenge myself to take a cold shower every day for seven days. It wasn't exactly refreshing like the internet zealots proclaim."
-        }
-      ],
-      "effects": [
-        {
-          "flag": "late_morning_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -3562,13 +2743,6 @@
           "expression": "neutral",
           "text": "Sports are so complicated... I can't understand how people can follow them, much less play them, but hats off to those who can."
         }
-      ],
-      "effects": [
-        {
-          "flag": "evening_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -3588,13 +2762,6 @@
         {
           "expression": "muse",
           "text": "People often attribute nightmares to eating pizza before bed. But I really would love to have some leftover pizza right now... would it really be such a bad idea?"
-        }
-      ],
-      "effects": [
-        {
-          "flag": "midnight_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -3616,13 +2783,6 @@
           "expression": "upset",
           "text": "What a grindfest... Hours of farming and all I have to show for it is a single spell... Oh, you're awake? I'm just playing a video game."
         }
-      ],
-      "effects": [
-        {
-          "flag": "ultra_late_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -3641,13 +2801,6 @@
       "lines": [
         {
           "text": "Good morning. We have a week left, you know. I'm glad you're keeping this up."
-        }
-      ],
-      "effects": [
-        {
-          "flag": "morning_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -3672,13 +2825,6 @@
         {
           "text": "Well, bad news is it turns out you absolutely can NOT substitute tapioca flour for all-purpose flour. Good news is tapioca muffins make great erasers."
         }
-      ],
-      "effects": [
-        {
-          "flag": "late_morning_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -3697,13 +2843,6 @@
       "lines": [
         {
           "text": "Good evening. We may be nearing the deadline, but even so, make sure you're taking care of yourself."
-        }
-      ],
-      "effects": [
-        {
-          "flag": "evening_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -3724,13 +2863,6 @@
         {
           "expression": "flushed",
           "text": "Get some rest. It's late. I'd say you need your beauty sleep, but... well, it seems you have the beauty thing down just fine already.... I'm already regretting saying a thing to you."
-        }
-      ],
-      "effects": [
-        {
-          "flag": "midnight_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -3757,13 +2889,6 @@
         {
           "text": "You're up still, huh. I'm going to reiterate that you should get some sleep. And by the way, let's agree to pretend what I said earlier never happened. Thanks."
         }
-      ],
-      "effects": [
-        {
-          "flag": "ultra_late_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -3782,13 +2907,6 @@
       "lines": [
         {
           "text": "How anyone could want to not only be awake but voluntarily do /work/ at this time of night is beyond me. I commend you."
-        }
-      ],
-      "effects": [
-        {
-          "flag": "ultra_late_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -3830,13 +2948,6 @@
             }
           ]
         }
-      ],
-      "effects": [
-        {
-          "flag": "morning_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -3855,13 +2966,6 @@
       "lines": [
         {
           "text": "Do you ever go to the pet store just to look at and play with the animals? I especially love the turtles."
-        }
-      ],
-      "effects": [
-        {
-          "flag": "late_morning_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -3883,13 +2987,6 @@
           "expression": "muse",
           "text": "I never thought about it before, but recently I've been thinking it could be nice to have a nickname. But... Ryde? RyRy? Rydie? Somehow, none of the alternatives sound great."
         }
-      ],
-      "effects": [
-        {
-          "flag": "evening_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -3909,13 +3006,6 @@
         {
           "expression": "neutral",
           "text": "Would you believe me if I told you I was internet famous? Because you shouldn't. It's a lie. I only have five friends and zero followers."
-        }
-      ],
-      "effects": [
-        {
-          "flag": "midnight_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -3937,13 +3027,6 @@
           "expression": "tired",
           "text": "My eyes are so tired... How do you stay up like this?"
         }
-      ],
-      "effects": [
-        {
-          "flag": "ultra_late_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -3963,13 +3046,6 @@
         {
           "expression": "happy",
           "text": "Morning! You're up bright and early, aren't you? Good luck with writing today as well."
-        }
-      ],
-      "effects": [
-        {
-          "flag": "morning_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -4014,13 +3090,6 @@
             }
           ]
         }
-      ],
-      "effects": [
-        {
-          "flag": "late_morning_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -4044,13 +3113,6 @@
         {
           "text": "In a world where some garnish their pizzas with a school of tiny fish, isn't that the least of our concerns?"
         }
-      ],
-      "effects": [
-        {
-          "flag": "evening_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -4070,13 +3132,6 @@
         {
           "expression": "muse",
           "text": "What made you want to write, {player}? It's important to keep that in mind, I feel. Personally, I want to do something that would make 10-year-old Ryder proud for once."
-        }
-      ],
-      "effects": [
-        {
-          "flag": "midnight_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -4098,13 +3153,6 @@
           "expression": "muse",
           "text": "Do aquariums exist in real life or are they just one of those anime things? ... Don't answer that. It's late; I'm not at my brightest right now."
         }
-      ],
-      "effects": [
-        {
-          "flag": "ultra_late_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -4124,13 +3172,6 @@
         {
           "expression": "veryhappy",
           "text": "Good morning, {player}. I hope you're well-rested, because you've got another day of writing ahead of you. But the good news is that there are just four days left."
-        }
-      ],
-      "effects": [
-        {
-          "flag": "morning_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -4152,13 +3193,6 @@
           "expression": "thinking",
           "text": "... what would happen if I combined French toast and Texas toast, I wonder...? Oh! Hey there."
         }
-      ],
-      "effects": [
-        {
-          "flag": "late_morning_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -4177,13 +3211,6 @@
       "lines": [
         {
           "text": "Tonight's a good night for takeout. Actually, every night's a good night for takeout."
-        }
-      ],
-      "effects": [
-        {
-          "flag": "evening_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -4205,13 +3232,6 @@
           "expression": "thinking",
           "text": "A wise poet once said, \"There's only two types of people in the world. The ones that entertain, and the ones that observe.\" Which type do you think I am?"
         }
-      ],
-      "effects": [
-        {
-          "flag": "midnight_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -4230,13 +3250,6 @@
       "lines": [
         {
           "text": "Usually, I find late nights lonely, but it's different with you somehow."
-        }
-      ],
-      "effects": [
-        {
-          "flag": "ultra_late_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -4285,13 +3298,6 @@
               "text": "Three days left, huh? You can do this. You can finish this book, I know it!"
             }
           ]
-        }
-      ],
-      "effects": [
-        {
-          "flag": "morning_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -4346,13 +3352,6 @@
             }
           ]
         }
-      ],
-      "effects": [
-        {
-          "flag": "late_morning_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -4373,13 +3372,6 @@
           "expression": "muse",
           "text": "Cats get a bad rap for such silly reasons. They're actually quite easy to handle, so long as you remember to treat them like disgruntled employees rather than eager servants."
         }
-      ],
-      "effects": [
-        {
-          "flag": "evening_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -4398,13 +3390,6 @@
       "lines": [
         {
           "text": "You know... I'm happy I've gotten to spend all this time with you. It's been fun."
-        }
-      ],
-      "effects": [
-        {
-          "flag": "midnight_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -4426,13 +3411,6 @@
           "expression": "tired",
           "text": "I'm tired and I'm hungry. Do we have anything in the fridge?"
         }
-      ],
-      "effects": [
-        {
-          "flag": "ultra_late_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -4451,13 +3429,6 @@
       "lines": [
         {
           "text": "Morning, {player}. Did you sleep well?"
-        }
-      ],
-      "effects": [
-        {
-          "flag": "morning_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -4479,13 +3450,6 @@
           "expression": "neutral",
           "text": "I know you must be really busy right now. Do you need me to pick up anything from the store?"
         }
-      ],
-      "effects": [
-        {
-          "flag": "late_morning_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -4505,13 +3469,6 @@
         {
           "expression": "blushavert",
           "text": "It's been a long day and a long month. I hope I'm not being a bother... I... just want to support you in any way I can, I suppose."
-        }
-      ],
-      "effects": [
-        {
-          "flag": "evening_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -4533,13 +3490,6 @@
           "expression": "neutral",
           "text": "I know we're nearing the deadline, so I won't tell you what to do. Just try to get at least some sleep when you're done."
         }
-      ],
-      "effects": [
-        {
-          "flag": "midnight_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -4558,13 +3508,6 @@
       "lines": [
         {
           "text": "I'm ready whenever you are. Shall we?"
-        }
-      ],
-      "effects": [
-        {
-          "flag": "ultra_late_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -4585,13 +3528,6 @@
         {
           "text": "Good morning, {player}. Tomorrow's our last day. Let's make sure we're on track to finish your novel."
         }
-      ],
-      "effects": [
-        {
-          "flag": "morning_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -4610,13 +3546,6 @@
       "lines": [
         {
           "text": "Good morning. Just one more day left after today. I'm excited."
-        }
-      ],
-      "effects": [
-        {
-          "flag": "late_morning_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -4638,13 +3567,6 @@
           "expression": "happy",
           "text": "Since tomorrow's the last day, we should go out to karaoke sometime after this! ... Wait, you thought I'd participate? Heavens, no! I just wanted to watch..."
         }
-      ],
-      "effects": [
-        {
-          "flag": "evening_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -4664,13 +3586,6 @@
         {
           "text": "I know you’ve got this. Just a bit more until we reach your goal!"
         }
-      ],
-      "effects": [
-        {
-          "flag": "midnight_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -4689,13 +3604,6 @@
       "lines": [
         {
           "text": "I'm making some tea. Want some?"
-        }
-      ],
-      "effects": [
-        {
-          "flag": "ultra_late_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -4717,13 +3625,6 @@
           "expression": "veryhappy",
           "text": "You're up? Excellent. As you may have noticed, it's the final day of your writing journey. Let's give it our all, shall we?"
         }
-      ],
-      "effects": [
-        {
-          "flag": "morning_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -4742,13 +3643,6 @@
       "lines": [
         {
           "text": "Good morning. Today's the last day. How are you feeling?"
-        }
-      ],
-      "effects": [
-        {
-          "flag": "late_morning_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -4769,13 +3663,6 @@
         {
           "text": "We're just finishing up tonight. Are you ready to power through it?"
         }
-      ],
-      "effects": [
-        {
-          "flag": "evening_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -4795,13 +3682,6 @@
         {
           "text": "We're down to the wire now. You can do this. I believe in you!"
         }
-      ],
-      "effects": [
-        {
-          "flag": "midnight_talks",
-          "op": "add",
-          "value": 1
-        }
       ]
     },
     {
@@ -4817,7 +3697,7 @@
           "value": 30
         },
         {
-          "var": "flag:ultra_late_talks",
+          "var": "flag:visits_ultra_late",
           "op": ">",
           "value": 15
         }
@@ -4830,13 +3710,6 @@
         },
         {
           "text": "Well, it's the last night. Let's do this!"
-        }
-      ],
-      "effects": [
-        {
-          "flag": "ultra_late_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -4866,13 +3739,6 @@
         },
         {
           "text": "I know I'm a complete fool for even wasting your time with this, so... if you'd like... no, if you'd be so kind, please just forget I said any of this. Good night."
-        }
-      ],
-      "effects": [
-        {
-          "flag": "ultra_late_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -4913,13 +3779,6 @@
               "text": "[PLACEHOLDER Ryder reacts: player heard the confession]"
             }
           ]
-        }
-      ],
-      "effects": [
-        {
-          "flag": "morning_talks",
-          "op": "add",
-          "value": 1
         }
       ]
     },
@@ -6751,10 +5610,10 @@
       ]
     },
     {
-      "id": "date-11-30",
+      "id": "day-30-start",
       "trigger": {
-        "type": "date",
-        "value": "11-30"
+        "type": "day_start",
+        "value": 30
       },
       "priority": 5,
       "lines": [
@@ -7087,6 +5946,7 @@
           "text": "Have you ever played a fighting game before?"
         }
       ],
+      "display": "scene",
       "repeat": "once",
       "choices": [
         {
@@ -7147,7 +6007,54 @@
         {
           "text": "Who do you want to play?"
         }
-      ]
+      ],
+      "display": "scene"
+    },
+    {
+      "id": "game_night.2.AC",
+      "trigger": {
+        "type": "after",
+        "value": "game_night.1"
+      },
+      "priority": 1,
+      "when": [
+        {
+          "var": "flag:choice:game_night",
+          "op": "in",
+          "value": [
+            "A",
+            "C"
+          ]
+        }
+      ],
+      "lines": [
+        {
+          "text": "Naples is an easy player for beginners to get a handle of. Would you like to try him?"
+        },
+        {
+          "speaker": "player",
+          "text": "Sure."
+        },
+        {
+          "speaker": "narrator",
+          "text": "Slowly, I get used to the game."
+        },
+        {
+          "speaker": "narrator",
+          "text": "Ryder is kind, helpful, and gentle, going easy on me at first as he explains the very basics of movement, attacks, and strategy, but gradually taking off the kid gloves as I get used to the game."
+        },
+        {
+          "text": "Wow, you've gotten so good already. I'm impressed."
+        },
+        {
+          "speaker": "player",
+          "text": "Really? Thank you."
+        },
+        {
+          "text": "Alright, one last thing to show you."
+        }
+      ],
+      "display": "scene"
     },
     {
       "id": "game_night.2.B",
@@ -7176,8 +6083,8 @@
           "text": "I pick up the nuances of the game quickly. Ryder turns out to be better than most people. Far better than I expected. What's more, he's also unexpectedly competitive."
         },
         {
-          "text": "We each take turns playfully trash-talking one another. As he nearly knocks my character out, offhandedly, he remarks,",
-          "speaker": "narrator"
+          "speaker": "narrator",
+          "text": "We each take turns playfully trash-talking one another. As he nearly knocks my character out, offhandedly, he remarks,"
         },
         {
           "text": "I seem to recall someone saying they were good at fighting games?"
@@ -7212,401 +6119,22 @@
           "speaker": "narrator",
           "text": "And as I say that, I swoop in while he's vulnerable and finish him off."
         }
-      ]
-    },
-    {
-      "id": "game_night.2.AC",
-      "trigger": {
-        "type": "after",
-        "value": "game_night.1"
-      },
-      "priority": 1,
-      "when": [
-        {
-          "var": "flag:choice:game_night",
-          "op": "in",
-          "value": [
-            "A",
-            "C"
-          ]
-        }
       ],
-      "lines": [
-        {
-          "text": "Naples is an easy player for beginners to get a handle of. Would you like to try him?"
-        },
-        {
-          "speaker": "player",
-          "text": "Sure."
-        },
-        {
-          "speaker": "narrator",
-          "text": "Slowly, I get used to the game."
-        },
-        {
-          "text": "Ryder is kind, helpful, and gentle, going easy on me at first as he explains the very basics of movement, attacks, and strategy, but gradually taking off the kid gloves as I get used to the game.",
-          "speaker": "narrator"
-        },
-        {
-          "text": "Wow, you've gotten so good already. I'm impressed."
-        },
-        {
-          "speaker": "player",
-          "text": "Really? Thank you."
-        },
-        {
-          "text": "Alright, one last thing to show you."
-        }
-      ]
+      "display": "scene"
     },
     {
       "id": "game_night.3",
       "trigger": {
         "type": "after",
-        "value": "game_night.2.B|game_night.2.AC|game_night.1"
+        "value": "game_night.2.AC|game_night.2.B|game_night.1"
       },
       "lines": [
         {
           "speaker": "narrator",
           "text": "[PLACEHOLDER rest of the game-night scene, after \"one last thing to show you\"]"
         }
-      ]
-    },
-    {
-      "id": "movie_night",
-      "trigger": {
-        "type": "total_pct",
-        "value": 50
-      },
-      "lines": [
-        {
-          "text": "I wasn't sure you could do it, but here we are. Halfway through. You're incredible. ...don't let it go to your head. Now maybe we should take a break. Would you like to watch a movie?"
-        },
-        {
-          "speaker": "player",
-          "text": "Sure!"
-        },
-        {
-          "speaker": "narrator",
-          "text": "As I leap towards the couch, Ryder grabs my arm and pulls me back, mid-air."
-        },
-        {
-          "speaker": "player",
-          "text": "Huh?"
-        },
-        {
-          "text": "We... uh, need popcorn."
-        },
-        {
-          "speaker": "player",
-          "text": "... Right."
-        },
-        {
-          "text": "Wait there."
-        },
-        {
-          "speaker": "narrator",
-          "text": "I wait approximately five minutes as Ryder finds and prepares popcorn for us. Finally he returns."
-        },
-        {
-          "speaker": "player",
-          "text": "Can I sit now--"
-        },
-        {
-          "text": "No! I mean. Wouldn't it be more fun to sit on the ground?"
-        },
-        {
-          "speaker": "narrator",
-          "text": "He demonstrates by sitting cross-legged on the ground and patting the space next to him. Confused, I sit down."
-        },
-        {
-          "speaker": "player",
-          "text": "Okay then."
-        },
-        {
-          "text": "Anyway. What type of movie would you like to watch?"
-        }
       ],
-      "repeat": "once",
-      "choices": [
-        {
-          "id": "A",
-          "text": "Romance",
-          "lines": [
-            {
-              "text": "Oh? If that's the case, then... well, there's one I've been meaning to watch..."
-            },
-            {
-              "speaker": "player",
-              "text": "What's it called?"
-            },
-            {
-              "text": "The Notepad?"
-            },
-            {
-              "speaker": "player",
-              "text": "Oh, that's a classic."
-            },
-            {
-              "text": "That's what I heard. So shall we?"
-            },
-            {
-              "speaker": "narrator",
-              "text": "I nod and he starts the movie. He and I both intently watch a story about star-crossed lovers. As the credits roll, I'm sniffling. I look around and can't find Ryder."
-            },
-            {
-              "text": "But then there he is with a box of tissues, also looking teary eyed.",
-              "speaker": "narrator"
-            },
-            {
-              "speaker": "player",
-              "text": "Are you okay?"
-            },
-            {
-              "text": "I will be. Would you like a tissue?"
-            },
-            {
-              "speaker": "player",
-              "text": "Sure."
-            },
-            {
-              "text": "Not the best movie we could've picked for a celebration but it certainly was an experience, wasn't it?"
-            }
-          ]
-        },
-        {
-          "id": "B",
-          "text": "Action",
-          "lines": [
-            {
-              "text": "I wonder if they have that movie I kept hearing about... They do!"
-            },
-            {
-              "speaker": "player",
-              "text": "Superguy?"
-            },
-            {
-              "text": "Yes, it sounds fun, doesn't it? And the ratings are very good."
-            },
-            {
-              "speaker": "player",
-              "text": "Sure, let's watch it then."
-            },
-            {
-              "speaker": "narrator",
-              "text": "As we watch the movie, sitting on the uncomfortable hardwood floor, Ryder's eyebrows contort further and further. Afterwards, he has a solid frown on his face."
-            },
-            {
-              "speaker": "player",
-              "text": "You look like you have a lot of thoughts about the movie."
-            },
-            {
-              "text": "I do."
-            },
-            {
-              "speaker": "narrator",
-              "text": "What a cryptic response."
-            },
-            {
-              "speaker": "player",
-              "text": "Such as...?"
-            },
-            {
-              "text": "He's supposed to be a superhero but he's causing so much trouble! Just think about all the collateral damage he left!"
-            },
-            {
-              "text": "Even assuming nobody got hurt from when he threw the villain into that skyscraper, what about taxpayer money?!"
-            },
-            {
-              "speaker": "player",
-              "text": "It's a movie. An explosive movie, but a movie."
-            },
-            {
-              "text": "Fair enough. We won't always like the same things, I suppose."
-            }
-          ]
-        },
-        {
-          "id": "C",
-          "text": "Horror",
-          "lines": [
-            {
-              "text": "Sure. I have no problem with that. None at all."
-            },
-            {
-              "speaker": "player",
-              "text": "Then let's watch The Circle!"
-            },
-            {
-              "text": "Right."
-            },
-            {
-              "speaker": "narrator",
-              "text": "He says that but almost immediately as the movie starts..."
-            },
-            {
-              "text": "I think I should go make some popcorn."
-            },
-            {
-              "speaker": "player",
-              "text": "Nuh-uh, you're not getting out of this one."
-            },
-            {
-              "text": "But I--"
-            },
-            {
-              "speaker": "player",
-              "text": "Sit."
-            },
-            {
-              "text": "I see..."
-            },
-            {
-              "speaker": "narrator",
-              "text": "Even so, he averts his eyes the whole movie, tensing with every jumpscare... and looking terrified out of his mind. After the movie, he's skittish."
-            },
-            {
-              "text": "As he's reaching in the fridge for a bottle of water, I start talking and he jumps.",
-              "speaker": "narrator"
-            },
-            {
-              "speaker": "player",
-              "text": "Ryder? You okay?"
-            },
-            {
-              "text": "Yes, I think I'll be okay. Let's just... I think I'm going to leave the light on tonight."
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "froyo_date",
-      "trigger": {
-        "type": "total_pct",
-        "value": 75
-      },
-      "lines": [
-        {
-          "text": "You've got three quarters of your work done. That's the vast majority! I'm honestly impressed by your dedication."
-        },
-        {
-          "text": "I think that deserves a treat. How about we go for frozen yogurt?"
-        },
-        {
-          "speaker": "player",
-          "text": "Sure!"
-        },
-        {
-          "speaker": "narrator",
-          "text": "When we arrive at the froyo place, Ryder holds the door open for me. We get tiny sample cups and push down the levers to dispense the froyo."
-        },
-        {
-          "text": "There are twelve different flavors and we spend time diligently sampling each and every one, trying to decide which one to put in our bowl. In the end, I decide on a flavor...",
-          "speaker": "narrator"
-        },
-        {
-          "text": "Then I see Ryder looking seriously pained, like he can't bear to part with any one flavor.",
-          "speaker": "narrator"
-        },
-        {
-          "speaker": "player",
-          "text": "Are you alright?"
-        },
-        {
-          "text": "I'm fine. I'll just..."
-        },
-        {
-          "speaker": "narrator",
-          "text": "He suddenly pulls a lever, releasing salted caramel froyo into his bowl."
-        },
-        {
-          "text": "Wait!"
-        },
-        {
-          "speaker": "narrator",
-          "text": "He stops and adds cake batter flavor. And then cookies and cream. He sighs with relief."
-        },
-        {
-          "text": "That should be fine."
-        },
-        {
-          "speaker": "narrator",
-          "text": "When we're adding toppings, it's clear he's been struck by a similar indecision."
-        },
-        {
-          "text": "In the end, he piles on chocolate chips, corn flakes, caramel, marshmallow sauce, and cookie dough pieces, each neatly placed in their own section of the bowl.",
-          "speaker": "narrator"
-        },
-        {
-          "speaker": "narrator",
-          "text": "Ryder pays for both of us."
-        },
-        {
-          "speaker": "player",
-          "text": "Do you wanna go back home? We can sit on the couch, watch TV--"
-        },
-        {
-          "text": "A-ah, I think I'd prefer to eat here. Outside."
-        },
-        {
-          "speaker": "player",
-          "text": "No problem."
-        },
-        {
-          "speaker": "narrator",
-          "text": "Is it just me or did he get weird when I mentioned the couch?"
-        },
-        {
-          "speaker": "narrator",
-          "text": "We go outside and sit down. I dug into my frozen treat, only to eventually notice Ryder staring."
-        },
-        {
-          "speaker": "player",
-          "text": "Is there something on my face?"
-        },
-        {
-          "text": "Yes. It's right there."
-        },
-        {
-          "speaker": "narrator",
-          "text": "He points at my face."
-        },
-        {
-          "speaker": "player",
-          "text": "Right here?"
-        },
-        {
-          "text": "No, there."
-        },
-        {
-          "speaker": "player",
-          "text": "Here?"
-        },
-        {
-          "text": "Ah, no, it's here..."
-        },
-        {
-          "speaker": "narrator",
-          "text": "He reaches across the table and brushes his thumb gently near my mouth."
-        },
-        {
-          "speaker": "narrator",
-          "text": "For some reason, I can feel my face heat up."
-        },
-        {
-          "text": "Sorry, I shouldn't have done that."
-        },
-        {
-          "speaker": "player",
-          "text": "No, it's fine."
-        },
-        {
-          "speaker": "narrator",
-          "text": "But the whole time, I can't forget the way it felt when he touched me."
-        }
-      ],
-      "repeat": "once"
+      "display": "scene"
     },
     {
       "id": "the_couch",
@@ -7619,6 +6147,7 @@
           "text": "You did it. You're more determined than I imagined, honestly. Say... are you going to let me read it now?"
         }
       ],
+      "display": "scene",
       "repeat": "once",
       "choices": [
         {
@@ -7743,8 +6272,8 @@
           "text": "Every few days you do this thing where you act like you're too cool for school."
         },
         {
-          "text": "\"I suppose I can do my best to support you, but no promises made.\" \"You're incredible. ...don't let it go to your head.\" And so on.",
-          "speaker": "player"
+          "speaker": "player",
+          "text": "\"I suppose I can do my best to support you, but no promises made.\" \"You're incredible. ...don't let it go to your head.\" And so on."
         },
         {
           "text": "Well... being an unabashed cheerleader isn't very cool, is it...?"
@@ -7753,7 +6282,346 @@
           "speaker": "narrator",
           "text": "[PLACEHOLDER rest of the confession scene]"
         }
+      ],
+      "display": "scene"
+    },
+    {
+      "id": "movie_night",
+      "trigger": {
+        "type": "total_pct",
+        "value": 50
+      },
+      "lines": [
+        {
+          "text": "I wasn't sure you could do it, but here we are. Halfway through. You're incredible. ...don't let it go to your head. Now maybe we should take a break. Would you like to watch a movie?"
+        },
+        {
+          "speaker": "player",
+          "text": "Sure!"
+        },
+        {
+          "speaker": "narrator",
+          "text": "As I leap towards the couch, Ryder grabs my arm and pulls me back, mid-air."
+        },
+        {
+          "speaker": "player",
+          "text": "Huh?"
+        },
+        {
+          "text": "We... uh, need popcorn."
+        },
+        {
+          "speaker": "player",
+          "text": "... Right."
+        },
+        {
+          "text": "Wait there."
+        },
+        {
+          "speaker": "narrator",
+          "text": "I wait approximately five minutes as Ryder finds and prepares popcorn for us. Finally he returns."
+        },
+        {
+          "speaker": "player",
+          "text": "Can I sit now--"
+        },
+        {
+          "text": "No! I mean. Wouldn't it be more fun to sit on the ground?"
+        },
+        {
+          "speaker": "narrator",
+          "text": "He demonstrates by sitting cross-legged on the ground and patting the space next to him. Confused, I sit down."
+        },
+        {
+          "speaker": "player",
+          "text": "Okay then."
+        },
+        {
+          "text": "Anyway. What type of movie would you like to watch?"
+        }
+      ],
+      "display": "scene",
+      "repeat": "once",
+      "choices": [
+        {
+          "id": "A",
+          "text": "Romance",
+          "lines": [
+            {
+              "text": "Oh? If that's the case, then... well, there's one I've been meaning to watch..."
+            },
+            {
+              "speaker": "player",
+              "text": "What's it called?"
+            },
+            {
+              "text": "The Notepad?"
+            },
+            {
+              "speaker": "player",
+              "text": "Oh, that's a classic."
+            },
+            {
+              "text": "That's what I heard. So shall we?"
+            },
+            {
+              "speaker": "narrator",
+              "text": "I nod and he starts the movie. He and I both intently watch a story about star-crossed lovers. As the credits roll, I'm sniffling. I look around and can't find Ryder."
+            },
+            {
+              "speaker": "narrator",
+              "text": "But then there he is with a box of tissues, also looking teary eyed."
+            },
+            {
+              "speaker": "player",
+              "text": "Are you okay?"
+            },
+            {
+              "text": "I will be. Would you like a tissue?"
+            },
+            {
+              "speaker": "player",
+              "text": "Sure."
+            },
+            {
+              "text": "Not the best movie we could've picked for a celebration but it certainly was an experience, wasn't it?"
+            }
+          ]
+        },
+        {
+          "id": "B",
+          "text": "Action",
+          "lines": [
+            {
+              "text": "I wonder if they have that movie I kept hearing about... They do!"
+            },
+            {
+              "speaker": "player",
+              "text": "Superguy?"
+            },
+            {
+              "text": "Yes, it sounds fun, doesn't it? And the ratings are very good."
+            },
+            {
+              "speaker": "player",
+              "text": "Sure, let's watch it then."
+            },
+            {
+              "speaker": "narrator",
+              "text": "As we watch the movie, sitting on the uncomfortable hardwood floor, Ryder's eyebrows contort further and further. Afterwards, he has a solid frown on his face."
+            },
+            {
+              "speaker": "player",
+              "text": "You look like you have a lot of thoughts about the movie."
+            },
+            {
+              "text": "I do."
+            },
+            {
+              "speaker": "narrator",
+              "text": "What a cryptic response."
+            },
+            {
+              "speaker": "player",
+              "text": "Such as...?"
+            },
+            {
+              "text": "He's supposed to be a superhero but he's causing so much trouble! Just think about all the collateral damage he left!"
+            },
+            {
+              "text": "Even assuming nobody got hurt from when he threw the villain into that skyscraper, what about taxpayer money?!"
+            },
+            {
+              "speaker": "player",
+              "text": "It's a movie. An explosive movie, but a movie."
+            },
+            {
+              "text": "Fair enough. We won't always like the same things, I suppose."
+            }
+          ]
+        },
+        {
+          "id": "C",
+          "text": "Horror",
+          "lines": [
+            {
+              "text": "Sure. I have no problem with that. None at all."
+            },
+            {
+              "speaker": "player",
+              "text": "Then let's watch The Circle!"
+            },
+            {
+              "text": "Right."
+            },
+            {
+              "speaker": "narrator",
+              "text": "He says that but almost immediately as the movie starts..."
+            },
+            {
+              "text": "I think I should go make some popcorn."
+            },
+            {
+              "speaker": "player",
+              "text": "Nuh-uh, you're not getting out of this one."
+            },
+            {
+              "text": "But I--"
+            },
+            {
+              "speaker": "player",
+              "text": "Sit."
+            },
+            {
+              "text": "I see..."
+            },
+            {
+              "speaker": "narrator",
+              "text": "Even so, he averts his eyes the whole movie, tensing with every jumpscare... and looking terrified out of his mind. After the movie, he's skittish."
+            },
+            {
+              "speaker": "narrator",
+              "text": "As he's reaching in the fridge for a bottle of water, I start talking and he jumps."
+            },
+            {
+              "speaker": "player",
+              "text": "Ryder? You okay?"
+            },
+            {
+              "text": "Yes, I think I'll be okay. Let's just... I think I'm going to leave the light on tonight."
+            }
+          ]
+        }
       ]
+    },
+    {
+      "id": "froyo_date",
+      "trigger": {
+        "type": "total_pct",
+        "value": 75
+      },
+      "lines": [
+        {
+          "text": "You've got three quarters of your work done. That's the vast majority! I'm honestly impressed by your dedication."
+        },
+        {
+          "text": "I think that deserves a treat. How about we go for frozen yogurt?"
+        },
+        {
+          "speaker": "player",
+          "text": "Sure!"
+        },
+        {
+          "speaker": "narrator",
+          "text": "When we arrive at the froyo place, Ryder holds the door open for me. We get tiny sample cups and push down the levers to dispense the froyo."
+        },
+        {
+          "speaker": "narrator",
+          "text": "There are twelve different flavors and we spend time diligently sampling each and every one, trying to decide which one to put in our bowl. In the end, I decide on a flavor..."
+        },
+        {
+          "speaker": "narrator",
+          "text": "Then I see Ryder looking seriously pained, like he can't bear to part with any one flavor."
+        },
+        {
+          "speaker": "player",
+          "text": "Are you alright?"
+        },
+        {
+          "text": "I'm fine. I'll just..."
+        },
+        {
+          "speaker": "narrator",
+          "text": "He suddenly pulls a lever, releasing salted caramel froyo into his bowl."
+        },
+        {
+          "text": "Wait!"
+        },
+        {
+          "speaker": "narrator",
+          "text": "He stops and adds cake batter flavor. And then cookies and cream. He sighs with relief."
+        },
+        {
+          "text": "That should be fine."
+        },
+        {
+          "speaker": "narrator",
+          "text": "When we're adding toppings, it's clear he's been struck by a similar indecision."
+        },
+        {
+          "speaker": "narrator",
+          "text": "In the end, he piles on chocolate chips, corn flakes, caramel, marshmallow sauce, and cookie dough pieces, each neatly placed in their own section of the bowl."
+        },
+        {
+          "speaker": "narrator",
+          "text": "Ryder pays for both of us."
+        },
+        {
+          "speaker": "player",
+          "text": "Do you wanna go back home? We can sit on the couch, watch TV--"
+        },
+        {
+          "text": "A-ah, I think I'd prefer to eat here. Outside."
+        },
+        {
+          "speaker": "player",
+          "text": "No problem."
+        },
+        {
+          "speaker": "narrator",
+          "text": "Is it just me or did he get weird when I mentioned the couch?"
+        },
+        {
+          "speaker": "narrator",
+          "text": "We go outside and sit down. I dug into my frozen treat, only to eventually notice Ryder staring."
+        },
+        {
+          "speaker": "player",
+          "text": "Is there something on my face?"
+        },
+        {
+          "text": "Yes. It's right there."
+        },
+        {
+          "speaker": "narrator",
+          "text": "He points at my face."
+        },
+        {
+          "speaker": "player",
+          "text": "Right here?"
+        },
+        {
+          "text": "No, there."
+        },
+        {
+          "speaker": "player",
+          "text": "Here?"
+        },
+        {
+          "text": "Ah, no, it's here..."
+        },
+        {
+          "speaker": "narrator",
+          "text": "He reaches across the table and brushes his thumb gently near my mouth."
+        },
+        {
+          "speaker": "narrator",
+          "text": "For some reason, I can feel my face heat up."
+        },
+        {
+          "text": "Sorry, I shouldn't have done that."
+        },
+        {
+          "speaker": "player",
+          "text": "No, it's fine."
+        },
+        {
+          "speaker": "narrator",
+          "text": "But the whole time, I can't forget the way it felt when he touched me."
+        }
+      ],
+      "display": "scene",
+      "repeat": "once"
     }
   ]
 }

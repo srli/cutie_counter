@@ -112,6 +112,7 @@ export function validatePack(manifestRaw: unknown, scriptRaw: unknown, files: Pa
       }
     }
 
+    if (beat.display !== undefined && beat.display !== 'scene') err(where, `"display" can only be "scene" (got "${beat.display}").`)
     for (const c of beat.when ?? []) {
       if (!CONDITION_OPS.includes(c.op)) err(where, `Unknown comparison "${c.op}".`)
     }

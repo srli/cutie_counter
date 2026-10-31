@@ -154,6 +154,8 @@ export interface Beat {
   effects?: FlagEffect[]
   /** Free-form note for the author; never shown in the app. */
   note?: string
+  /** `scene` plays full screen over the writing area, like a cutscene. Default: the cutie's textbox. */
+  display?: 'scene'
 }
 
 export interface Script {
@@ -252,4 +254,5 @@ export interface Scene {
   prompt?: string
   choices?: Choice[]
   placeholder?: boolean
+  display?: 'scene'
 }

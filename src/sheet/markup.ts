@@ -78,7 +78,8 @@ export function parseCondition(phrase: string, ctx: Context): Condition[] {
       if (!stage) throw new MarkupError(`I don't know the stage "${m[2]}". Stages: ${ctx.stages.map((s) => s.name).join(', ')}.`)
       out.push({ var: 'stage', op: m[1] === '!=' ? '!=' : '==', value: stage })
     } else if ((m = p.match(/^(.+?) visits\s*(>=|<=|!=|=|>|<)\s*(\d+)$/i)) && findSlot(m[1], ctx)) {
-      out.push({ var: `flag:${findSlot(m[1], ctx)}_talks`, op: opWord(m[2]), value: Number(m[3]) })
+      // The engine counts the days the writer was here at each time of day as `visits_<slot>`.
+      out.push({ var: `flag:visits_${findSlot(m[1], ctx)}`, op: opWord(m[2]), value: Number(m[3]) })
     } else if ((m = p.match(/^(day|streak|days away|words today|total words|hour|weekday|today's goal %|whole goal %)\s*(>=|<=|!=|=|>|<)\s*(\d+)$/i))) {
       out.push({ var: NUMBER_VARS[m[1].toLowerCase()], op: opWord(m[2]), value: Number(m[3]) })
     } else if ((m = p.match(/^(dailyPct|totalPct|todayWords|totalWords|missedDays|daysAway|day|hour|weekday|streak|date|timeSlot|stage|(?:flag|seen):[\w:.-]+)\s*(>=|<=|!=|==|=|>|<)\s*(.+)$/))) {
@@ -104,8 +105,8 @@ export function formatCondition(c: Condition, ctx: Context): string {
   if (c.var === 'timeSlot' && c.op === '==') return `it's ${slotLabel(String(v)).toLowerCase()}`
   if (c.var === 'stage') return `stage ${c.op === '!=' ? '!=' : '='} ${ctx.stages.find((s) => s.id === v)?.name ?? v}`
   if (c.var.startsWith('seen:')) return `${v === false ? 'not saw' : 'saw'} ${idToRef(c.var.slice(5), ctx)}`
-  if (c.var.startsWith('flag:') && /_talks$/.test(c.var)) {
-    const slot = c.var.slice(5, -'_talks'.length)
+  if (c.var.startsWith('flag:visits_')) {
+    const slot = c.var.slice('flag:visits_'.length)
     if (ctx.slots.some((s) => s.id === slot)) return `${slotLabel(slot).toLowerCase()} visits ${op} ${v}`
   }
   if (c.var.startsWith('flag:') && !c.var.includes(':', 5)) return `${c.var.slice(5).replace(/_/g, ' ')} ${op} ${showValue(v)}`
