@@ -91,3 +91,7 @@ dist/
 
 # Dev environment
 .idea
+
+# Generated cutie packs (built from content/ by scripts/build-packs.ts)
+public/packs/
+screenshots/

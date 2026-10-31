@@ -1,0 +1,43 @@
+{
+  "formatVersion": 1,
+  "id": "ryder",
+  "name": "Ryder",
+  "intro": "Ryder is a dedicated freelance writer. He spends his days working from home, and loves having someone to bounce some of his stranger thoughts off of. His down to earth style of encouragement is well suited to writers looking for someone to rely on.",
+  "defaultExpression": "neutral",
+  "defaultBackground": "room_day",
+  "backgroundBySlot": {
+    "morning": "room_day",
+    "late_morning": "room_day",
+    "evening": "room_night",
+    "midnight": "room_night",
+    "ultra_late": "room_night"
+  },
+  "timeSlots": [
+    { "id": "morning", "start": "05:00" },
+    { "id": "late_morning", "start": "11:00" },
+    { "id": "evening", "start": "16:00" },
+    { "id": "midnight", "start": "23:00" },
+    { "id": "ultra_late", "start": "02:00" }
+  ],
+  "stages": [
+    { "id": "stranger", "name": "Stranger", "minTotalPct": 0, "defaultExpression": "neutral" },
+    { "id": "acquaintance", "name": "Acquaintance", "minTotalPct": 20, "defaultExpression": "neutral" },
+    { "id": "friend", "name": "Friend", "minTotalPct": 45, "defaultExpression": "smile" },
+    { "id": "close", "name": "Close", "minTotalPct": 75, "defaultExpression": "glad" },
+    { "id": "devoted", "name": "Devoted", "minTotalPct": 100, "defaultExpression": "happy" }
+  ],
+  "milestones": {
+    "daily": [10, 33, 50, 75, 100],
+    "total": [10, 25, 33, 50, 66, 75, 90, 100]
+  },
+  "ambient": { "everyMinutes": 20, "chance": 0.35 },
+  "idle": {
+    "everySeconds": 30,
+    "expressions": [
+      { "expression": "neutral", "weight": 6 },
+      { "expression": "muse", "weight": 2 },
+      { "expression": "thinking", "weight": 2 }
+    ]
+  },
+  "colors": { "accent": "#b08ad8", "name": "#6a4f8f" }
+}

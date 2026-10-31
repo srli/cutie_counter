@@ -1,0 +1,15 @@
+{
+  "name": "Cutie Counter",
+  "short_name": "Cutie Counter",
+  "description": "A writing app with a dating-sim twist.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#fdf9fd",
+  "theme_color": "#d9b8ec",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
