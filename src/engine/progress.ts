@@ -1,4 +1,4 @@
-import { addDays, daysBetween, localDate, monthDay, timeSlotAt } from './time'
+import { addDays, daysBetween, isIsoDate, localDate, monthDay, timeSlotAt } from './time'
 import type { CutieManifest, Project, Stage, Stats } from './types'
 
 /** Simple word count: runs of non-space characters. */
@@ -24,6 +24,16 @@ export function stageFor(totalPct: number, stages: Stage[] = []): string {
   return current
 }
 
+/** The cutie's resting face: their stage's own default expression, if it has one. */
+export function restingExpression(manifest: CutieManifest, stageId: string | undefined): string {
+  return manifest.stages?.find((s) => s.id === stageId)?.defaultExpression || manifest.defaultExpression
+}
+
+/** Day 1's date. A story saved without a valid one counts from the day it was made. */
+export function startDateOf(project: Project): string {
+  return isIsoDate(project.startDate) ? project.startDate : localDate(new Date(project.createdAt))
+}
+
 export function todayWords(project: Project, date: string): number {
   const rec = project.days[date]
   return rec ? Math.max(0, project.wordCount - rec.startWords) : 0
@@ -35,17 +45,21 @@ export function computeStats(project: Project, manifest: CutieManifest, now: Dat
   const totalPct = project.totalGoal > 0 ? (project.wordCount / project.totalGoal) * 100 : 0
   const dailyPct = project.dailyGoal > 0 ? (today / project.dailyGoal) * 100 : 0
 
+  // Day 1 is the start date; days before it are 0, -1, … so day-1 lines wait for day 1.
+  const start = startDateOf(project)
+  const sinceStart = daysBetween(start, date)
+
   // Missed: past project days (before today) with no words written.
-  const elapsed = Math.max(0, daysBetween(project.startDate, date))
+  const elapsed = Math.max(0, sinceStart)
   let missed = 0
   for (let i = 0; i < elapsed; i++) {
-    if (!wroteOn(project, addDays(project.startDate, i))) missed++
+    if (!wroteOn(project, addDays(start, i))) missed++
   }
 
   // Streak: consecutive writing days ending today, or yesterday if today is still blank.
   let streak = 0
   let cursor = wroteOn(project, date) ? date : addDays(date, -1)
-  while (daysBetween(project.startDate, cursor) >= 0 && wroteOn(project, cursor)) {
+  while (daysBetween(start, cursor) >= 0 && wroteOn(project, cursor)) {
     streak++
     cursor = addDays(cursor, -1)
   }
@@ -53,7 +67,7 @@ export function computeStats(project: Project, manifest: CutieManifest, now: Dat
   // Days away: blank days between the last writing day and today.
   let daysAway = 0
   cursor = addDays(date, -1)
-  while (daysBetween(project.startDate, cursor) >= 0 && !wroteOn(project, cursor)) {
+  while (daysBetween(start, cursor) >= 0 && !wroteOn(project, cursor)) {
     daysAway++
     cursor = addDays(cursor, -1)
   }
@@ -64,7 +78,7 @@ export function computeStats(project: Project, manifest: CutieManifest, now: Dat
     monthDay: monthDay(now),
     weekday: now.getDay(),
     hour: now.getHours(),
-    day: elapsed + 1,
+    day: sinceStart + 1,
     timeSlot: timeSlotAt(now, manifest.timeSlots),
     stage: stageFor(totalPct, manifest.stages),
     totalWords: project.wordCount,

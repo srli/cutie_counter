@@ -2,6 +2,7 @@ import { checkAll } from './conditions'
 import { computeStats } from './progress'
 import { weightedPick, type Rng } from './rng'
 import { fillTemplate } from './text'
+import { daysBetween, slotAt } from './time'
 import type {
   Beat, Choice, EngineEvent, FlagEffect, Line, Pack, Project, Scene, Stats, TriggerType,
 } from './types'
@@ -91,11 +92,18 @@ function dayEvents(stats: Stats): EngineEvent[] {
   return events
 }
 
-function slotEvent(project: Project, stats: Stats): EngineEvent | null {
-  const key = `${stats.date}|${stats.timeSlot}`
+function slotEvent(project: Project, stats: Stats, pack: Pack): EngineEvent | null {
+  // Slots after midnight belong to the night before, so writing past 00:00 doesn't start
+  // `midnight` over, and day 18's 2 a.m. line plays after day 18's 11 p.m. one.
+  const slot = slotAt(stats.now, pack.manifest.timeSlots)
+  const key = `${slot.date}|${slot.id}`
   if (project.lastSlot === key) return null
   project.lastSlot = key
-  return { type: 'time_slot', value: stats.timeSlot }
+  // Count the days the writer was here at this time of day, e.g. `visits_morning`, for conditions.
+  const visits = `visits_${slot.id}`
+  project.flags[visits] = Number(project.flags[visits] ?? 0) + 1
+  const day = stats.day - daysBetween(slot.date, stats.date)
+  return { type: 'time_slot', value: slot.id, ...(day !== stats.day && { day }) }
 }
 
 function stageEvent(project: Project, stats: Stats): EngineEvent | null {
@@ -208,25 +216,28 @@ function followUps(fromId: string, project: Project, stats: Stats, pack: Pack, r
 }
 
 function resolve(events: EngineEvent[], project: Project, stats: Stats, pack: Pack, rng: Rng): Scene[] {
-  const picks: Beat[] = []
+  // An event from the night before (a 2 a.m. time slot) is judged as that day: `day` conditions, `{day}`.
+  const statsFor = (ev: EngineEvent): Stats => (ev.day === undefined ? stats : { ...stats, day: ev.day })
+  const picks: { beat: Beat; stats: Stats }[] = []
   for (const ev of events) {
-    const beat = selectBeat(ev, pack, project, stats, rng)
-    if (beat && !picks.includes(beat)) picks.push(beat)
+    const s = statsFor(ev)
+    const beat = selectBeat(ev, pack, project, s, rng)
+    if (beat && !picks.some((p) => p.beat === beat)) picks.push({ beat, stats: s })
   }
 
   if (!picks.length) {
     const ev = events.find((e) => PLACEHOLDER_EVENTS.includes(e.type))
     if (!ev) return []
-    return [{ beatId: `placeholder:${ev.type}:${ev.value}`, lines: [{ text: placeholderText(ev, stats, pack) }], placeholder: true }]
+    return [{ beatId: `placeholder:${ev.type}:${ev.value}`, lines: [{ text: placeholderText(ev, statsFor(ev), pack) }], placeholder: true }]
   }
 
   // Stable sort keeps event order among equal priorities.
-  picks.sort((a, b) => (b.priority ?? 0) - (a.priority ?? 0))
+  picks.sort((a, b) => (b.beat.priority ?? 0) - (a.beat.priority ?? 0))
   const scenes: Scene[] = []
-  for (const beat of picks.slice(0, MAX_SCENES_PER_STEP)) {
-    const scene = playBeat(beat, project, stats, pack, rng)
+  for (const { beat, stats: s } of picks.slice(0, MAX_SCENES_PER_STEP)) {
+    const scene = playBeat(beat, project, s, pack, rng)
     scenes.push(scene)
-    if (!scene.choices?.length) scenes.push(...followUps(beat.id, project, stats, pack, rng))
+    if (!scene.choices?.length) scenes.push(...followUps(beat.id, project, s, pack, rng))
   }
   return scenes
 }
@@ -237,8 +248,11 @@ function resolve(events: EngineEvent[], project: Project, stats: Stats, pack: Pa
 export function step(prev: Project, input: Input, pack: Pack, now: Date, rng: Rng): StepResult {
   const project: Project = structuredClone(prev)
   let stats = computeStats(project, pack.manifest, now)
-  const newDay = ensureDay(project, stats.date)
+  // Random chatter and idle nudges can run with nobody watching, so they never start a new day.
+  // The first open, clock tick, typing or choice of the day does, and gets the new-day events.
+  const newDay = input.kind !== 'ambient' && input.kind !== 'idle' && ensureDay(project, stats.date)
   if (newDay) stats = computeStats(project, pack.manifest, now)
+  const startOfDay = newDay ? dayEvents(stats) : []
 
   const events: EngineEvent[] = []
   const push = (e: EngineEvent | null) => { if (e) events.push(e) }
@@ -247,17 +261,18 @@ export function step(prev: Project, input: Input, pack: Pack, now: Date, rng: Rn
     case 'open':
       events.push({ type: 'session_start' })
       // Coming back the same day gets its own event, so the cutie always has something to say.
-      events.push(...(newDay ? dayEvents(stats) : [{ type: 'reopen' as const }]))
-      push(slotEvent(project, stats))
+      events.push(...(newDay ? startOfDay : [{ type: 'reopen' as const }]))
+      push(slotEvent(project, stats, pack))
       push(stageEvent(project, stats))
       break
 
     case 'tick':
-      if (newDay) events.push(...dayEvents(stats))
-      push(slotEvent(project, stats))
+      events.push(...startOfDay)
+      push(slotEvent(project, stats, pack))
       break
 
     case 'words': {
+      events.push(...startOfDay)
       project.wordCount = Math.max(0, input.count)
       project.days[stats.date].endWords = project.wordCount
       stats = computeStats(project, pack.manifest, now)
@@ -282,7 +297,7 @@ export function step(prev: Project, input: Input, pack: Pack, now: Date, rng: Rn
     case 'choice': {
       const beat = pack.script.beats.find((b) => b.id === input.beatId)
       const choice = beat?.choices?.find((c) => c.id === input.choiceId)
-      if (!beat || !choice) break
+      if (!beat || !choice) { events.push(...startOfDay); break }
       applyEffects(project, choice.effects)
       project.flags[`choice:${beat.id}`] = choice.id
       const scenes: Scene[] = []
@@ -290,8 +305,9 @@ export function step(prev: Project, input: Input, pack: Pack, now: Date, rng: Rn
         scenes.push({ beatId: `${beat.id}/${choice.id}`, lines: fill(choice.lines, project, stats, pack) })
       }
       scenes.push(...followUps(`${beat.id}/${choice.id}`, project, stats, pack, rng))
+      scenes.push(...resolve(startOfDay, project, stats, pack, rng))
       project.updatedAt = now.getTime()
-      return { project, scenes, events: [{ type: 'after', value: `${beat.id}/${choice.id}` }] }
+      return { project, scenes, events: [{ type: 'after', value: `${beat.id}/${choice.id}` }, ...startOfDay] }
     }
   }
 

@@ -1,7 +1,7 @@
 import { newProject, step, type Input, type StepResult } from '../engine/director'
 import { stageFor } from '../engine/progress'
 import { seededRng } from '../engine/rng'
-import { addDays, localDate } from '../engine/time'
+import { addDays, daysBetween, localDate, slotAt } from '../engine/time'
 import type { FlagValue, Pack, Project } from '../engine/types'
 
 /** The "what if" knobs in the Studio preview. */
@@ -31,13 +31,14 @@ export function defaultSim(): SimSettings {
 export function simProject(pack: Pack, s: SimSettings): { project: Project; now: Date } {
   const now = new Date(s.when)
   const today = localDate(now)
-  const startDate = addDays(today, -(Math.max(1, s.day) - 1))
+  // "Day 18 at 2 a.m." means day 18's night, as scripts are written, so day 18 began the day before.
+  const startDate = addDays(slotAt(now, pack.manifest.timeSlots).date, -(Math.max(1, s.day) - 1))
   const project = newProject({
     id: 'preview', title: 'Preview', playerName: s.playerName, cutieId: pack.manifest.id,
     totalGoal: s.totalGoal, dailyGoal: s.dailyGoal, now, startDate,
   })
   const before = Math.max(0, s.totalWords - s.todayWords)
-  const pastDays = s.day - 1
+  const pastDays = daysBetween(startDate, today)
   const perDay = pastDays > 0 ? before / pastDays : 0
   let running = 0
   for (let i = 0; i < pastDays; i++) {

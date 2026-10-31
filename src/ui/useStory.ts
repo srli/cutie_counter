@@ -1,14 +1,16 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { idleThresholds, step, type Input } from '../engine/director'
-import { computeStats } from '../engine/progress'
+import { computeStats, restingExpression } from '../engine/progress'
 import { weightedPick } from '../engine/rng'
 import type { Line, Pack, Project, Scene } from '../engine/types'
-import { saveProject } from '../store'
+import { getProject, saveProjectIfUnchanged } from '../store'
 import { playClip, playPop } from './sound'
 
 const TICK_MS = 30_000
 const SAVE_DEBOUNCE_MS = 400
 const WORDS_DEBOUNCE_MS = 300
+/** No mouse, keys or touches for this long means the writer has stepped away. */
+const AWAY_MS = 10 * 60_000
 
 const realNow = () => new Date()
 
@@ -18,6 +20,9 @@ interface Display {
 }
 
 export type SaveState = 'saved' | 'saving'
+
+/** Reads the editor. Serializing a whole novel is slow, so this only runs once typing pauses. */
+export type ReadDoc = () => { doc: string; words: number }
 
 /**
  * Runs the story for one open project: feeds inputs to the engine, queues the
@@ -30,36 +35,62 @@ export function useStory(initial: Project, pack: Pack, now: () => Date = realNow
   const [display, setDisplay] = useState<Display | null>(null)
   const queueRef = useRef<Scene[]>([])
   const [, bump] = useState(0) // re-render when the queue changes
-  const [expression, setExpression] = useState(pack.manifest.defaultExpression)
+  const [expression, setExpression] = useState(() => restingExpression(pack.manifest, initial.stage))
   const [bgOverride, setBgOverride] = useState<string | null>(null)
   const [cg, setCg] = useState<string | null>(null)
   const [clock, setClock] = useState(now)
 
   // ------------------------------------------------------------ saving
+  // A save only lands if no other tab or window saved this story since our last one. If one did,
+  // this copy is stale: it stops saving rather than overwrite newer writing.
   const saveTimer = useRef<number>(undefined)
   const dirty = useRef(0) // bumps on every change; a save only clears the version it wrote
+  const rev = useRef(initial.rev ?? 0)
+  const saving = useRef<Promise<void>>(Promise.resolve()) // saves run one at a time
   const [saveState, setSaveState] = useState<SaveState>('saved')
-  const flush = useCallback(async () => {
-    window.clearTimeout(saveTimer.current)
-    const version = dirty.current
-    await saveProject(projectRef.current)
-    if (dirty.current === version) setSaveState('saved')
+  const staleRef = useRef(false)
+  const [stale, setStale] = useState(false)
+  const goStale = useCallback(() => {
+    staleRef.current = true
+    setStale(true)
   }, [])
+  const save = useCallback(() => {
+    window.clearTimeout(saveTimer.current)
+    saving.current = saving.current.then(async () => {
+      if (staleRef.current) return
+      const version = dirty.current
+      const next = await saveProjectIfUnchanged(projectRef.current, rev.current)
+      if (next === null) return goStale()
+      rev.current = next
+      if (dirty.current === version) setSaveState('saved')
+    }).catch((e) => console.error('Could not save the story', e))
+    return saving.current
+  }, [goStale])
+  /** Has another tab saved since we did? Checked when this one comes back into view. */
+  const checkElsewhere = useCallback(() => {
+    saving.current = saving.current.then(async () => {
+      if (staleRef.current) return
+      const stored = await getProject(initial.id)
+      if ((stored?.rev ?? 0) !== rev.current) goStale()
+    }).catch((e) => console.error('Could not check the story', e))
+    return saving.current
+  }, [initial.id, goStale])
+
+  const flushRef = useRef<() => Promise<void>>(save) // set to `flush` below
   const markDirty = useCallback(() => {
     dirty.current++
     setSaveState('saving')
     window.clearTimeout(saveTimer.current)
-    saveTimer.current = window.setTimeout(() => void flush(), SAVE_DEBOUNCE_MS)
-  }, [flush])
+    saveTimer.current = window.setTimeout(() => void flushRef.current(), SAVE_DEBOUNCE_MS)
+  }, [])
   const commit = useCallback((p: Project) => {
     projectRef.current = p
     setProject(p)
     markDirty()
   }, [markDirty])
 
-  const leaveRef = useRef<() => Promise<void>>(flush) // set to `leave` below
   useEffect(() => {
-    const save = () => void leaveRef.current()
+    const save = () => void flushRef.current()
     const onHide = () => { if (document.visibilityState === 'hidden') save() }
     window.addEventListener('pagehide', save)
     document.addEventListener('visibilitychange', onHide)
@@ -68,7 +99,7 @@ export function useStory(initial: Project, pack: Pack, now: () => Date = realNow
       window.removeEventListener('pagehide', save)
       document.removeEventListener('visibilitychange', onHide)
     }
-  }, [flush])
+  }, [])
 
   // ------------------------------------------------------------ dialogue queue
   // Display lives in a ref so queue updates stay synchronous and side-effect free.
@@ -93,10 +124,12 @@ export function useStory(initial: Project, pack: Pack, now: () => Date = realNow
   }, [setShown])
 
   const run = useCallback((input: Input, front = false) => {
+    if (staleRef.current) return
     const r = step(projectRef.current, input, pack, now(), rng)
+    // A clock tick or chatter roll where nothing happened has nothing worth saving.
+    if (!r.events.length && (input.kind === 'tick' || input.kind === 'ambient')) return
     commit(r.project)
     enqueue(r.scenes, front)
-    return r
   }, [pack, now, rng, commit, enqueue])
 
   /** Next line, or next scene. Does nothing while choices are waiting. */
@@ -149,17 +182,45 @@ export function useStory(initial: Project, pack: Pack, now: () => Date = realNow
     run({ kind: 'open' })
   }, [run])
 
+  // Time-of-day greetings and new-day events are for a writer who is here, not a tab left open
+  // overnight: the clock only moves the story while the page is in view and someone is using it.
+  const lastActive = useRef(Date.now())
+  const present = useCallback(
+    () => document.visibilityState === 'visible' && Date.now() - lastActive.current < AWAY_MS, [])
+
   // Clock: new day, new time slot.
-  const lastSlot = useRef<string>('')
+  const tick = useCallback(() => {
+    setClock(now())
+    if (present()) run({ kind: 'tick' })
+  }, [now, present, run])
   useEffect(() => {
-    const id = window.setInterval(() => {
-      setClock(now())
-      run({ kind: 'tick' })
-    }, TICK_MS)
+    const id = window.setInterval(tick, TICK_MS)
     return () => window.clearInterval(id)
-  }, [run, now])
+  }, [tick])
+
+  // Back at the desk, or back on this tab: catch up on the clock now, not at the next tick.
+  useEffect(() => {
+    const onActivity = () => {
+      const wasAway = !present()
+      lastActive.current = Date.now()
+      if (wasAway) tick()
+    }
+    const onVisible = () => {
+      if (document.visibilityState !== 'visible') return
+      lastActive.current = Date.now()
+      void checkElsewhere().then(tick)
+    }
+    const kinds = ['pointerdown', 'pointermove', 'keydown', 'input', 'wheel', 'touchstart'] as const
+    for (const k of kinds) window.addEventListener(k, onActivity, { passive: true })
+    document.addEventListener('visibilitychange', onVisible)
+    return () => {
+      for (const k of kinds) window.removeEventListener(k, onActivity)
+      document.removeEventListener('visibilitychange', onVisible)
+    }
+  }, [present, tick, checkElsewhere])
 
   const stats = computeStats(project, pack.manifest, clock)
+  const lastSlot = useRef<string>('')
   useEffect(() => {
     if (lastSlot.current && lastSlot.current !== stats.timeSlot) setBgOverride(null)
     lastSlot.current = stats.timeSlot
@@ -169,35 +230,37 @@ export function useStory(initial: Project, pack: Pack, now: () => Date = realNow
   const lastTyped = useRef(Date.now())
   const idleFired = useRef<number[]>([])
   const wordsTimer = useRef<number>(undefined)
-  const pendingWords = useRef<number | null>(null)
+  const pendingRead = useRef<ReadDoc | null>(null)
   const countWordsNow = useCallback(() => {
     window.clearTimeout(wordsTimer.current)
-    if (pendingWords.current === null) return
-    const count = pendingWords.current
-    pendingWords.current = null
-    run({ kind: 'words', count })
+    const read = pendingRead.current
+    if (!read) return
+    pendingRead.current = null
+    const { doc, words } = read()
+    projectRef.current = { ...projectRef.current, doc }
+    run({ kind: 'words', count: words })
   }, [run])
-  const onEdit = useCallback((doc: string, words: number) => {
+  const onEdit = useCallback((read: ReadDoc) => {
     lastTyped.current = Date.now()
     idleFired.current = []
-    projectRef.current = { ...projectRef.current, doc }
+    pendingRead.current = read
     markDirty()
-    pendingWords.current = words
     window.clearTimeout(wordsTimer.current)
     wordsTimer.current = window.setTimeout(countWordsNow, WORDS_DEBOUNCE_MS)
   }, [markDirty, countWordsNow])
 
-  /** Count any last words and finish saving before leaving the page. */
-  const leave = useCallback(async () => {
+  /** Count any last words and finish saving, e.g. before leaving the page. */
+  const flush = useCallback(async () => {
     countWordsNow()
-    await flush()
-  }, [countWordsNow, flush])
-  leaveRef.current = leave
+    await save()
+  }, [countWordsNow, save])
+  flushRef.current = flush
 
   const idleList = useMemo(() => idleThresholds(pack), [pack])
   useEffect(() => {
     if (!idleList.length) return
     const id = window.setInterval(() => {
+      if (document.visibilityState !== 'visible') return
       const minutes = (Date.now() - lastTyped.current) / 60_000
       const due = idleList.filter((m) => minutes >= m && !idleFired.current.includes(m)).pop()
       if (due === undefined) return
@@ -207,25 +270,29 @@ export function useStory(initial: Project, pack: Pack, now: () => Date = realNow
     return () => window.clearInterval(id)
   }, [idleList, run])
 
-  // Ambient chatter, only when nothing is waiting to be read.
+  // Ambient chatter, only when nothing is waiting to be read and someone is here to read it.
   const quiet = (!display || (atEnd && !choices)) && queueRef.current.length === 0
   const quietRef = useRef(quiet)
   quietRef.current = quiet
   useEffect(() => {
     const ambient = pack.manifest.ambient
     if (!ambient || ambient.everyMinutes <= 0) return
-    const id = window.setInterval(() => { if (quietRef.current) run({ kind: 'ambient' }) }, ambient.everyMinutes * 60_000)
+    const id = window.setInterval(() => { if (quietRef.current && present()) run({ kind: 'ambient' }) }, ambient.everyMinutes * 60_000)
     return () => window.clearInterval(id)
-  }, [pack, run])
+  }, [pack, run, present])
 
-  // Idle fidgets: small pose changes while nothing is happening.
+  // Idle fidgets: small pose changes while nothing is happening. The cutie's usual face
+  // follows their affinity stage (a stage's own default expression), so they warm up over the month.
   useEffect(() => {
     const idle = pack.manifest.idle
     if (!idle?.expressions.length || idle.everySeconds <= 0) return
     const id = window.setInterval(() => {
       if (!quietRef.current) return
       const pick = weightedPick(idle.expressions, (e) => e.weight, rng)
-      if (pick) setExpression(pick.expression)
+      if (!pick) return
+      setExpression(pick.expression === pack.manifest.defaultExpression
+        ? restingExpression(pack.manifest, projectRef.current.stage)
+        : pick.expression)
     }, idle.everySeconds * 1000)
     return () => window.clearInterval(id)
   }, [pack, rng])
@@ -249,7 +316,8 @@ export function useStory(initial: Project, pack: Pack, now: () => Date = realNow
     choose,
     onEdit,
     flush,
-    leave,
+    leave: flush,
     saveState,
+    stale,
   }
 }

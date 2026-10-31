@@ -50,6 +50,8 @@ function WriteScreen({ initial, pack, go }: { initial: Project; pack: Pack; go: 
   useEffect(() => onMutedChange(setMutedState), [])
   const editorRef = useRef<TipTap | null>(null)
   const onReady = useCallback((e: TipTap) => { editorRef.current = e }, [])
+  // A copy that stopped saving shouldn't take typing it can't keep.
+  useEffect(() => { if (story.stale) editorRef.current?.setEditable(false) }, [story.stale])
 
   const exportText = (kind: 'md' | 'txt') => {
     const ed = editorRef.current
@@ -99,6 +101,17 @@ function WriteScreen({ initial, pack, go }: { initial: Project; pack: Pack; go: 
         <Editor initial={initial.doc} onChange={story.onEdit} onReady={onReady} />
       </main>
       {gallery && <Gallery pack={pack} project={story.project} onClose={() => setGallery(false)} />}
+      {story.stale && (
+        <div className="modal-backdrop">
+          <div className="modal" role="alertdialog" aria-labelledby="stale-title">
+            <h2 className="title" id="stale-title">Open somewhere else</h2>
+            <p className="hint">This story was saved from another tab or window, so this copy stopped saving to keep your newest words safe.</p>
+            <div className="modal-actions">
+              <button className="pill primary" onClick={() => window.location.reload()}>Load the latest</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

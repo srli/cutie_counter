@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import type { Packs } from '../App'
+import { restingExpression } from '../engine/progress'
 import type { Project } from '../engine/types'
 import { imageUrl } from '../pack/load'
 import { getLastProjectId, getProject } from '../store'
@@ -42,7 +43,7 @@ export function Menu({ packs, go, reloadPacks }: Props) {
         </nav>
         {last && <p className="menu-hint">Last story: <b>{last.title}</b></p>}
       </div>
-      {peek && <img className="menu-peek" src={imageUrl(peek, 'expression', peek.manifest.defaultExpression)} alt="" />}
+      {peek && <img className="menu-peek" src={imageUrl(peek, 'expression', restingExpression(peek.manifest, last?.stage))} alt="" />}
       {loadingCutie && <LoadCutie onClose={() => setLoadingCutie(false)} onLoaded={() => void reloadPacks()} />}
     </div>
   )

@@ -1,4 +1,4 @@
-import { del, get, keys, set } from 'idb-keyval'
+import { del, get, keys, set, update } from 'idb-keyval'
 import type { Pack, Project } from './engine/types'
 import type { Issue } from './pack/validate'
 import { loadPackBytes } from './pack/load'
@@ -17,6 +17,31 @@ export async function listProjects(): Promise<Project[]> {
 
 export const getProject = (id: string) => get<Project>(PROJECT + id)
 export const saveProject = (p: Project) => set(PROJECT + p.id, p)
+
+class SavedElsewhere extends Error {}
+
+/**
+ * Save an open story, but only if no other tab or window saved it since revision `rev`.
+ * Returns the new revision, or null (and writes nothing) if this copy is out of date.
+ */
+export async function saveProjectIfUnchanged(p: Project, rev: number): Promise<number | null> {
+  try {
+    // Read and write in one transaction, so two tabs can't both pass the check.
+    await update<Project>(PROJECT + p.id, (stored) => {
+      if ((stored?.rev ?? 0) !== rev) throw new SavedElsewhere()
+      return { ...p, rev: rev + 1 }
+    })
+    return rev + 1
+  } catch (e) {
+    if (e instanceof SavedElsewhere) return null
+    throw e
+  }
+}
+
+/** Replace a story from a backup. Its new revision makes any tab that has it open stop saving. */
+export async function restoreProject(p: Project) {
+  await update<Project>(PROJECT + p.id, (stored) => ({ ...p, rev: Math.max(stored?.rev ?? 0, p.rev ?? 0) + 1 }))
+}
 export const deleteProject = (id: string) => del(PROJECT + id)
 export const getLastProjectId = () => get<string>(LAST)
 export const setLastProjectId = (id: string) => set(LAST, id)

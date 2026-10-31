@@ -22,6 +22,12 @@ interface Props {
 
 const reducedMotion = () => window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
 
+/** "Day 3", or a countdown before the story's first day. */
+function dayLabel(day: number): string {
+  if (day >= 1) return `Day ${day}`
+  return day === 0 ? 'Day 1 is tomorrow' : `Day 1 in ${1 - day} days`
+}
+
 /** Reveal text a few characters at a time. Click finishes it early. */
 function useTypewriter(text: string): [string, boolean, () => void] {
   const [n, setN] = useState(0)
@@ -67,7 +73,7 @@ export function CutiePane(p: Props) {
         <Meter label="Today" value={stats.todayWords} goal={project.dailyGoal} />
         <Meter label="Total" value={stats.totalWords} goal={project.totalGoal} accent />
         <div className="hud-chips">
-          <span className="chip">Day {stats.day}</span>
+          <span className="chip">{dayLabel(stats.day)}</span>
           {stage && <span className="chip heart-chip">♥ {stage.name}</span>}
           {stats.streak > 1 && <span className="chip">🔥 {stats.streak}</span>}
         </div>

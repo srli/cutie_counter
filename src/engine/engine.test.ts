@@ -5,7 +5,7 @@ import { loadPackBytes } from '../pack/load'
 import { newProject, step, type Input } from './director'
 import { computeStats } from './progress'
 import { seededRng } from './rng'
-import { timeSlotAt } from './time'
+import { slotAt, timeSlotAt } from './time'
 import type { Beat, Pack, Project } from './types'
 
 const at = (iso: string) => new Date(iso) // local time, no Z
@@ -33,16 +33,18 @@ function project(over: Partial<Project> = {}): Project {
   }
 }
 
-/** Run inputs in order, returning the final project and the text of every scene shown. */
+/** Run inputs in order, returning the final project and the text and beat ids of every scene shown. */
 function run(p: Project, pack: Pack, inputs: [Input, string][]) {
   const rng = seededRng(1)
   const texts: string[][] = []
+  const ids: string[][] = []
   for (const [input, when] of inputs) {
     const r = step(p, input, pack, at(when), rng)
     p = r.project
     texts.push(r.scenes.flatMap((s) => s.lines.map((l) => l.text)))
+    ids.push(r.scenes.map((s) => s.beatId))
   }
-  return { p, texts }
+  return { p, texts, ids }
 }
 
 describe('time', () => {
@@ -52,6 +54,13 @@ describe('time', () => {
     expect(timeSlotAt(at('2026-11-01T23:30'))).toBe('midnight')
     expect(timeSlotAt(at('2026-11-01T00:30'))).toBe('midnight')
     expect(timeSlotAt(at('2026-11-01T03:00'))).toBe('ultra_late')
+  })
+
+  it('counts night slots as part of the day they follow', () => {
+    expect(slotAt(at('2026-11-18T23:30'))).toEqual({ id: 'midnight', date: '2026-11-18' })
+    expect(slotAt(at('2026-11-19T00:30'))).toEqual({ id: 'midnight', date: '2026-11-18' })
+    expect(slotAt(at('2026-11-19T04:59'))).toEqual({ id: 'ultra_late', date: '2026-11-18' })
+    expect(slotAt(at('2026-11-19T05:00'))).toEqual({ id: 'morning', date: '2026-11-19' })
   })
 })
 
@@ -73,6 +82,14 @@ describe('stats', () => {
     expect(s.daysAway).toBe(1)
     const s2 = computeStats(p, makePack([]).manifest, at('2026-11-06T10:00'))
     expect(s2.streak).toBe(2)
+  })
+
+  it('counts days before the start as 0, -1… and survives a missing start date', () => {
+    const m = makePack([]).manifest
+    expect(computeStats(project(), m, at('2026-10-31T10:00')).day).toBe(0)
+    expect(computeStats(project(), m, at('2026-10-20T10:00')).day).toBe(-11)
+    // A cleared date field used to save "", which made every day "Day NaN".
+    expect(computeStats(project({ startDate: '' }), m, at('2026-11-03T10:00')).day).toBe(3)
   })
 })
 
@@ -208,15 +225,105 @@ describe('director', () => {
     expect(texts[1]).toEqual(expect.arrayContaining(['closer', '520']))
     expect(texts[3]).toEqual([])
   })
+
+  it("waits for day 1 before playing day 1's lines", () => {
+    const pack = makePack([
+      { id: 'd1', trigger: { type: 'time_slot', value: 'morning' }, when: [{ var: 'day', op: '==', value: 1 }], lines: [{ text: 'day one' }] },
+    ])
+    const { texts } = run(project(), pack, [
+      [{ kind: 'open' }, '2026-10-31T09:00'], // story set up the day before it starts
+      [{ kind: 'open' }, '2026-11-01T09:00'],
+    ])
+    expect(texts).toEqual([['[PLACEHOLDER day 0 · morning]'], ['day one']])
+  })
+
+  it('keeps new-day events for the first real visit when chatter, idling or typing came first', () => {
+    const pack = makePack([
+      { id: 'new', trigger: { type: 'day_start', value: 2 }, lines: [{ text: 'day two!' }] },
+      { id: 'r', trigger: { type: 'random' }, lines: [{ text: 'chatter' }] },
+      { id: 'wb', trigger: { type: 'reopen' }, lines: [{ text: 'back again?' }] },
+    ], { ambient: { everyMinutes: 1, chance: 1 } })
+    const { texts } = run(project(), pack, [
+      [{ kind: 'open' }, '2026-11-01T09:00'],
+      [{ kind: 'ambient' }, '2026-11-02T09:00'],
+      [{ kind: 'idle', minutes: 5 }, '2026-11-02T09:01'],
+      [{ kind: 'open' }, '2026-11-02T09:02'],
+    ])
+    expect(texts[1]).toEqual(['chatter'])
+    expect(texts[3]).toContain('day two!')
+    expect(texts[3]).not.toContain('back again?')
+    const typed = run(project(), pack, [
+      [{ kind: 'open' }, '2026-11-01T09:00'],
+      [{ kind: 'words', count: 10 }, '2026-11-02T09:00'],
+    ])
+    expect(typed.texts[1]).toContain('day two!')
+  })
+
+  it("plays a night's lines as part of the day they follow, once across midnight", () => {
+    const pack = makePack([
+      { id: 'd1-mid', trigger: { type: 'time_slot', value: 'midnight' }, when: [{ var: 'day', op: '==', value: 1 }], lines: [{ text: 'late on day {day}' }] },
+      { id: 'd2-mid', trigger: { type: 'time_slot', value: 'midnight' }, when: [{ var: 'day', op: '==', value: 2 }], lines: [{ text: 'a night too early' }] },
+      { id: 'd1-ul', trigger: { type: 'time_slot', value: 'ultra_late' }, when: [{ var: 'day', op: '==', value: 1 }], lines: [{ text: 'still up?' }] },
+    ])
+    const { texts } = run(project(), pack, [
+      [{ kind: 'open' }, '2026-11-01T23:30'],
+      [{ kind: 'tick' }, '2026-11-02T00:00'], // same night: no second midnight greeting
+      [{ kind: 'tick' }, '2026-11-02T02:00'],
+      [{ kind: 'tick' }, '2026-11-02T05:00'],
+    ])
+    expect(texts).toEqual([['late on day 1'], [], ['still up?'], ['[PLACEHOLDER day 2 · morning]']])
+    // Arriving after midnight is still day 1's night.
+    const owl = run(project(), pack, [[{ kind: 'open' }, '2026-11-02T00:30']])
+    expect(owl.texts[0]).toEqual(['late on day 1'])
+  })
+
+  it('counts the days the writer was here at each time of day, line or no line', () => {
+    const pack = makePack([
+      { id: 'usual', trigger: { type: 'time_slot', value: 'morning' }, when: [{ var: 'flag:visits_morning', op: '>', value: 2 }], lines: [{ text: 'as usual' }] },
+    ])
+    const { p, texts } = run(project(), pack, [
+      [{ kind: 'open' }, '2026-11-01T07:00'],
+      [{ kind: 'open' }, '2026-11-01T08:00'], // same morning, not another visit
+      [{ kind: 'open' }, '2026-11-02T07:00'],
+      [{ kind: 'open' }, '2026-11-03T07:00'],
+    ])
+    expect(p.flags.visits_morning).toBe(3)
+    expect(texts[3]).toEqual(['as usual'])
+  })
 })
 
 describe('ryder pack', () => {
+  const zip = readFileSync(join(import.meta.dirname, '../../public/packs/ryder.cutie'))
+  const { pack, issues } = loadPackBytes(new Uint8Array(zip), () => 'blob:')
+  const ryder = pack!
+  const opens = (dates: string[]): [Input, string][] => dates.map((d) => [{ kind: 'open' }, d])
+
   it('builds, validates and plays day 1', () => {
-    const zip = readFileSync(join(import.meta.dirname, '../../public/packs/ryder.cutie'))
-    const { pack, issues } = loadPackBytes(new Uint8Array(zip), () => 'blob:')
     expect(issues.filter((i) => i.level === 'error')).toEqual([])
-    const { texts } = run(project({ cutieId: 'ryder' }), pack!, [[{ kind: 'open' }, '2026-11-01T07:00']])
+    const { texts } = run(project({ cutieId: 'ryder' }), ryder, [[{ kind: 'open' }, '2026-11-01T07:00']])
     expect(texts[0][0]).toBe('You intend to finish a novel this month?')
     expect(texts[0]).toContain("Good morning. And so begins the first day of the month in which you'll complete your story. Feeling excited?")
+  })
+
+  it('says "up early as usual" on day 12 to a writer who came every morning', () => {
+    const mornings = Array.from({ length: 12 }, (_, i) => `2026-11-${String(i + 1).padStart(2, '0')}T07:00`)
+    const { ids } = run(project({ cutieId: 'ryder' }), ryder, opens(mornings))
+    expect(ids[11]).toContain('d12-morning-yes')
+  })
+
+  it('asks about "last night" on day 19 only after the writer was up in the small hours before it', () => {
+    const kickoffOnly = run(project({ cutieId: 'ryder' }), ryder, opens(['2026-11-01T02:30', '2026-11-19T08:00']))
+    expect(kickoffOnly.ids[1]).not.toContain('d19-morning-yes')
+    const upLate = run(project({ cutieId: 'ryder' }), ryder, [
+      [{ kind: 'open' }, '2026-11-19T02:30'],
+      [{ kind: 'tick' }, '2026-11-19T05:00'],
+    ])
+    expect(upLate.ids[0]).toContain('d18-ultra_late')
+    expect(upLate.ids[1]).toEqual(['d19-morning', 'd19-morning-yes'])
+  })
+
+  it("marks the last day on day 30 of the writer's month, not only on November 30", () => {
+    const { ids } = run(project({ cutieId: 'ryder', startDate: '2027-03-01' }), ryder, opens(['2027-03-30T09:00']))
+    expect(ids[0]).toContain('last-day')
   })
 })

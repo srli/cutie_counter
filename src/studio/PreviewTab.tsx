@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { step, type Input } from '../engine/director'
-import { computeStats } from '../engine/progress'
+import { computeStats, restingExpression, stageFor } from '../engine/progress'
 import { seededRng } from '../engine/rng'
 import { TRIGGER_TYPES, type Beat, type EngineEvent, type Pack, type Project, type Scene, type TriggerType } from '../engine/types'
 import { CutiePane } from '../ui/CutiePane'
@@ -59,13 +59,15 @@ export function PreviewTab({ pack, beat, onClearBeat, onOpenBeat }: Props) {
   const atEnd = !!scene && pos.line >= scene.lines.length - 1
   const choices = atEnd ? scene?.choices : undefined
   const expression = useMemo(() => {
-    if (!run || !pack) return pack?.manifest.defaultExpression ?? ''
-    let e = pack.manifest.defaultExpression
-    run.scenes.forEach((s, si) => s.lines.forEach((l, li) => {
+    if (!pack) return ''
+    // Start from the face the writer would see at rest at this stage, like the real app.
+    const stage = run?.project.stage ?? stageFor((sim.totalWords / sim.totalGoal) * 100, pack.manifest.stages)
+    let e = restingExpression(pack.manifest, stage)
+    run?.scenes.forEach((s, si) => s.lines.forEach((l, li) => {
       if (l.expression && (si < pos.scene || (si === pos.scene && li <= pos.line))) e = l.expression
     }))
     return e
-  }, [run, pos, pack])
+  }, [run, pos, pack, sim])
 
   if (!pack) return <p className="shint empty-editor">Fix the problems listed at the top first, then the preview can run.</p>
 
@@ -98,7 +100,7 @@ export function PreviewTab({ pack, beat, onClearBeat, onOpenBeat }: Props) {
           <h3>Pretend it's…</h3>
           <div className="sgrid">
             <Field label="Date & time"><input type="datetime-local" value={sim.when} onChange={(e) => set({ when: e.target.value })} /></Field>
-            <Field label="Project day"><Num value={sim.day} min={1} onChange={(v) => set({ day: v ?? 1 })} /></Field>
+            <Field label="Project day" hint="Before morning, it's this day's night"><Num value={sim.day} min={1} onChange={(v) => set({ day: v ?? 1 })} /></Field>
             <Field label="Words today"><Num value={sim.todayWords} min={0} onChange={(v) => set({ todayWords: v ?? 0, totalWords: Math.max(sim.totalWords, v ?? 0) })} /></Field>
             <Field label="Total words"><Num value={sim.totalWords} min={0} onChange={(v) => set({ totalWords: Math.max(v ?? 0, sim.todayWords) })} /></Field>
             <Field label="Days away" hint="Blank days just before today"><Num value={sim.daysAway} min={0} onChange={(v) => set({ daysAway: v ?? 0 })} /></Field>
