@@ -9,6 +9,7 @@ import type { UpdateDraft } from './Studio'
 
 export const TRIGGER_LABELS: Record<TriggerType, string> = {
   session_start: 'Story is opened',
+  reopen: 'Story is reopened the same day',
   day_start: 'A new day starts',
   time_slot: 'Time of day begins',
   daily_pct: "Today's goal reaches %",
@@ -31,7 +32,7 @@ const VAR_LABELS: Record<string, string> = {
   flag: 'Flag…', seen: 'Has seen beat…',
 }
 
-const NO_VALUE: TriggerType[] = ['session_start', 'random']
+const NO_VALUE: TriggerType[] = ['session_start', 'reopen', 'random']
 const NUMERIC: TriggerType[] = ['day_start', 'daily_pct', 'total_pct', 'words_today', 'words_total', 'words_every', 'streak', 'idle']
 
 function parseValue(raw: string): string | number | boolean {

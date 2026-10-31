@@ -179,9 +179,15 @@ code { background: var(--line); padding: 0 4px; border-radius: 4px; }
 .textbox-text.thought { font-style: italic; color: var(--ink-soft); }
 .textbox.placeholder { border-top-color: #e9b14e; }
 .textbox.placeholder .textbox-text { font-family: ui-monospace, monospace; font-size: 0.95rem; color: #9a6a12; }
-.more { position: absolute; right: 14px; bottom: 6px; color: var(--accent); animation: bob 1s infinite ease-in-out; }
+.more {
+  position: absolute; right: 12px; bottom: 10px; font-family: 'Poetsen'; font-size: 0.85rem; color: #fff;
+  background: var(--accent); padding: 3px 12px; border-radius: 999px; box-shadow: 0 2px 8px rgba(91, 61, 120, 0.3);
+  animation: bob 1s infinite ease-in-out;
+}
+.textbox.has-more { animation: glow 1.6s infinite ease-in-out; }
+@keyframes glow { 50% { box-shadow: 0 4px 18px rgba(60, 30, 80, 0.2), 0 0 0 3px color-mix(in srgb, var(--accent) 45%, transparent); } }
 @keyframes bob { 50% { transform: translateY(3px); } }
-@media (prefers-reduced-motion: reduce) { .more { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .more, .textbox.has-more { animation: none; } }
 
 .choices { position: absolute; left: 0; right: 0; bottom: 190px; z-index: 7; display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 0 16px; }
 .choice-prompt { font-family: 'Sansita'; background: rgba(255, 255, 255, 0.9); padding: 4px 12px; border-radius: 999px; font-size: 0.95rem; }

@@ -59,6 +59,7 @@ export interface CutieManifest {
 
 export type TriggerType =
   | 'session_start' // app opened on this project
+  | 'reopen' // app opened again later the same day
   | 'day_start' // first open on a new calendar day; value = project day number
   | 'time_slot' // entered a time slot; value = slot id
   | 'daily_pct' // today's words crossed value% of the daily goal
@@ -74,7 +75,7 @@ export type TriggerType =
   | 'after' // follow-up; value = beat id or `beatId/choiceId`
 
 export const TRIGGER_TYPES: readonly TriggerType[] = [
-  'session_start', 'day_start', 'time_slot', 'daily_pct', 'total_pct',
+  'session_start', 'reopen', 'day_start', 'time_slot', 'daily_pct', 'total_pct',
   'words_today', 'words_total', 'words_every', 'date', 'stage', 'streak',
   'idle', 'random', 'after',
 ]
