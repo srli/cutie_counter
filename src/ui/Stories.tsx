@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import type { Packs } from '../App'
 import type { Project } from '../engine/types'
 import { imageUrl } from '../pack/load'
-import { deleteProject, listProjects, saveProject, setLastProjectId } from '../store'
+import { deleteProject, listProjects, restoreProject, setLastProjectId } from '../store'
 import { download, fmt, pickFile, slug } from './files'
 
 interface Props {
@@ -27,7 +27,7 @@ export function Stories({ packs, go }: Props) {
       const data = JSON.parse(await file.text())
       const p = data?.project as Project | undefined
       if (data?.kind !== 'cutie-counter-story' || !p?.id) throw new Error('not a story backup')
-      await saveProject(p)
+      await restoreProject(p)
       setError('')
       refresh()
     } catch {

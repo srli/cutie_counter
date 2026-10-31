@@ -91,6 +91,13 @@ This app is visual. **Always look at what you changed before saying it's done.**
 
 - Every beat `id` is unique. Use readable ids: `d8-morning`, `total-50`, `stage-close`, `ambient-friend`.
 - Day-specific beats use a condition `{ "var": "day", "op": "==", "value": 8 }`, not a special trigger.
+- A day runs from its first time slot (`morning`) through its night: `d18-midnight` and `d18-ultra_late` play on the
+  night *after* day 18's evening, at 2 a.m. on the 19th. So "were you here last night?" on day 19 is
+  `{ "var": "seen:d18-ultra_late", "op": "==", "value": true }`, and that beat must exist (a placeholder is fine).
+- `seen:` needs an exact beat id. Check it exists; a typo silently makes the condition false forever.
+- Count visits with the built-in `flag:visits_<slot>` (e.g. `visits_morning`), not hand-kept flags: it counts days the
+  writer was here even when that slot had no line.
+- "Last day" moments use `day_start` with value `30`, not a `date`: stories don't all start on November 1.
 - Use `{player}` for the player's name. Don't hard-code names.
 - Mark unwritten moments with `[PLACEHOLDER what goes here]`. They show in amber while testing, and the Studio's
   Coverage tab counts them. Never delete a placeholder without writing the real line.

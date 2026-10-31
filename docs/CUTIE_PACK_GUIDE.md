@@ -93,7 +93,8 @@ If something is wrong, the app lists each problem in plain words, for example:
 | Field | What it does |
 |---|---|
 | `id` | Short name, lowercase, no spaces. A pack with the same id replaces the old one. |
-| `stages` | Affinity levels. As total words grow past `minTotalPct`% of the goal, the cutie moves up a stage. |
+| `timeSlots` | Times of day. **The first one in the list starts the day.** Slots after midnight but before it (`midnight`, `ultra_late`) belong to the night before, so day 18's 2 a.m. line plays after day 18's 11 p.m. line, and writing past midnight doesn't start `midnight` over. |
+| `stages` | Affinity levels. As total words grow past `minTotalPct`% of the goal, the cutie moves up a stage. A stage's `defaultExpression` becomes their resting face (idle fidgets use it in place of the main `defaultExpression`). |
 | `milestones` | Percentages that always "fire". If you haven't written a line for one, a `[PLACEHOLDER …]` shows instead, so you can see what's missing. |
 | `ambient` | Every N minutes, a `chance` (0 to 1) of random chatter. |
 | `idle` | Every N seconds with nothing happening, swap to a random expression (weights = odds). |
@@ -125,14 +126,14 @@ The script is a list of **beats**. A beat says: *when this happens, and these th
 |---|---|---|
 | `session_start` | – | the story is opened |
 | `reopen` | – | the story is opened again later the same day ("welcome back") |
-| `day_start` | day number | the first open on a new day |
-| `time_slot` | slot id | entering a time of day (`morning`, `evening`…) |
+| `day_start` | day number | the first visit on a new day. `30` is the last day of a 30-day month, whatever the date |
+| `time_slot` | slot id | a time of day (`morning`, `evening`…) begins while the writer is here, or they arrive during it |
 | `daily_pct` | e.g. `50` | today's words pass 50% of the daily goal |
 | `total_pct` | e.g. `50` | total words pass 50% of the whole goal |
 | `words_today` | e.g. `500` | today's words pass 500 |
 | `words_total` | e.g. `10000` | total words pass 10,000 |
 | `words_every` | e.g. `1000` | every 1,000 words |
-| `date` | `"10-31"` | a calendar date (month-day) |
+| `date` | `"10-31"` | a calendar date (month-day). For "the last day" use `day_start` `30`: stories can start any day |
 | `stage` | stage id | moving up to that stage |
 | `streak` | e.g. `7` | a 7-day writing streak |
 | `idle` | minutes | no typing for that long |
@@ -147,7 +148,7 @@ Every condition must be true. Each is `{ "var": …, "op": …, "value": … }`.
 
 | `var` | Meaning |
 |---|---|
-| `day` | project day (1 = first day) |
+| `day` | project day (1 = first day, 0 = the day before). Night time slots count as the day they follow |
 | `date` | today as `"MM-DD"` |
 | `weekday` | 0 = Sunday … 6 = Saturday |
 | `hour` | 0–23 |
@@ -159,6 +160,7 @@ Every condition must be true. Each is `{ "var": …, "op": …, "value": … }`.
 | `daysAway` | blank days right before today |
 | `streak` | writing days in a row |
 | `flag:anything` | a flag set by a choice or beat |
+| `flag:visits_morning` | built in: how many days the writer has been here in the morning, today included. One per time slot: `visits_evening`, `visits_ultra_late`… |
 | `seen:beat-id` | `true` if that beat has played |
 | `chance` | random: `{ "var": "chance", "op": "<", "value": 0.3 }` is a 30% roll |
 

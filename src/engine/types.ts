@@ -211,6 +211,8 @@ export interface Project {
   /** Last time slot an event was fired for, as `date|slot`. */
   lastSlot?: string
   stage?: string
+  /** Bumped on every save, so a stale tab can tell it would overwrite newer writing. */
+  rev?: number
   createdAt: number
   updatedAt: number
 }
@@ -218,6 +220,8 @@ export interface Project {
 export interface EngineEvent {
   type: TriggerType
   value?: string | number
+  /** Project day the event belongs to, when it isn't today's: a 2 a.m. time slot belongs to the night before. */
+  day?: number
 }
 
 /** Everything a condition or template can read, derived from project + clock. */
@@ -227,6 +231,7 @@ export interface Stats {
   monthDay: string
   weekday: number
   hour: number
+  /** Project day: 1 on the start date, 0 the day before, -1 the day before that. */
   day: number
   timeSlot: string
   stage: string

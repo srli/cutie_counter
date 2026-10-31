@@ -1,16 +1,19 @@
 import Placeholder from '@tiptap/extension-placeholder'
 import { EditorContent, useEditor, type Editor as TipTap } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { countWords } from '../engine/progress'
+import type { ReadDoc } from './useStory'
 
 interface Props {
   initial: string
-  onChange: (html: string, words: number) => void
+  /** Called on every edit. Reading the whole novel is slow, so the caller reads once typing pauses. */
+  onChange: (read: ReadDoc) => void
   onReady?: (editor: TipTap) => void
 }
 
 export function Editor({ initial, onChange, onReady }: Props) {
+  const last = useRef({ doc: initial, words: 0 })
   const editor = useEditor({
     extensions: [
       StarterKit.configure({ heading: { levels: [1, 2, 3] }, codeBlock: false, code: false }),
@@ -18,7 +21,12 @@ export function Editor({ initial, onChange, onReady }: Props) {
     ],
     content: initial,
     autofocus: 'end',
-    onUpdate: ({ editor }) => onChange(editor.getHTML(), countWords(editor.getText({ blockSeparator: '\n' }))),
+    onCreate: ({ editor }) => { last.current = { doc: editor.getHTML(), words: countWords(editor.getText({ blockSeparator: '\n' })) } },
+    onUpdate: ({ editor }) => onChange(() => {
+      // An editor that's already gone reads as empty; keep the last text read rather than lose the story.
+      if (!editor.isDestroyed) last.current = { doc: editor.getHTML(), words: countWords(editor.getText({ blockSeparator: '\n' })) }
+      return last.current
+    }),
   })
 
   useEffect(() => { if (editor) onReady?.(editor) }, [editor, onReady])

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import type { Packs } from '../App'
 import { newProject } from '../engine/director'
 import { DEFAULT_TOTAL_GOAL, defaultDailyGoal } from '../engine/progress'
-import { localDate } from '../engine/time'
+import { isIsoDate, localDate } from '../engine/time'
 import { imageUrl } from '../pack/load'
 import { saveProject, setLastProjectId } from '../store'
 import { fmt } from './files'
@@ -34,7 +34,7 @@ export function Setup({ packs, go, reloadPacks }: Props) {
 
   const daily = dailyGoal ?? defaultDailyGoal(totalGoal)
   const shown = packs[hovered ?? cutieId]?.pack
-  const ready = player.trim() && totalGoal > 0 && daily > 0 && packs[cutieId]
+  const ready = player.trim() && totalGoal > 0 && daily > 0 && isIsoDate(startDate) && packs[cutieId]
 
   async function start() {
     if (!ready) return
@@ -111,6 +111,7 @@ export function Setup({ packs, go, reloadPacks }: Props) {
 
       <button className="confirm" disabled={!ready} onClick={start}>Let's Start!</button>
       {!player.trim() && <p className="hint">Add your name to begin.</p>}
+      {player.trim() && !isIsoDate(startDate) && <p className="hint">Pick the date of Day 1 to begin.</p>}
 
       {loadingCutie && <LoadCutie onClose={() => setLoadingCutie(false)} onLoaded={() => void reloadPacks()} />}
     </div>
