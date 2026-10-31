@@ -136,8 +136,10 @@ export function validatePack(manifestRaw: unknown, scriptRaw: unknown, files: Pa
   // `after` triggers must point at something real.
   for (const beat of beats) {
     if (beat?.trigger?.type !== 'after' || beat.trigger.value === undefined) continue
-    const target = String(beat.trigger.value).split('/')[0]
-    if (!ids.has(target)) err(`Beat ${beat.id}`, `Follows "${beat.trigger.value}", but no beat has id "${target}".`)
+    for (const alt of String(beat.trigger.value).split('|')) {
+      const target = alt.split('/')[0]
+      if (!ids.has(target)) err(`Beat ${beat.id}`, `Follows "${alt}", but no beat has id "${target}".`)
+    }
   }
 
   return issues

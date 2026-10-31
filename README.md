@@ -26,6 +26,8 @@ npx tsx scripts/make-icons.ts   # rebuild app icons from the logo
 
 Cuties are `.cutie` pack files: art plus a script, no code. See [docs/CUTIE_PACK_GUIDE.md](docs/CUTIE_PACK_GUIDE.md).
 Built-in packs live in `content/<id>/` and are packed by `npm run packs`.
+Dialogue is written in a spreadsheet: see [docs/SPREADSHEET_FORMAT.md](docs/SPREADSHEET_FORMAT.md).
+After editing `content/cutie-scripts.xlsx`, run `npm run sheet` to refresh the built-in scripts.
 
 ## How it fits together
 
@@ -39,7 +41,7 @@ src/ui/        React screens; useStory.ts wires the engine to timers and the edi
 src/studio/    Cutie Studio (lazy-loaded): drafts, coverage grid, preview simulator
 src/store.ts   IndexedDB storage for stories and loaded packs
 content/       built-in cutie packs (source)
-legacy/        the v1 dialogue files (converted by scripts/convert-legacy.ts)
+legacy/        the v1 dialogue files, kept for reference (content/ryder/script.json is the source now)
 ```
 
 ## Deploy

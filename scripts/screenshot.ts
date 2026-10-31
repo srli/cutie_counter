@@ -168,7 +168,7 @@ const scenarios: Record<string, (b: Browser, base: string) => Promise<void>> = {
     await page.getByRole('tab', { name: 'Coverage' }).click()
     await shot(page, 'studio-coverage')
     // Empty cell -> new beat, opened in the editor.
-    await page.locator('.cov-table tbody tr').nth(2).locator('button.cov-cell.missing').first().click()
+    await page.locator('.cov-table button.cov-cell.missing').first().click()
     await page.locator('.beat-editor textarea').first().fill('Day three already? Look at you go, {player}.')
     await shot(page, 'studio-new-from-grid')
     await page.getByRole('tab', { name: 'Preview' }).click()
@@ -224,6 +224,41 @@ const scenarios: Record<string, (b: Browser, base: string) => Promise<void>> = {
     await page.goto(`${base}?pack=packs/ryder.cutie#/`)
     await page.getByRole('button', { name: 'Add Ryder' }).waitFor()
     await shot(page, 'share-link')
+    await ctx.close()
+  },
+
+  async sheet(browser, base) {
+    const ctx = await browser.newContext({ viewport: { width: 1360, height: 860 } })
+    const page = await ctx.newPage()
+    page.on('pageerror', (e) => console.error('  page error:', e.message))
+    await page.goto(`${base}#/studio`)
+    await page.getByRole('button', { name: 'Copy Ryder' }).click()
+    await page.locator('.studio-tabs').waitFor()
+    await shot(page, 'studio-header')
+    await page.getByRole('button', { name: 'Import spreadsheet' }).click()
+    const [chooser] = await Promise.all([page.waitForEvent('filechooser'), page.getByRole('button', { name: 'Choose .xlsx…' }).click()])
+    await chooser.setFiles(join(root, 'content/cutie-scripts.xlsx'))
+    await page.locator('.import-summary').waitFor()
+    await shot(page, 'sheet-import-report')
+    await page.getByRole('button', { name: 'Apply' }).click()
+    // Play the 25% cutscene in the preview.
+    await page.getByRole('tab', { name: 'Preview' }).click()
+    await page.locator('.sfield', { hasText: 'Something happens' }).locator('select').selectOption('total_pct')
+    await page.locator('.sfield', { hasText: 'Which one' }).locator('input').fill('25')
+    await page.getByRole('button', { name: '▶ Play' }).click()
+    for (let i = 0; i < 40 && !(await page.locator('.choice').count()); i++) {
+      await page.locator('.textbox').click()
+      await page.waitForTimeout(250)
+    }
+    await page.waitForTimeout(1500)
+    await shot(page, 'scene-choices')
+    await page.locator('.choice').nth(1).click()
+    for (let i = 0; i < 20 && !(await page.locator('.textbox-text.narration').count()); i++) {
+      await page.locator('.textbox').click()
+      await page.waitForTimeout(250)
+    }
+    await page.waitForTimeout(1500)
+    await shot(page, 'scene-narration')
     await ctx.close()
   },
 

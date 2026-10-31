@@ -6,7 +6,11 @@ type Value = string | number | boolean | undefined
 /** Read a condition variable from stats and project state. */
 export function readVar(name: Condition['var'], stats: Stats, project: Project): Value {
   if (name.startsWith('flag:')) return project.flags[name.slice(5)] as FlagValue | undefined
-  if (name.startsWith('seen:')) return (project.beatLog[name.slice(5)]?.count ?? 0) > 0
+  if (name.startsWith('seen:')) {
+    // `seen:d18-ultra_late` also counts its branches (`d18-ultra_late-if`, `-else`, …).
+    const id = name.slice(5)
+    return Object.entries(project.beatLog).some(([k, v]) => (k === id || k.startsWith(`${id}-`)) && v.count > 0)
+  }
   switch (name) {
     case 'day': return stats.day
     case 'date': return stats.monthDay

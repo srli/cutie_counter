@@ -58,7 +58,9 @@ src/engine/              pure TypeScript, no UI. The rules of the game.
 src/pack/                load.ts (unzip + image URLs), validate.ts (friendly error messages)
 src/ui/                  the writer's screens. useStory.ts wires the engine to timers and the editor.
 src/studio/              Cutie Studio (the in-app pack editor). Lazy-loaded.
-scripts/                 build-packs.ts, screenshot.ts, convert-legacy.ts, make-icons.ts
+src/sheet/               spreadsheet <-> script (xlsx read/write, cell markup, tabs). See docs/SPREADSHEET_FORMAT.md
+content/cutie-scripts.xlsx  the shared workbook: Ryder, Ember, Template. Source of built-in dialogue.
+scripts/                 build-packs.ts, screenshot.ts, make-icons.ts, import-sheet.ts (npm run sheet)
 docs/CUTIE_PACK_GUIDE.md the pack format, for humans
 legacy/                  v1 dialogue files, kept for reference only
 ```
@@ -89,6 +91,8 @@ This app is visual. **Always look at what you changed before saying it's done.**
 
 ## Content rules
 
+- Built-in dialogue comes from `content/cutie-scripts.xlsx` (see `docs/SPREADSHEET_FORMAT.md`). Edit the workbook,
+  then run `npm run sheet`; don't hand-edit `content/<id>/script.json` for cuties that have tabs there.
 - Every beat `id` is unique. Use readable ids: `d8-morning`, `total-50`, `stage-close`, `ambient-friend`.
 - Day-specific beats use a condition `{ "var": "day", "op": "==", "value": 8 }`, not a special trigger.
 - A day runs from its first time slot (`morning`) through its night: `d18-midnight` and `d18-ultra_late` play on the

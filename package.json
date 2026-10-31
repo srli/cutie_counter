@@ -16,7 +16,8 @@
     "pretest": "npm run packs",
     "test": "vitest run",
     "typecheck": "tsc -b",
-    "shots": "tsx scripts/screenshot.ts"
+    "shots": "tsx scripts/screenshot.ts",
+    "sheet": "tsx scripts/import-sheet.ts"
   },
   "dependencies": {
     "@tiptap/extension-placeholder": "^3.32.2",

@@ -177,6 +177,7 @@ code { background: var(--line); padding: 0 4px; border-radius: 4px; }
 }
 .textbox-text { font-family: 'Sansita', sans-serif; font-size: 1.15rem; line-height: 1.45; color: #3f3249; }
 .textbox-text.thought { font-style: italic; color: var(--ink-soft); }
+.textbox-text.narration { font-style: italic; color: var(--ink-soft); font-family: 'Iowan Old Style', Georgia, serif; }
 .textbox.placeholder { border-top-color: #e9b14e; }
 .textbox.placeholder .textbox-text { font-family: ui-monospace, monospace; font-size: 0.95rem; color: #9a6a12; }
 .more {

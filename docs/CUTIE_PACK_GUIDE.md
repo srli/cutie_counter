@@ -19,6 +19,11 @@ and it saves in your browser as you go.
 **Try it** adds your cutie to the picker in this browser. **Export .cutie** downloads the file to share.
 Start from scratch with **+ New cutie**, or **Copy Ryder** to see a full example.
 
+## Writing the script in a spreadsheet
+
+Most of the dialogue can be written in Google Sheets and imported in one go.
+See [SPREADSHEET_FORMAT.md](SPREADSHEET_FORMAT.md) and the shared workbook `content/cutie-scripts.xlsx`.
+
 ## Sharing a cutie with a link
 
 Put the `.cutie` file somewhere public that allows downloads from other sites (for example a GitHub repo or a gist,

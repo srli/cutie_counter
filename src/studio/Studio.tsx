@@ -12,6 +12,7 @@ import {
 } from './draft'
 import { cleanName } from './fields'
 import { PreviewTab } from './PreviewTab'
+import { downloadSheet, SheetImport } from './SheetImport'
 import { ProfileTab } from './ProfileTab'
 import './studio.css'
 
@@ -147,6 +148,7 @@ function StudioEditor({ draftId, packs, go, reloadPacks }: Props & { draftId: st
   const [previewBeat, setPreviewBeat] = useState<Beat | null>(null)
   const [notice, setNotice] = useState('')
   const [showIssues, setShowIssues] = useState(false)
+  const [sheetOpen, setSheetOpen] = useState(false)
   const urlCache = useRef(new Map<Uint8Array, string>())
 
   useEffect(() => { void getDraft(draftId).then((d) => setDraft(d ?? null)) }, [draftId])
@@ -200,6 +202,8 @@ function StudioEditor({ draftId, packs, go, reloadPacks }: Props & { draftId: st
         <button className={`status-badge ${errors.length ? 'bad' : warnings.length ? 'warn' : 'good'}`} onClick={() => setShowIssues((s) => !s)}>
           {errors.length ? `✗ ${errors.length} to fix` : warnings.length ? `! ${warnings.length} notes` : '✓ Ready'}
         </button>
+        <button className="pill" onClick={() => setSheetOpen(true)}>Import spreadsheet</button>
+        <button className="pill" onClick={() => downloadSheet(draft)}>Download spreadsheet</button>
         <button className="pill" onClick={tryIt}>Try it</button>
         <button className="pill primary" onClick={() => download(`${draft.manifest.id}.cutie`, draftToBytes(draft) as BlobPart, 'application/zip')}>Export .cutie</button>
       </header>
@@ -229,6 +233,7 @@ function StudioEditor({ draftId, packs, go, reloadPacks }: Props & { draftId: st
         {tab === 'coverage' && <CoverageTab draft={draft} update={update} onOpenBeat={openBeat} />}
         {tab === 'preview' && <PreviewTab pack={result.pack} beat={previewBeat} onClearBeat={() => setPreviewBeat(null)} onOpenBeat={openBeat} />}
       </div>
+      {sheetOpen && <SheetImport draft={draft} update={update} onClose={() => setSheetOpen(false)} />}
     </div>
   )
 }

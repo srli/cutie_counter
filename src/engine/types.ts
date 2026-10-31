@@ -112,7 +112,7 @@ export interface Line {
   sound?: string
   /** `thought` renders as an aside, e.g. muttering to oneself. */
   style?: 'speech' | 'thought'
-  /** Who is talking. Defaults to the cutie; `player` uses the player's name. */
+  /** Who is talking. Defaults to the cutie; `player` uses the player's name; `narrator` has no name box. */
   speaker?: string
 }
 
