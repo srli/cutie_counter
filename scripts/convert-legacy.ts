@@ -168,6 +168,15 @@ beats.push(
   },
   { id: 'date-halloween', trigger: { type: 'date', value: '10-31' }, priority: 5, lines: ph('Halloween eve · day before the month starts', 'smile') },
   { id: 'date-last-day', trigger: { type: 'date', value: '11-30' }, priority: 5, lines: ph('last day of the month', 'serious') },
+  {
+    id: 'welcome-back', trigger: { type: 'reopen' }, repeat: 'always',
+    variants: [
+      [{ text: 'Back again, {player}? Good. Pick up where you left off.', expression: 'smile' }],
+      [{ text: "Oh, it's you. {todayWords} words so far today. Let's add a few more.", expression: 'neutral' }],
+      ph('welcome back C', 'glad'),
+    ],
+    note: 'Draft lines; replace with your own. Plays when the story is reopened on the same day.',
+  },
   { id: 'streak-7', trigger: { type: 'streak', value: 7 }, lines: ph('7 day streak', 'happy') },
   {
     id: 'back-after-missing', trigger: { type: 'day_start' },

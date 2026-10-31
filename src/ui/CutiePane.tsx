@@ -82,13 +82,13 @@ export function CutiePane(p: Props) {
         </div>
       )}
 
-      <div className={`textbox ${placeholder ? 'placeholder' : ''}`} onClick={onBox} role="button" tabIndex={0}
+      <div className={`textbox ${placeholder ? 'placeholder' : ''} ${done && p.pending > 0 && !p.choices ? 'has-more' : ''}`} onClick={onBox} role="button" tabIndex={0}
         onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onBox() } }}>
         <div className="textbox-name">{speaker}</div>
         <div className={`textbox-text ${thought ? 'thought' : ''}`}>
           {thought && shown ? `(${shown}${done ? ')' : ''}` : shown}
         </div>
-        {done && p.pending > 0 && !p.choices && <span className="more" aria-label="More">▾</span>}
+        {done && p.pending > 0 && !p.choices && <span className="more">click for more ▸</span>}
       </div>
 
       {p.cg && (

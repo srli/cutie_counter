@@ -26,7 +26,7 @@ export const MAX_SCENES_PER_STEP = 3
 const MAX_FOLLOW_UPS = 5
 
 /** Events that should show a placeholder when the script has nothing for them. */
-const PLACEHOLDER_EVENTS: TriggerType[] = ['time_slot', 'daily_pct', 'total_pct', 'stage']
+const PLACEHOLDER_EVENTS: TriggerType[] = ['reopen', 'time_slot', 'daily_pct', 'total_pct', 'stage']
 
 // ---------------------------------------------------------------- thresholds
 
@@ -161,6 +161,7 @@ function placeholderText(ev: EngineEvent, stats: Stats, pack: Pack): string {
   const stageName = pack.manifest.stages?.find((s) => s.id === stats.stage)?.name ?? stats.stage
   switch (ev.type) {
     case 'time_slot': return `[PLACEHOLDER day ${stats.day} · ${ev.value}]`
+    case 'reopen': return `[PLACEHOLDER welcome back · day ${stats.day} · ${stats.timeSlot}]`
     case 'daily_pct': return `[PLACEHOLDER daily ${ev.value}% · day ${stats.day}]`
     case 'total_pct': return `[PLACEHOLDER total ${ev.value}% · ${stageName || 'any stage'}]`
     case 'stage': return `[PLACEHOLDER entering ${stageName}]`
@@ -245,7 +246,8 @@ export function step(prev: Project, input: Input, pack: Pack, now: Date, rng: Rn
   switch (input.kind) {
     case 'open':
       events.push({ type: 'session_start' })
-      if (newDay) events.push(...dayEvents(stats))
+      // Coming back the same day gets its own event, so the cutie always has something to say.
+      events.push(...(newDay ? dayEvents(stats) : [{ type: 'reopen' as const }]))
       push(slotEvent(project, stats))
       push(stageEvent(project, stats))
       break

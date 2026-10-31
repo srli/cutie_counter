@@ -136,6 +136,25 @@ describe('director', () => {
     expect(texts[2]).toEqual(['date!', 'morning two']) // higher priority first
   })
 
+  it('says something when the story is reopened the same day', () => {
+    const pack = makePack([
+      { id: 'm', trigger: { type: 'time_slot', value: 'morning' }, lines: [{ text: 'morning' }] },
+      { id: 'wb', trigger: { type: 'reopen' }, lines: [{ text: 'welcome back' }] },
+    ])
+    const { texts } = run(project(), pack, [
+      [{ kind: 'open' }, '2026-11-01T08:00'],
+      [{ kind: 'open' }, '2026-11-01T09:00'],
+      [{ kind: 'open' }, '2026-11-02T08:00'],
+    ])
+    expect(texts).toEqual([['morning'], ['welcome back'], ['morning']])
+    // With nothing written for it, a reopen shows a placeholder instead of a blank box.
+    const empty = run(project(), makePack([]), [
+      [{ kind: 'open' }, '2026-11-01T08:00'],
+      [{ kind: 'open' }, '2026-11-01T09:00'],
+    ])
+    expect(empty.texts[1]).toEqual(['[PLACEHOLDER welcome back · day 1 · morning]'])
+  })
+
   it('handles repeat, cooldown and weighted variants', () => {
     const pack = makePack([
       { id: 'r', trigger: { type: 'random' }, cooldownMinutes: 30, variants: [[{ text: 'A' }], [{ text: 'B' }]] },

@@ -124,6 +124,7 @@ The script is a list of **beats**. A beat says: *when this happens, and these th
 | `type` | `value` | Happens when… |
 |---|---|---|
 | `session_start` | – | the story is opened |
+| `reopen` | – | the story is opened again later the same day ("welcome back") |
 | `day_start` | day number | the first open on a new day |
 | `time_slot` | slot id | entering a time of day (`morning`, `evening`…) |
 | `daily_pct` | e.g. `50` | today's words pass 50% of the daily goal |
