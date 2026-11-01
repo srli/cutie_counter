@@ -4,6 +4,7 @@ import { computeStats, restingExpression, stageFor } from '../engine/progress'
 import { seededRng } from '../engine/rng'
 import { TRIGGER_TYPES, type Beat, type EngineEvent, type Pack, type Project, type Scene, type TriggerType } from '../engine/types'
 import { CutiePane } from '../ui/CutiePane'
+import { ScenePane } from '../ui/ScenePane'
 import { TRIGGER_LABELS } from './BeatsTab'
 import { Field, Num, Select, Text } from './fields'
 import { defaultSim, simulate, type SimSettings } from './simulate'
@@ -58,6 +59,18 @@ export function PreviewTab({ pack, beat, onClearBeat, onOpenBeat }: Props) {
   const line = scene?.lines[pos.line] ?? (pos.scene > 0 ? run?.scenes[pos.scene - 1]?.lines.at(-1) : undefined)
   const atEnd = !!scene && pos.line >= scene.lines.length - 1
   const choices = atEnd ? scene?.choices : undefined
+  // In a full-screen scene a picture stays up until another picture, or "none".
+  const sceneCg = useMemo(() => {
+    let cg: string | null = null
+    run?.scenes.forEach((s, si) => s.lines.forEach((l, li) => {
+      if (si > pos.scene || (si === pos.scene && li > pos.line)) return
+      if (s.display !== 'scene') cg = null
+      else if (l.cg === 'none') cg = null
+      else if (l.cg) cg = l.cg
+    }))
+    return cg
+  }, [run, pos])
+
   const expression = useMemo(() => {
     if (!pack) return ''
     // Start from the face the writer would see at rest at this stage, like the real app.
@@ -156,12 +169,20 @@ export function PreviewTab({ pack, beat, onClearBeat, onOpenBeat }: Props) {
           </section>
         )}
       </aside>
-      <div className="preview-stage">
-        <CutiePane
-          pack={pack} project={project} stats={stats} line={line} prompt={scene?.prompt} choices={choices}
-          pending={pending} expression={expression} background={background} cg={null}
-          onAdvance={advance} onChoose={choose} onDismissCg={() => {}}
-        />
+      <div className={`preview-stage ${scene?.display === 'scene' ? 'wide' : ''}`}>
+        {scene?.display === 'scene'
+          ? <div className="preview-scene">
+              <ScenePane
+                pack={pack} project={project} line={line} prompt={scene.prompt} choices={choices}
+                pending={pending} expression={expression} background={background} cg={sceneCg}
+                onAdvance={advance} onChoose={choose} onClose={() => setRun(null)} onSkip={() => setRun(null)}
+              />
+            </div>
+          : <CutiePane
+              pack={pack} project={project} stats={stats} line={line} prompt={scene?.prompt} choices={choices}
+              pending={pending} expression={expression} background={background} cg={null}
+              onAdvance={advance} onChoose={choose} onDismissCg={() => {}}
+            />}
       </div>
     </div>
   )

@@ -82,7 +82,7 @@ export function validatePack(manifestRaw: unknown, scriptRaw: unknown, files: Pa
     if (line.background && !hasBg(line.background)) {
       err(where, `Background "${line.background}" needs images/bg_${line.background}.png.`)
     }
-    if (line.cg && !files.cgs.includes(line.cg)) err(where, `Reward art "${line.cg}" needs images/cg_${line.cg}.png.`)
+    if (line.cg && line.cg !== 'none' && !files.cgs.includes(line.cg)) err(where, `Reward art "${line.cg}" needs images/cg_${line.cg}.png.`)
     if (line.sound && !(files.sounds ?? []).includes(line.sound)) err(where, `Sound "${line.sound}" needs sounds/${line.sound}.mp3 (or .ogg/.wav).`)
   }
 

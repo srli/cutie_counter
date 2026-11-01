@@ -236,6 +236,10 @@ function BeatEditor({ beat, draft, onChange, onRename, onDuplicate, onDelete, on
 
       <section>
         <h3>How often</h3>
+        <label className="check">
+          <input type="checkbox" checked={beat.display === 'scene'} onChange={(e) => set({ display: e.target.checked ? 'scene' : undefined })} />
+          Play full screen, as a scene (covers the writing area until it ends)
+        </label>
         <div className="sgrid">
           <Field label="Repeat"><Select value={beat.repeat ?? 'always'} options={[
             { value: 'always', label: 'Every time' }, { value: 'daily', label: 'Once a day' }, { value: 'once', label: 'Only once ever' },
