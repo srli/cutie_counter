@@ -3327,13 +3327,6 @@
             {
               "text": "Is that so? I do, too! Thanks for answering, anyway. I'll keep it in mind."
             }
-          ],
-          "effects": [
-            {
-              "flag": "likes_chocolate",
-              "op": "set",
-              "value": true
-            }
           ]
         },
         {
@@ -3342,13 +3335,6 @@
           "lines": [
             {
               "text": "Really? I'll keep that in mind then..."
-            }
-          ],
-          "effects": [
-            {
-              "flag": "likes_chocolate",
-              "op": "set",
-              "value": false
             }
           ]
         }
@@ -3776,7 +3762,8 @@
           "text": "Yes, I do",
           "lines": [
             {
-              "text": "[PLACEHOLDER Ryder reacts: player heard the confession]"
+              "expression": "blushavert",
+              "text": "You... heard that? Then I won't take it back. I meant every word."
             }
           ]
         }
@@ -5619,7 +5606,7 @@
       "lines": [
         {
           "expression": "serious",
-          "text": "[PLACEHOLDER last day of the month]"
+          "text": "Last day, {player}. {wordsLeft} words to go. Whatever happens, I'm proud of you. Let's finish this together."
         }
       ]
     },

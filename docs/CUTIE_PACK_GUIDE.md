@@ -184,6 +184,7 @@ Every condition must be true. Each is `{ "var": …, "op": …, "value": … }`.
 | `prompt` | What the player says before choosing. |
 | `effects` | Change flags: `{ "flag": "fed", "op": "set", "value": true }` or `{ "flag": "visits", "op": "add", "value": 1 }`. |
 | `note` | A note to yourself. Never shown. |
+| `display` | `"scene"` plays it full screen over the writing area, like a cutscene. |
 
 ### Lines
 
@@ -192,7 +193,7 @@ Every condition must be true. Each is `{ "var": …, "op": …, "value": … }`.
 | `text` | What they say. Can use `{player}`, `{cutie}`, `{day}`, `{todayWords}`, `{totalWords}`, `{dailyGoal}`, `{wordsLeftToday}`, `{wordsLeft}`, `{streak}`, `{flag:name}`. |
 | `expression` | Switch to this expression. Lines without one keep the last. |
 | `background` | Switch background (name without `bg_`). |
-| `cg` | Show reward art behind this line (name without `cg_`). Seen pictures are kept in the story's **Gallery**. |
+| `cg` | Show reward art (name without `cg_`). In the textbox it shows for that line only; in a full-screen scene it stays until another `cg` or `"none"`. Seen pictures are kept in the story's **Gallery**. |
 | `sound` | Play a clip from `sounds/` (name without extension). |
 | `style` | `"thought"` shows the line in italics, in parentheses. |
 | `speaker` | Someone else talking. `"player"` uses the player's name. |

@@ -118,7 +118,8 @@ They have two kinds of parts:
 - Grid cells become beats with ids like `d8-morning`, `d8-morning-if`, `any-daily-100`, `total-25`, `intro`, `date-10-31`.
 - `[if]` branches share a trigger; earlier branches get higher priority, so the first true one plays. `Any` rows get priority −10.
 - "morning visits" reads the engine's built-in `visits_<slot>` counter (days the writer was here at that time).
-- Scenes become a chain: `scene`, `scene.1`, `scene.2.A` …, linked with `after` triggers. Later branch rows check
+- Scenes become a chain: `scene`, `scene.1`, `scene.2.A` …, linked with `after` triggers, all with `display: "scene"`
+  unless the `textbox` option is set. A line's `cg` stays up in scene mode until another `cg` or `"none"`. Later branch rows check
   `flag:choice:<beat>`; shared rows follow `branchA|branchB|previous`, so paths rejoin.
 - `src/sheet/`: `xlsx.ts` (read/write, no dependencies beyond fflate), `markup.ts` (cells), `workbook.ts` (tabs ⇄ beats).
   Export then import gives the same beats; `src/sheet/sheet.test.ts` checks this on Ryder.
