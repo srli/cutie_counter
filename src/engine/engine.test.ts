@@ -308,22 +308,22 @@ describe('ryder pack', () => {
   it('says "up early as usual" on day 12 to a writer who came every morning', () => {
     const mornings = Array.from({ length: 12 }, (_, i) => `2026-11-${String(i + 1).padStart(2, '0')}T07:00`)
     const { ids } = run(project({ cutieId: 'ryder' }), ryder, opens(mornings))
-    expect(ids[11]).toContain('d12-morning-yes')
+    expect(ids[11]).toContain('d12-morning-if')
   })
 
   it('asks about "last night" on day 19 only after the writer was up in the small hours before it', () => {
     const kickoffOnly = run(project({ cutieId: 'ryder' }), ryder, opens(['2026-11-01T02:30', '2026-11-19T08:00']))
-    expect(kickoffOnly.ids[1]).not.toContain('d19-morning-yes')
+    expect(kickoffOnly.ids[1]).not.toContain('d19-morning-if')
     const upLate = run(project({ cutieId: 'ryder' }), ryder, [
       [{ kind: 'open' }, '2026-11-19T02:30'],
       [{ kind: 'tick' }, '2026-11-19T05:00'],
     ])
     expect(upLate.ids[0]).toContain('d18-ultra_late')
-    expect(upLate.ids[1]).toEqual(['d19-morning', 'd19-morning-yes'])
+    expect(upLate.ids[1]).toEqual(['d19-morning-if'])
   })
 
   it("marks the last day on day 30 of the writer's month, not only on November 30", () => {
     const { ids } = run(project({ cutieId: 'ryder', startDate: '2027-03-01' }), ryder, opens(['2027-03-30T09:00']))
-    expect(ids[0]).toContain('last-day')
+    expect(ids[0]).toContain('day-30-start')
   })
 })

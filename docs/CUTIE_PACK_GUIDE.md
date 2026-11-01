@@ -19,6 +19,11 @@ and it saves in your browser as you go.
 **Try it** adds your cutie to the picker in this browser. **Export .cutie** downloads the file to share.
 Start from scratch with **+ New cutie**, or **Copy Ryder** to see a full example.
 
+## Writing the script in a spreadsheet
+
+Most of the dialogue can be written in Google Sheets and imported in one go.
+See [SPREADSHEET_FORMAT.md](SPREADSHEET_FORMAT.md) and the shared workbook `content/cutie-scripts.xlsx`.
+
 ## Sharing a cutie with a link
 
 Put the `.cutie` file somewhere public that allows downloads from other sites (for example a GitHub repo or a gist,
@@ -179,6 +184,7 @@ Every condition must be true. Each is `{ "var": …, "op": …, "value": … }`.
 | `prompt` | What the player says before choosing. |
 | `effects` | Change flags: `{ "flag": "fed", "op": "set", "value": true }` or `{ "flag": "visits", "op": "add", "value": 1 }`. |
 | `note` | A note to yourself. Never shown. |
+| `display` | `"scene"` plays it full screen over the writing area, like a cutscene. |
 
 ### Lines
 
@@ -187,7 +193,7 @@ Every condition must be true. Each is `{ "var": …, "op": …, "value": … }`.
 | `text` | What they say. Can use `{player}`, `{cutie}`, `{day}`, `{todayWords}`, `{totalWords}`, `{dailyGoal}`, `{wordsLeftToday}`, `{wordsLeft}`, `{streak}`, `{flag:name}`. |
 | `expression` | Switch to this expression. Lines without one keep the last. |
 | `background` | Switch background (name without `bg_`). |
-| `cg` | Show reward art behind this line (name without `cg_`). Seen pictures are kept in the story's **Gallery**. |
+| `cg` | Show reward art (name without `cg_`). In the textbox it shows for that line only; in a full-screen scene it stays until another `cg` or `"none"`. Seen pictures are kept in the story's **Gallery**. |
 | `sound` | Play a clip from `sounds/` (name without extension). |
 | `style` | `"thought"` shows the line in italics, in parentheses. |
 | `speaker` | Someone else talking. `"player"` uses the player's name. |

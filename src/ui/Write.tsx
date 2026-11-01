@@ -4,6 +4,7 @@ import type { Packs } from '../App'
 import type { Pack, Project } from '../engine/types'
 import { getProject, setLastProjectId } from '../store'
 import { CutiePane } from './CutiePane'
+import { ScenePane } from './ScenePane'
 import { Editor } from './Editor'
 import { download, slug } from './files'
 import { Gallery } from './Gallery'
@@ -99,6 +100,23 @@ function WriteScreen({ initial, pack, go }: { initial: Project; pack: Pack; go: 
           onDismissCg={story.dismissCg}
         />
         <Editor initial={initial.doc} onChange={story.onEdit} onReady={onReady} />
+        {story.inScene && (
+          <ScenePane
+            pack={pack}
+            project={story.project}
+            line={story.line}
+            prompt={story.scene?.prompt}
+            choices={story.choices}
+            pending={story.pending}
+            expression={story.expression}
+            background={story.background}
+            cg={story.cg}
+            onAdvance={story.advance}
+            onChoose={story.choose}
+            onClose={story.endScene}
+            onSkip={story.skipScene}
+          />
+        )}
       </main>
       {gallery && <Gallery pack={pack} project={story.project} onClose={() => setGallery(false)} />}
       {story.stale && (

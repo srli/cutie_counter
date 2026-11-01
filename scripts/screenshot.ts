@@ -168,7 +168,7 @@ const scenarios: Record<string, (b: Browser, base: string) => Promise<void>> = {
     await page.getByRole('tab', { name: 'Coverage' }).click()
     await shot(page, 'studio-coverage')
     // Empty cell -> new beat, opened in the editor.
-    await page.locator('.cov-table tbody tr').nth(2).locator('button.cov-cell.missing').first().click()
+    await page.locator('.cov-table button.cov-cell.missing').first().click()
     await page.locator('.beat-editor textarea').first().fill('Day three already? Look at you go, {player}.')
     await shot(page, 'studio-new-from-grid')
     await page.getByRole('tab', { name: 'Preview' }).click()
@@ -224,6 +224,126 @@ const scenarios: Record<string, (b: Browser, base: string) => Promise<void>> = {
     await page.goto(`${base}?pack=packs/ryder.cutie#/`)
     await page.getByRole('button', { name: 'Add Ryder' }).waitFor()
     await shot(page, 'share-link')
+    await ctx.close()
+  },
+
+  async sheet(browser, base) {
+    const ctx = await browser.newContext({ viewport: { width: 1360, height: 860 } })
+    const page = await ctx.newPage()
+    page.on('pageerror', (e) => console.error('  page error:', e.message))
+    await page.goto(`${base}#/studio`)
+    await page.getByRole('button', { name: 'Copy Ryder' }).click()
+    await page.locator('.studio-tabs').waitFor()
+    await shot(page, 'studio-header')
+    await page.getByRole('button', { name: 'Import spreadsheet' }).click()
+    const [chooser] = await Promise.all([page.waitForEvent('filechooser'), page.getByRole('button', { name: 'Choose .xlsx…' }).click()])
+    await chooser.setFiles(join(root, 'content/cutie-scripts.xlsx'))
+    await page.locator('.import-summary').waitFor()
+    await shot(page, 'sheet-import-report')
+    await page.getByRole('button', { name: 'Apply' }).click()
+    // Play the 25% cutscene in the preview.
+    await page.getByRole('tab', { name: 'Preview' }).click()
+    await page.locator('.sfield', { hasText: 'Something happens' }).locator('select').selectOption('total_pct')
+    await page.locator('.sfield', { hasText: 'Which one' }).locator('input').fill('25')
+    await page.getByRole('button', { name: '▶ Play' }).click()
+    for (let i = 0; i < 40 && !(await page.locator('.choice').count()); i++) {
+      await page.locator('.scene-mode-box').click()
+      await page.waitForTimeout(150)
+    }
+    await page.waitForTimeout(1500)
+    await shot(page, 'scene-choices')
+    await page.locator('.choice').nth(1).click()
+    for (let i = 0; i < 20 && !(await page.locator('.textbox-text.narration').count()); i++) {
+      await page.locator('.scene-mode-box').click()
+      await page.waitForTimeout(150)
+    }
+    await page.waitForTimeout(1500)
+    await shot(page, 'scene-narration')
+    await ctx.close()
+  },
+
+  async scenecg(browser, base) {
+    // Give Froyo date a stand-in picture from its 3rd line, then play it in the preview.
+    const ctx = await browser.newContext({ viewport: { width: 1360, height: 860 } })
+    const page = await ctx.newPage()
+    page.on('pageerror', (e) => console.error('  page error:', e.message))
+    await page.goto(`${base}#/studio`)
+    await page.getByRole('button', { name: 'Copy Ryder' }).click()
+    await page.getByRole('tab', { name: 'Art & Sound' }).click()
+    await page.locator('.asset.add input').nth(2).setInputFiles({
+      name: 'froyo.png', mimeType: 'image/png', buffer: readFileSync(join(root, 'content/ryder/images/bg_room_night.png')),
+    })
+    await page.locator('.asset.kind-cg img').waitFor()
+    await page.getByRole('tab', { name: 'Script' }).click()
+    await page.locator('.beat-item', { hasText: 'froyo_date' }).first().click()
+    await page.getByRole('button', { name: 'More options' }).nth(2).click()
+    await page.locator('.line-more .sfield', { hasText: 'Reward art' }).locator('select').selectOption('froyo')
+    await page.waitForTimeout(700)
+    await page.getByRole('tab', { name: 'Preview' }).click()
+    await page.locator('.sfield', { hasText: 'Something happens' }).locator('select').selectOption('total_pct')
+    await page.locator('.sfield', { hasText: 'Which one' }).locator('input').fill('75')
+    await page.getByRole('button', { name: '▶ Play' }).click()
+    await page.locator('.scene-mode').waitFor()
+    await page.waitForTimeout(1500)
+    await shot(page, 'scene-dialog-part')
+    for (let i = 0; i < 12 && !(await page.locator('.scene-mode.showing-cg').count()); i++) {
+      await page.locator('.scene-mode-box').click()
+      await page.waitForTimeout(150)
+    }
+    await page.waitForTimeout(1500)
+    await shot(page, 'scene-cg-part')
+    // The picture stays for the lines after it.
+    await page.locator('.scene-mode-box').click()
+    await page.locator('.scene-mode-box').click()
+    await page.waitForTimeout(1500)
+    if (!(await page.locator('.scene-mode.showing-cg').count())) throw new Error('picture did not stay up')
+    console.log('  ✓ picture stays up on the next line')
+    await ctx.close()
+  },
+
+  async cutscene(browser, base) {
+    // A small goal so the 25% cutscene arrives after a few lines of typing.
+    const ctx = await browser.newContext({ viewport: DESKTOP })
+    const page = await ctx.newPage()
+    page.on('pageerror', (e) => console.error('  page error:', e.message))
+    await page.clock.setFixedTime(new Date('2026-11-03T15:00:00'))
+    await page.goto(`${base}#/setup`)
+    await page.getByPlaceholder('What should they call you?').fill('Sophie')
+    await page.getByLabel('Goal Word Count').fill('400')
+    await page.getByLabel('Day 1').fill('2026-11-01')
+    await page.getByRole('button', { name: "Let's Start!" }).click()
+    await page.locator('.textbox').waitFor()
+    await typeWords(page, 110)
+    await page.locator('.scene-mode').waitFor()
+    await page.waitForTimeout(1500)
+    await shot(page, 'cutscene-start')
+    for (let i = 0; i < 40 && !(await page.locator('.choice').count()); i++) {
+      await page.locator('.scene-mode-box').click()
+      await page.waitForTimeout(150)
+    }
+    await page.waitForTimeout(600)
+    await shot(page, 'cutscene-choices')
+    await page.getByRole('button', { name: 'Skip scene ▸▸' }).click()
+    await page.locator('.scene-mode').waitFor({ state: 'detached' })
+    await page.waitForTimeout(800)
+    await shot(page, 'cutscene-after')
+    await ctx.close()
+  },
+
+  async phonescene(browser, base) {
+    const ctx = await browser.newContext({ viewport: PHONE })
+    const page = await ctx.newPage()
+    await page.clock.setFixedTime(new Date('2026-11-03T15:00:00'))
+    await page.goto(`${base}#/setup`)
+    await page.getByPlaceholder('What should they call you?').fill('Sophie')
+    await page.getByLabel('Goal Word Count').fill('400')
+    await page.getByLabel('Day 1').fill('2026-11-01')
+    await page.getByRole('button', { name: "Let's Start!" }).click()
+    await page.locator('.textbox').waitFor()
+    await typeWords(page, 110)
+    await page.locator('.scene-mode').waitFor()
+    await page.waitForTimeout(1500)
+    await shot(page, 'phone-cutscene')
     await ctx.close()
   },
 

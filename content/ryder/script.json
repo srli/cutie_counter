@@ -16,8 +16,7 @@
       ],
       "lines": [
         {
-          "text": "Good morning. And so begins the first day of the month in which you'll complete your story. Feeling excited?",
-          "expression": "smile"
+          "text": "Good morning. And so begins the first day of the month in which you'll complete your story. Feeling excited?"
         }
       ]
     },
@@ -36,28 +35,26 @@
       ],
       "lines": [
         {
-          "text": "Did you eat lunch yet?",
-          "expression": "smile"
+          "expression": "neutral",
+          "text": "Did you get lunch yet?"
         }
       ],
       "choices": [
         {
           "id": "A",
-          "text": "No, not yet.",
+          "text": "No, not yet",
           "lines": [
             {
-              "text": "Try to eat when you get the chance.",
-              "expression": "serious"
+              "text": "Try to eat when you get the chance."
             }
           ]
         },
         {
           "id": "B",
-          "text": "Yep.",
+          "text": "Yup.",
           "lines": [
             {
-              "text": "Good to hear. I just had a grilled cheese sandwich and it was as wonderful as I'd imagined.",
-              "expression": "muse"
+              "text": "Good to hear. I just had a grilled cheese sandwich and it was as wonderful as I'd imagined."
             }
           ]
         }
@@ -78,8 +75,7 @@
       ],
       "lines": [
         {
-          "text": "Evening. It's been a long day, hasn't it? It's good to relax.",
-          "expression": "smile"
+          "text": "Evening. It's been a long day, hasn't it? It's good to relax."
         }
       ]
     },
@@ -98,8 +94,8 @@
       ],
       "lines": [
         {
-          "text": "It's pretty late. If you want to write now, you can, but I'd otherwise recommend getting some sleep. There's a whole month ahead of us.",
-          "expression": "neutral"
+          "expression": "neutral",
+          "text": "It's pretty late. If you want to write now, you can, but I'd otherwise recommend getting some sleep. There's a whole month ahead of us."
         }
       ]
     },
@@ -118,8 +114,8 @@
       ],
       "lines": [
         {
-          "text": "... Agh! Could you give a bit of warning before you pop up like a serial killer in a movie? I didn't know you'd be awake now... Ahem.",
-          "expression": "shocked"
+          "expression": "shocked",
+          "text": "... Agh! Could you give a bit of warning before you pop up like a serial killer in a movie? I didn't know you'd be awake now... Ahem."
         }
       ]
     },
@@ -138,8 +134,7 @@
       ],
       "lines": [
         {
-          "text": "Up and at 'em. Have a good, productive day.",
-          "expression": "smile"
+          "text": "Up and at 'em. Have a good, productive day."
         }
       ]
     },
@@ -158,9 +153,8 @@
       ],
       "lines": [
         {
-          "text": "I can't bother to make lunch today. I think I'll order takeout... ...are you judging me?",
-          "style": "thought",
-          "expression": "thinking"
+          "expression": "thinking",
+          "text": "I can't bother to make lunch today. I think I'll order takeout... ...are you judging me?"
         }
       ]
     },
@@ -179,8 +173,8 @@
       ],
       "lines": [
         {
-          "text": "...",
-          "expression": "neutral"
+          "expression": "neutral",
+          "text": "…"
         }
       ],
       "prompt": "Before I start writing...",
@@ -190,18 +184,16 @@
           "text": "Why are you here all day, every day?",
           "lines": [
             {
-              "text": "Because I live here and I'm a freelance writer. No more questions. Now write.",
-              "expression": "serious"
+              "text": "Because I live here and I'm a freelance writer. No more questions. Now write."
             }
           ]
         },
         {
           "id": "B",
-          "text": "Tell me I did a good job!",
+          "text": "Tell me I did a good job.",
           "lines": [
             {
-              "text": "Write first, then we'll talk.",
-              "expression": "muse"
+              "text": "Write first, then we'll talk."
             }
           ]
         }
@@ -222,8 +214,7 @@
       ],
       "lines": [
         {
-          "text": "Good to see you. It's a bit late. Thinking of writing?",
-          "expression": "neutral"
+          "text": "Good to see you. It's a bit late. Thinking of writing?"
         }
       ]
     },
@@ -242,13 +233,13 @@
       ],
       "lines": [
         {
-          "text": "Is staying up late like this typical for you? I'm not used to people being awake at the same time as me this late.",
-          "expression": "muse"
+          "expression": "muse",
+          "text": "Is staying up late like this typical for you? I'm not used to people being awake at the same time as me this late."
         }
       ]
     },
     {
-      "id": "d8-morning-yes",
+      "id": "d3-morning",
       "trigger": {
         "type": "time_slot",
         "value": "morning"
@@ -257,24 +248,577 @@
         {
           "var": "day",
           "op": "==",
-          "value": 8
-        },
-        {
-          "var": "missedDays",
-          "op": "==",
-          "value": 0
+          "value": 3
         }
       ],
       "lines": [
         {
-          "text": "You know, you've been at this for a week and you haven't missed a single day yet. You're really committed to this, aren't you?",
-          "expression": "happy"
+          "text": "Morning, {player}. Day 3 and we're off to a pretty good start, aren't we?"
         }
-      ],
-      "note": "v1: [MISSED_DAYS] = 0"
+      ]
     },
     {
-      "id": "d8-morning-no",
+      "id": "d3-late_morning",
+      "trigger": {
+        "type": "time_slot",
+        "value": "late_morning"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 3
+        }
+      ],
+      "lines": [
+        {
+          "expression": "muse",
+          "text": "This may sound utterly foolish, but there's a certain priceless je ne sais quoi to the way squirrels stuff nuts in their cheeks."
+        }
+      ]
+    },
+    {
+      "id": "d3-evening",
+      "trigger": {
+        "type": "time_slot",
+        "value": "evening"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 3
+        }
+      ],
+      "lines": [
+        {
+          "expression": "serious",
+          "text": "As a freelance writer, I may not do a physically demanding job, but work can still be mentally exhausting some days. Today was rough."
+        }
+      ]
+    },
+    {
+      "id": "d3-midnight",
+      "trigger": {
+        "type": "time_slot",
+        "value": "midnight"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 3
+        }
+      ],
+      "lines": [
+        {
+          "expression": "neutral",
+          "text": "It's getting late. Were you planning on writing or were you going to head off?"
+        }
+      ],
+      "choices": [
+        {
+          "id": "A",
+          "text": "Writing",
+          "lines": [
+            {
+              "text": "Then I look forward to it."
+            }
+          ]
+        },
+        {
+          "id": "B",
+          "text": "Head off",
+          "lines": [
+            {
+              "text": "Good night, then. I'll see you tomorrow, hopefully?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d3-ultra_late",
+      "trigger": {
+        "type": "time_slot",
+        "value": "ultra_late"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 3
+        }
+      ],
+      "lines": [
+        {
+          "expression": "upset",
+          "text": "I'm honestly unsure which one's the hallucination at the moment: the time on the clock or you."
+        }
+      ]
+    },
+    {
+      "id": "d4-morning",
+      "trigger": {
+        "type": "time_slot",
+        "value": "morning"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 4
+        }
+      ],
+      "lines": [
+        {
+          "text": "Good morning. I hope you slept well."
+        }
+      ]
+    },
+    {
+      "id": "d4-late_morning",
+      "trigger": {
+        "type": "time_slot",
+        "value": "late_morning"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 4
+        }
+      ],
+      "lines": [
+        {
+          "expression": "neutral",
+          "text": "Lunchtime. Don't forget to eat. You need the energy."
+        }
+      ]
+    },
+    {
+      "id": "d4-evening",
+      "trigger": {
+        "type": "time_slot",
+        "value": "evening"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 4
+        }
+      ],
+      "lines": [
+        {
+          "expression": "thinking",
+          "text": "It seems people will make anything into a dating sim these days. Cookbooks, personal trainers, racing games, idle clickers... what's next?"
+        }
+      ]
+    },
+    {
+      "id": "d4-midnight",
+      "trigger": {
+        "type": "time_slot",
+        "value": "midnight"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 4
+        }
+      ],
+      "lines": [
+        {
+          "expression": "neutral",
+          "text": "Hey, it's late. Good luck with writing tonight, though."
+        }
+      ]
+    },
+    {
+      "id": "d4-ultra_late",
+      "trigger": {
+        "type": "time_slot",
+        "value": "ultra_late"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 4
+        }
+      ],
+      "lines": [
+        {
+          "expression": "upset",
+          "text": "How and why are you up...?"
+        }
+      ],
+      "choices": [
+        {
+          "id": "A",
+          "text": "I got in the zone.",
+          "lines": [
+            {
+              "text": "-sigh- Well, it's your life, I suppose."
+            }
+          ]
+        },
+        {
+          "id": "B",
+          "text": "I couldn't sleep.",
+          "lines": [
+            {
+              "text": "Well, alright. I'll keep you company until you can, then."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d5-morning",
+      "trigger": {
+        "type": "time_slot",
+        "value": "morning"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 5
+        }
+      ],
+      "lines": [
+        {
+          "text": "Good morning. It's a beautiful day to be productive, wouldn't you say?"
+        }
+      ]
+    },
+    {
+      "id": "d5-late_morning",
+      "trigger": {
+        "type": "time_slot",
+        "value": "late_morning"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 5
+        }
+      ],
+      "lines": [
+        {
+          "expression": "neutral",
+          "text": "Writing can be hard, but just keep your eyes on the goal. Won't it be rewarding to have a finished story at the end of this month?"
+        }
+      ]
+    },
+    {
+      "id": "d5-evening",
+      "trigger": {
+        "type": "time_slot",
+        "value": "evening"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 5
+        }
+      ],
+      "lines": [
+        {
+          "text": "Gonna write again this evening? Let's aim for that goal again today."
+        }
+      ]
+    },
+    {
+      "id": "d5-midnight",
+      "trigger": {
+        "type": "time_slot",
+        "value": "midnight"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 5
+        }
+      ],
+      "lines": [
+        {
+          "expression": "upset",
+          "text": "Geez... don't you ever sleep? Well, I hope tonight's a productive one."
+        }
+      ]
+    },
+    {
+      "id": "d5-ultra_late",
+      "trigger": {
+        "type": "time_slot",
+        "value": "ultra_late"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 5
+        }
+      ],
+      "lines": [
+        {
+          "expression": "muse",
+          "text": "You're awake? I'm glad. Because... uh, I watched a horror film and suddenly I feel like we could definitely improve the lighting around here. It's quite shadowy, isn't it?"
+        }
+      ]
+    },
+    {
+      "id": "d6-morning",
+      "trigger": {
+        "type": "time_slot",
+        "value": "morning"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 6
+        }
+      ],
+      "lines": [
+        {
+          "expression": "tired",
+          "text": "Morning."
+        }
+      ],
+      "choices": [
+        {
+          "id": "A",
+          "text": "You look tired.",
+          "lines": [
+            {
+              "text": "I didn't exactly get the best sleep. I learned my lesson. No more horror movies at night. Or ever."
+            }
+          ]
+        },
+        {
+          "id": "B",
+          "text": "Good morning",
+          "lines": [
+            {
+              "text": "Let's... *yawn* ...aim for {dailyGoal} words today... I think I'll go back to bed."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d6-late_morning",
+      "trigger": {
+        "type": "time_slot",
+        "value": "late_morning"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 6
+        }
+      ],
+      "lines": [
+        {
+          "expression": "glad",
+          "text": "Hi, {player}. I may have stumbled upon the pinnacle of cuisine. We're truly at the forefront of the culinary arts."
+        },
+        {
+          "text": "An ordinary grilled cheese sandwich, or so it seems... but the secret is you add cream cheese. Heavenly... <3"
+        }
+      ]
+    },
+    {
+      "id": "d6-evening",
+      "trigger": {
+        "type": "time_slot",
+        "value": "evening"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 6
+        }
+      ],
+      "lines": [
+        {
+          "text": "Good evening. Thinking about getting in some writing?"
+        }
+      ]
+    },
+    {
+      "id": "d6-midnight",
+      "trigger": {
+        "type": "time_slot",
+        "value": "midnight"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 6
+        }
+      ],
+      "lines": [
+        {
+          "expression": "neutral",
+          "text": "It's rather late. I'd recommend getting some shut-eye if you can, but that's purely my opinion."
+        }
+      ]
+    },
+    {
+      "id": "d6-ultra_late",
+      "trigger": {
+        "type": "time_slot",
+        "value": "ultra_late"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 6
+        }
+      ],
+      "lines": [
+        {
+          "text": "You're up, huh? Well, I won't say no to company."
+        }
+      ]
+    },
+    {
+      "id": "d7-morning",
+      "trigger": {
+        "type": "time_slot",
+        "value": "morning"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 7
+        }
+      ],
+      "lines": [
+        {
+          "text": "Good morning, {player}. Do you know what makes me happy? The fact that finally with the advent of loungewear, it's become socially acceptable to wear my pajamas all day everyday."
+        },
+        {
+          "text": "Isn't that a wonderful thing? Not that I'll let you catch me in them..."
+        }
+      ]
+    },
+    {
+      "id": "d7-late_morning",
+      "trigger": {
+        "type": "time_slot",
+        "value": "late_morning"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 7
+        }
+      ],
+      "lines": [
+        {
+          "expression": "thinking",
+          "text": "I've heard it's best to stop writing before you get to the good part, so you have a good place to pick up. What do you think?"
+        }
+      ],
+      "choices": [
+        {
+          "id": "A",
+          "text": "No way",
+          "lines": [
+            {
+              "text": "It does sound a little masochistic, doesn't it?"
+            }
+          ]
+        },
+        {
+          "id": "B",
+          "text": "Sounds like a good idea",
+          "lines": [
+            {
+              "text": "Perhaps for a masochist. Different strokes for different folks. It may be worth a try, though."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d7-evening",
+      "trigger": {
+        "type": "time_slot",
+        "value": "evening"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 7
+        }
+      ],
+      "lines": [
+        {
+          "expression": "neutral",
+          "text": "It's been a long day, hasn't it? May as well do some writing, I suppose?"
+        }
+      ]
+    },
+    {
+      "id": "d7-midnight",
+      "trigger": {
+        "type": "time_slot",
+        "value": "midnight"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 7
+        }
+      ],
+      "lines": [
+        {
+          "expression": "neutral",
+          "text": "Did you plan on getting any more writing done? Or were you going to sleep now?"
+        }
+      ]
+    },
+    {
+      "id": "d7-ultra_late",
+      "trigger": {
+        "type": "time_slot",
+        "value": "ultra_late"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 7
+        }
+      ],
+      "lines": [
+        {
+          "expression": "thinking",
+          "text": "I have to wonder... did you get up early or did you not sleep?"
+        }
+      ]
+    },
+    {
+      "id": "d8-morning-if",
       "trigger": {
         "type": "time_slot",
         "value": "morning"
@@ -287,17 +831,63 @@
         },
         {
           "var": "missedDays",
-          "op": "!=",
+          "op": "==",
           "value": 0
+        }
+      ],
+      "priority": 3,
+      "lines": [
+        {
+          "text": "Good morning. You know, you've been at this for a week and you haven't missed a single day yet. You're really committed to this, aren't you?"
+        }
+      ]
+    },
+    {
+      "id": "d8-morning-elif1",
+      "trigger": {
+        "type": "time_slot",
+        "value": "morning"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 8
+        },
+        {
+          "var": "missedDays",
+          "op": "==",
+          "value": 1
+        }
+      ],
+      "priority": 2,
+      "lines": [
+        {
+          "text": "Good morning. This week hasn't been bad for a start. You've made strides in getting this done."
+        },
+        {
+          "text": "But we're just a quarter of the way through the month, so let's keep our eyes on the prize, shall we?"
+        }
+      ]
+    },
+    {
+      "id": "d8-morning-else",
+      "trigger": {
+        "type": "time_slot",
+        "value": "morning"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 8
         }
       ],
       "lines": [
         {
-          "text": "We've missed a few days this past week. It's fine. Let's take today to get back on track and get writing. I believe in you. Don't forget that. Understood?",
-          "expression": "muse"
+          "text": "Good morning. We've missed a few days this past week. It's fine. Let's take today to get back on track and get writing. I believe in you. Don't forget that. Understood?"
         }
-      ],
-      "note": "v1: [MISSED_DAYS] = 0"
+      ]
     },
     {
       "id": "d8-late_morning",
@@ -314,13 +904,506 @@
       ],
       "lines": [
         {
-          "text": "Thinking about it, it's honestly inspiring that you've made a goal for yourself and you're pursuing it so diligently, {player}. I'll support you all the way.",
-          "expression": "happy"
+          "text": "Thinking about it, it's honestly inspiring that you've made a goal for yourself and you're pursuing it so diligently, {player}. I'll support you all the way."
         }
       ]
     },
     {
-      "id": "d12-morning-yes",
+      "id": "d8-evening",
+      "trigger": {
+        "type": "time_slot",
+        "value": "evening"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 8
+        }
+      ],
+      "lines": [
+        {
+          "expression": "muse",
+          "text": "You know, you haven't told me very much about your novel. What genre is it? Is it something you think I might like?"
+        }
+      ],
+      "choices": [
+        {
+          "id": "A",
+          "text": "Yeah",
+          "lines": [
+            {
+              "text": "Then I hope to read it in three weeks."
+            }
+          ]
+        },
+        {
+          "id": "B",
+          "text": "Nope",
+          "lines": [
+            {
+              "text": "Hm... even so, I'd still quite like to check it out."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d8-midnight",
+      "trigger": {
+        "type": "time_slot",
+        "value": "midnight"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 8
+        }
+      ],
+      "lines": [
+        {
+          "expression": "neutral",
+          "text": "Hey there. I'll be up if you need me as usual, but I do hope you'll at least try to get some rest."
+        }
+      ]
+    },
+    {
+      "id": "d8-ultra_late",
+      "trigger": {
+        "type": "time_slot",
+        "value": "ultra_late"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 8
+        }
+      ],
+      "lines": [
+        {
+          "expression": "neutral",
+          "text": "I suppose I won't be the only one burning the midnight oil tonight."
+        }
+      ]
+    },
+    {
+      "id": "d9-morning",
+      "trigger": {
+        "type": "time_slot",
+        "value": "morning"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 9
+        }
+      ],
+      "lines": [
+        {
+          "expression": "neutral",
+          "text": "The early bird gets the worm, as they say. They also say breakfast is the most important meal of the day. Don't skip it."
+        }
+      ]
+    },
+    {
+      "id": "d9-late_morning",
+      "trigger": {
+        "type": "time_slot",
+        "value": "late_morning"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 9
+        }
+      ],
+      "lines": [
+        {
+          "expression": "upset",
+          "text": "I think... that last week's takeout didn't age particularly well."
+        }
+      ]
+    },
+    {
+      "id": "d9-evening-if",
+      "trigger": {
+        "type": "time_slot",
+        "value": "evening"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 9
+        },
+        {
+          "var": "dailyPct",
+          "op": ">=",
+          "value": 100
+        }
+      ],
+      "priority": 2,
+      "lines": [
+        {
+          "expression": "upset",
+          "text": "Ugh, I've been feeling terrible since lunch. I'm glad you've gotten your writing for the day done already. I think I need to rest."
+        }
+      ]
+    },
+    {
+      "id": "d9-evening-else",
+      "trigger": {
+        "type": "time_slot",
+        "value": "evening"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 9
+        }
+      ],
+      "lines": [
+        {
+          "expression": "upset",
+          "text": "Ugh, I've been feeling terrible since lunch. I'll be out here until you've met your goal for the day, but after that, I'm going to lie down..."
+        }
+      ]
+    },
+    {
+      "id": "d9-midnight",
+      "trigger": {
+        "type": "time_slot",
+        "value": "midnight"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 9
+        }
+      ],
+      "lines": [
+        {
+          "expression": "neutral",
+          "text": "It's late. You should head off."
+        }
+      ],
+      "choices": [
+        {
+          "id": "A",
+          "text": "You should, too.",
+          "lines": [
+            {
+              "text": "Worry about yourself. I have things to do."
+            }
+          ]
+        },
+        {
+          "id": "B",
+          "text": "Good night, then",
+          "lines": [
+            {
+              "text": "Good night. See you in the morning."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d9-ultra_late-if",
+      "trigger": {
+        "type": "time_slot",
+        "value": "ultra_late"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 9
+        },
+        {
+          "var": "dailyPct",
+          "op": ">=",
+          "value": 100
+        }
+      ],
+      "priority": 2,
+      "lines": [
+        {
+          "text": "Can't sleep, or did you not want to? You honestly worked hard today. I think you should try to get some rest."
+        }
+      ]
+    },
+    {
+      "id": "d9-ultra_late-else",
+      "trigger": {
+        "type": "time_slot",
+        "value": "ultra_late"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 9
+        }
+      ],
+      "lines": [
+        {
+          "text": "Can't sleep, or did you not want to? Either way, if you're not going to bed, you may as well get some more writing done."
+        }
+      ]
+    },
+    {
+      "id": "d10-morning",
+      "trigger": {
+        "type": "time_slot",
+        "value": "morning"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 10
+        }
+      ],
+      "lines": [
+        {
+          "text": "Morning. Any plans for today?"
+        }
+      ],
+      "choices": [
+        {
+          "id": "A",
+          "text": "Same old same old.",
+          "lines": [
+            {
+              "text": "Then let's get some work done, today, too."
+            }
+          ]
+        },
+        {
+          "id": "B",
+          "text": "Yes, actually",
+          "lines": [
+            {
+              "text": "I hope you have fun, then. And don't forget to include writing in those plans too."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d10-late_morning",
+      "trigger": {
+        "type": "time_slot",
+        "value": "late_morning"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 10
+        }
+      ],
+      "lines": [
+        {
+          "text": "I'd really like to read a new book but I don't have a clue what to read. I look forward to reading your novel come the end of the month... if that's alright with you."
+        }
+      ]
+    },
+    {
+      "id": "d10-evening",
+      "trigger": {
+        "type": "time_slot",
+        "value": "evening"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 10
+        }
+      ],
+      "lines": [
+        {
+          "expression": "upset",
+          "text": "Ow... good evening. I learned my lesson earlier. \"Be wary of stray cats.\" I tried to pet one earlier today and he or she viciously attacked my leg."
+        },
+        {
+          "text": "It would appear that it was the librarian's...?"
+        }
+      ]
+    },
+    {
+      "id": "d10-midnight",
+      "trigger": {
+        "type": "time_slot",
+        "value": "midnight"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 10
+        }
+      ],
+      "lines": [
+        {
+          "expression": "serious",
+          "text": "I won't lie. My leg is still aching from today's feline-perpetrated assault. I can't wait to go to sleep and get off of it."
+        }
+      ]
+    },
+    {
+      "id": "d10-ultra_late",
+      "trigger": {
+        "type": "time_slot",
+        "value": "ultra_late"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 10
+        }
+      ],
+      "lines": [
+        {
+          "expression": "surprised",
+          "text": "You're up this late? Don't push yourself."
+        }
+      ]
+    },
+    {
+      "id": "d11-morning",
+      "trigger": {
+        "type": "time_slot",
+        "value": "morning"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 11
+        }
+      ],
+      "lines": [
+        {
+          "text": "Good morning. I wonder if it's best to get writing done in the morning or at night. I suppose it would depend on the person."
+        }
+      ]
+    },
+    {
+      "id": "d11-late_morning",
+      "trigger": {
+        "type": "time_slot",
+        "value": "late_morning"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 11
+        }
+      ],
+      "lines": [
+        {
+          "text": "Hey, there, {player}. While you're writing, I'd just like to remind you to drink water. Too easily, one can get into writing and never notice that they're dehydrated."
+        }
+      ]
+    },
+    {
+      "id": "d11-evening",
+      "trigger": {
+        "type": "time_slot",
+        "value": "evening"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 11
+        }
+      ],
+      "lines": [
+        {
+          "text": "Good evening, {player}. Have you eaten dinner yet?"
+        }
+      ]
+    },
+    {
+      "id": "d11-midnight",
+      "trigger": {
+        "type": "time_slot",
+        "value": "midnight"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 11
+        }
+      ],
+      "lines": [
+        {
+          "expression": "neutral",
+          "text": "It's pretty late, don't you think? If you're planning on doing some writing, I hope you go to sleep afterwards."
+        }
+      ]
+    },
+    {
+      "id": "d11-ultra_late-if",
+      "trigger": {
+        "type": "time_slot",
+        "value": "ultra_late"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 11
+        },
+        {
+          "var": "flag:visits_ultra_late",
+          "op": ">",
+          "value": 4
+        }
+      ],
+      "priority": 2,
+      "lines": [
+        {
+          "expression": "upset",
+          "text": "This sleep pattern of yours cannot possibly be healthy. Am I... am I enabling you?"
+        }
+      ]
+    },
+    {
+      "id": "d11-ultra_late-else",
+      "trigger": {
+        "type": "time_slot",
+        "value": "ultra_late"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 11
+        }
+      ],
+      "lines": [
+        {
+          "expression": "upset",
+          "text": "-yawn- If you want to write at this hour, I can't stop you. I won't say no to your company. I just pray you slept."
+        }
+      ]
+    },
+    {
+      "id": "d12-morning-if",
       "trigger": {
         "type": "time_slot",
         "value": "morning"
@@ -337,16 +1420,15 @@
           "value": 10
         }
       ],
+      "priority": 3,
       "lines": [
         {
-          "text": "Up early as usual? That's impressive. I'll admit, if I were you I'd be sleeping in right now.",
-          "expression": "smile"
+          "text": "Up early as usual? That's impressive. I'll admit, if I were you I'd be sleeping in right now."
         }
-      ],
-      "note": "v1: [COUNT_MORNING_TEXT] > 10. visits_morning counts every morning the writer was here, today included."
+      ]
     },
     {
-      "id": "d12-morning-no",
+      "id": "d12-morning-elif1",
       "trigger": {
         "type": "time_slot",
         "value": "morning"
@@ -358,18 +1440,775 @@
           "value": 12
         },
         {
-          "var": "flag:visits_morning",
-          "op": "<=",
-          "value": 10
+          "var": "seen:d11-ultra_late",
+          "op": "==",
+          "value": true
+        }
+      ],
+      "priority": 2,
+      "lines": [
+        {
+          "text": "Up early? It's admirable that you want to get up so early, but you really ought to go to bed early, too. I hope you feel rested enough..."
+        }
+      ]
+    },
+    {
+      "id": "d12-morning-else",
+      "trigger": {
+        "type": "time_slot",
+        "value": "morning"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 12
         }
       ],
       "lines": [
         {
-          "text": "Up early today? That's admirable. I hope you got a good night's sleep.",
-          "expression": "muse"
+          "text": "Up early today? That's admirable. I hope you got a good night's sleep."
+        }
+      ]
+    },
+    {
+      "id": "d12-late_morning",
+      "trigger": {
+        "type": "time_slot",
+        "value": "late_morning"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 12
         }
       ],
-      "note": "v1: [COUNT_MORNING_TEXT] > 10. visits_morning counts every morning the writer was here, today included."
+      "lines": [
+        {
+          "text": "Hey, there. I brought you something. I checked out the local library today and they were giving away chocolate cake. Apparently, this is a fairly regular occurrence there."
+        }
+      ]
+    },
+    {
+      "id": "d12-evening",
+      "trigger": {
+        "type": "time_slot",
+        "value": "evening"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 12
+        }
+      ],
+      "lines": [
+        {
+          "text": "Good evening, {player}. Let's get to work."
+        }
+      ]
+    },
+    {
+      "id": "d12-midnight",
+      "trigger": {
+        "type": "time_slot",
+        "value": "midnight"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 12
+        }
+      ],
+      "lines": [
+        {
+          "text": "Ah, {player}. I can't seem to find my glasses. You wouldn't happen to know where they are, would you?"
+        }
+      ],
+      "choices": [
+        {
+          "id": "A",
+          "text": "On your face.",
+          "lines": [
+            {
+              "text": "... hm, yes. It seems like that's my cue to head to bed. Well, good night."
+            }
+          ]
+        },
+        {
+          "id": "B",
+          "text": "...",
+          "lines": [
+            {
+              "text": "Geez, if you have no intention of helping, you could just say so... unless they're on my face right now, aren't they."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d12-ultra_late",
+      "trigger": {
+        "type": "time_slot",
+        "value": "ultra_late"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 12
+        }
+      ],
+      "lines": [
+        {
+          "expression": "muse",
+          "text": "So tired... but I really ought to get just a little bit more work done before heading off. Was that your plan, too?"
+        }
+      ]
+    },
+    {
+      "id": "d13-morning",
+      "trigger": {
+        "type": "time_slot",
+        "value": "morning"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 13
+        }
+      ],
+      "lines": [
+        {
+          "text": "Good morning, {player}. I wish you another productive day."
+        }
+      ]
+    },
+    {
+      "id": "d13-late_morning",
+      "trigger": {
+        "type": "time_slot",
+        "value": "late_morning"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 13
+        }
+      ],
+      "lines": [
+        {
+          "expression": "muse",
+          "text": "Sometimes I wonder what it'd be like to have siblings. If I had a little sister, would we be close? Or would we always get on each other's nerves?"
+        }
+      ]
+    },
+    {
+      "id": "d13-evening",
+      "trigger": {
+        "type": "time_slot",
+        "value": "evening"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 13
+        }
+      ],
+      "lines": [
+        {
+          "text": "Evening. Let's get some more writing done, shall we?"
+        }
+      ]
+    },
+    {
+      "id": "d13-midnight",
+      "trigger": {
+        "type": "time_slot",
+        "value": "midnight"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 13
+        }
+      ],
+      "lines": [
+        {
+          "text": "Hey, {player}. You're up still? You'd probably write better well-rested, but I'm glad you're still dedicated."
+        }
+      ]
+    },
+    {
+      "id": "d13-ultra_late",
+      "trigger": {
+        "type": "time_slot",
+        "value": "ultra_late"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 13
+        }
+      ],
+      "lines": [
+        {
+          "expression": "neutral",
+          "text": "Let's both head to bed after this, alright?"
+        }
+      ]
+    },
+    {
+      "id": "d14-morning",
+      "trigger": {
+        "type": "time_slot",
+        "value": "morning"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 14
+        }
+      ],
+      "lines": [
+        {
+          "expression": "veryhappy",
+          "text": "Good morning. Don't mind the burning smell or the horror in the garbage. It's just my attempted eggs Benedict."
+        }
+      ]
+    },
+    {
+      "id": "d14-late_morning",
+      "trigger": {
+        "type": "time_slot",
+        "value": "late_morning"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 14
+        }
+      ],
+      "lines": [
+        {
+          "expression": "upset",
+          "text": "I don't understand those capable of cooking without a recipe. Personally, I learned my lesson about experimentation this morning."
+        }
+      ]
+    },
+    {
+      "id": "d14-evening",
+      "trigger": {
+        "type": "time_slot",
+        "value": "evening"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 14
+        }
+      ],
+      "lines": [
+        {
+          "text": "Evening to you. A friend lent me a book about vampires and werewolves or something and told me I had to read it."
+        }
+      ],
+      "choices": [
+        {
+          "id": "A",
+          "text": "Don't do it.",
+          "lines": [
+            {
+              "text": "That just makes me even more curious..."
+            }
+          ]
+        },
+        {
+          "id": "B",
+          "text": "Tell me how it is.",
+          "lines": [
+            {
+              "text": "Alright, you'll be the first to know."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d14-midnight",
+      "trigger": {
+        "type": "time_slot",
+        "value": "midnight"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 14
+        }
+      ],
+      "lines": [
+        {
+          "expression": "veryhappy",
+          "text": "Hey, there. I somehow ended up on an educational video binge and I've been trapped here for a few hours. Unfortunately, I can no longer feel my legs."
+        },
+        {
+          "text": "But on the bright side, I can now tell you how marshmallows are made!"
+        }
+      ]
+    },
+    {
+      "id": "d14-ultra_late",
+      "trigger": {
+        "type": "time_slot",
+        "value": "ultra_late"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 14
+        }
+      ],
+      "lines": [
+        {
+          "expression": "tired",
+          "text": "Can't... stop... yawning. How do you do it?"
+        }
+      ]
+    },
+    {
+      "id": "d15-morning",
+      "trigger": {
+        "type": "time_slot",
+        "value": "morning"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 15
+        }
+      ],
+      "lines": [
+        {
+          "expression": "happy",
+          "text": "Good morning. We're halfway through the month. I hope you feel proud of yourself, because I'm proud of you."
+        }
+      ]
+    },
+    {
+      "id": "d15-late_morning",
+      "trigger": {
+        "type": "time_slot",
+        "value": "late_morning"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 15
+        }
+      ],
+      "lines": [
+        {
+          "expression": "happy",
+          "text": "Hey, there. Did you just want to exchange greetings or were you planning on writing, too?"
+        }
+      ]
+    },
+    {
+      "id": "d15-evening",
+      "trigger": {
+        "type": "time_slot",
+        "value": "evening"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 15
+        }
+      ],
+      "lines": [
+        {
+          "expression": "upset",
+          "text": "I wanted to be adventurous today and bought some sort of veggie smoothie and now I'm filled with regret. Smoothies need fruits. End of story."
+        }
+      ]
+    },
+    {
+      "id": "d15-midnight",
+      "trigger": {
+        "type": "time_slot",
+        "value": "midnight"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 15
+        }
+      ],
+      "lines": [
+        {
+          "expression": "neutral",
+          "text": "Hey, {player}. It's late. Why don't you get some rest? Tomorrow's another day."
+        }
+      ]
+    },
+    {
+      "id": "d15-ultra_late",
+      "trigger": {
+        "type": "time_slot",
+        "value": "ultra_late"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 15
+        }
+      ],
+      "lines": [
+        {
+          "expression": "neutral",
+          "text": "If you're gonna be out here, I'll stay up with you. Otherwise, I'll be going to sleep, alright?"
+        }
+      ]
+    },
+    {
+      "id": "d16-morning",
+      "trigger": {
+        "type": "time_slot",
+        "value": "morning"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 16
+        }
+      ],
+      "lines": [
+        {
+          "text": "Morning. I can't help but look forward to the completion of your book."
+        }
+      ]
+    },
+    {
+      "id": "d16-late_morning",
+      "trigger": {
+        "type": "time_slot",
+        "value": "late_morning"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 16
+        }
+      ],
+      "lines": [
+        {
+          "expression": "neutral",
+          "text": "{player}, do you listen to music when you write?"
+        }
+      ],
+      "choices": [
+        {
+          "id": "A",
+          "text": "Yeah!",
+          "lines": [
+            {
+              "text": "Interesting. I find it somewhat distracting, but I hear many people view it as a way to get in the zone, if not as a source of inspiration."
+            }
+          ]
+        },
+        {
+          "id": "B",
+          "text": "Nah.",
+          "lines": [
+            {
+              "text": "Neither do I. It's a bit distracting, isn't it? Although, I've heard listening to foreign language music can help in that regard."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d16-evening",
+      "trigger": {
+        "type": "time_slot",
+        "value": "evening"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 16
+        }
+      ],
+      "lines": [
+        {
+          "text": "Supposedly, there's a whole host of benefits to cold showers, so I decided yesterday I'm going to challenge myself to take one every morning for a week. Today's been my second day."
+        },
+        {
+          "text": "Shall I let you know how it went in a week?"
+        }
+      ]
+    },
+    {
+      "id": "d16-midnight",
+      "trigger": {
+        "type": "time_slot",
+        "value": "midnight"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 16
+        }
+      ],
+      "lines": [
+        {
+          "text": "Are you going to be up writing tonight, too? I'll likely be here all night. You know how it is... those documentaries don't watch themselves."
+        }
+      ]
+    },
+    {
+      "id": "d16-ultra_late",
+      "trigger": {
+        "type": "time_slot",
+        "value": "ultra_late"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 16
+        }
+      ],
+      "lines": [
+        {
+          "expression": "upset",
+          "text": "I've been thinking and... there's really an app for everything, isn't there? I even used an exercise app once that simulates being chased by zombies."
+        },
+        {
+          "text": "And I'd love to tell you I didn't trip and fall off the treadmill shrieking in terror, but that would be a lie."
+        }
+      ]
+    },
+    {
+      "id": "d17-morning",
+      "trigger": {
+        "type": "time_slot",
+        "value": "morning"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 17
+        }
+      ],
+      "lines": [
+        {
+          "text": "Good morning. I already had breakfast, by the way."
+        }
+      ],
+      "choices": [
+        {
+          "id": "A",
+          "text": "You didn't make any for me?",
+          "lines": [
+            {
+              "text": "Should I have made extra ketchup cabbage? ... As I thought."
+            }
+          ]
+        },
+        {
+          "id": "B",
+          "text": "How was it?",
+          "lines": [
+            {
+              "text": "A taste I'm ashamed I acquired."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d17-late_morning",
+      "trigger": {
+        "type": "time_slot",
+        "value": "late_morning"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 17
+        }
+      ],
+      "lines": [
+        {
+          "expression": "neutral",
+          "text": "I don't like quiet very much, so I recently tried putting on daytime television while I work."
+        },
+        {
+          "text": "The \"while I work\" part quickly disappeared and was replaced with a burning desire to know what will become of Antonio and Maria's budding secret romance... Telenovelas are riveting."
+        }
+      ]
+    },
+    {
+      "id": "d17-evening",
+      "trigger": {
+        "type": "time_slot",
+        "value": "evening"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 17
+        }
+      ],
+      "lines": [
+        {
+          "expression": "upset",
+          "text": "Good evening. I made you a paper crane but... it blew away in the wind."
+        }
+      ]
+    },
+    {
+      "id": "d17-midnight",
+      "trigger": {
+        "type": "time_slot",
+        "value": "midnight"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 17
+        }
+      ],
+      "lines": [
+        {
+          "expression": "surprised",
+          "text": "You're writing at this time of night? Well, I certainly admire your drive!"
+        }
+      ]
+    },
+    {
+      "id": "d17-ultra_late",
+      "trigger": {
+        "type": "time_slot",
+        "value": "ultra_late"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 17
+        }
+      ],
+      "lines": [
+        {
+          "expression": "tired",
+          "text": "I'm beyond tired. Aren't you?"
+        }
+      ]
+    },
+    {
+      "id": "d18-morning",
+      "trigger": {
+        "type": "time_slot",
+        "value": "morning"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 18
+        }
+      ],
+      "lines": [
+        {
+          "text": "Morning, {player}. Let's write again today, shall we?"
+        }
+      ]
+    },
+    {
+      "id": "d18-late_morning",
+      "trigger": {
+        "type": "time_slot",
+        "value": "late_morning"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 18
+        }
+      ],
+      "lines": [
+        {
+          "expression": "neutral",
+          "text": "Don't you think cats are underrated? People often dismiss them as aloof, but cats can be quite loving. You just need to be nice to them first. Like with people."
+        }
+      ]
+    },
+    {
+      "id": "d18-evening",
+      "trigger": {
+        "type": "time_slot",
+        "value": "evening"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 18
+        }
+      ],
+      "lines": [
+        {
+          "text": "Good evening, {player}. It's a great night to work on your novel. As was every other night the past 20 or so days. Presumably you get the idea."
+        }
+      ]
+    },
+    {
+      "id": "d18-midnight",
+      "trigger": {
+        "type": "time_slot",
+        "value": "midnight"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 18
+        }
+      ],
+      "lines": [
+        {
+          "expression": "tired",
+          "text": "{player}, I'm honestly dead tired. I'll try to stay up with you, but don't be surprised if you hear me fall asleep."
+        }
+      ]
     },
     {
       "id": "d18-ultra_late",
@@ -386,14 +2225,78 @@
       ],
       "lines": [
         {
-          "text": "[PLACEHOLDER day 18 · ultra_late · Ryder dozes off]",
-          "expression": "tired"
+          "expression": "tired",
+          "text": "..."
         }
       ],
-      "note": "Day 19's morning asks about this night (seen:d18-ultra_late), so it needs a beat even before its line is written."
+      "choices": [
+        {
+          "id": "A",
+          "text": "(Wake him up.)",
+          "lines": [
+            {
+              "text": "... {player}, you're cuter than usual today... come here... ...zzz... huh... {player}? Oh, you're here."
+            }
+          ]
+        },
+        {
+          "id": "B",
+          "text": "(Let him sleep.)",
+          "lines": [
+            {
+              "text": "...{player}? Oh... good morning..."
+            }
+          ]
+        }
+      ]
     },
     {
-      "id": "d19-morning",
+      "id": "d19-morning-if",
+      "trigger": {
+        "type": "time_slot",
+        "value": "morning"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 19
+        },
+        {
+          "var": "seen:d18-ultra_late",
+          "op": "==",
+          "value": true
+        }
+      ],
+      "priority": 2,
+      "lines": [
+        {
+          "text": "Good morning, {player}. I hope you slept well last night so you can have a good start today."
+        }
+      ],
+      "choices": [
+        {
+          "id": "A",
+          "text": "You slept well, huh?",
+          "lines": [
+            {
+              "text": "Yes, actually. How could you tell? Ah... oh, no, you were there last night, weren't you?"
+            }
+          ]
+        },
+        {
+          "id": "B",
+          "text": "You're even cuter when you're sleeping.",
+          "lines": [
+            {
+              "text": "Ah, um, err... w-what? I... I'm going to ignore that. For my sanity's sake."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d19-morning-else",
       "trigger": {
         "type": "time_slot",
         "value": "morning"
@@ -407,48 +2310,9 @@
       ],
       "lines": [
         {
-          "text": "Good morning, {player}. I hope you slept well last night so you can have a good start today.",
-          "expression": "smile"
+          "text": "Good morning, {player}. I hope you slept well last night so you can have a good start today."
         }
       ]
-    },
-    {
-      "id": "d19-morning-yes",
-      "trigger": {
-        "type": "after",
-        "value": "d19-morning"
-      },
-      "when": [
-        {
-          "var": "seen:d18-ultra_late",
-          "op": "==",
-          "value": true
-        }
-      ],
-      "lines": [],
-      "choices": [
-        {
-          "id": "A",
-          "text": "You slept well, huh?",
-          "lines": [
-            {
-              "text": "Yes, actually. How could you tell? Ah... oh, no, you were there last night, weren't you?",
-              "expression": "serious"
-            }
-          ]
-        },
-        {
-          "id": "B",
-          "text": "You're even cuter when you're sleeping.",
-          "lines": [
-            {
-              "text": "Ah, um, err... w-what? I... I'm going to ignore that. For my sanity's sake.",
-              "expression": "flushed"
-            }
-          ]
-        }
-      ],
-      "note": "v1: [READ_ULTRA_LATE_TEXT] on day 18, i.e. the writer was here in the small hours before this morning."
     },
     {
       "id": "d19-late_morning",
@@ -465,14 +2329,38 @@
       ],
       "lines": [
         {
-          "text": "I can't bother to make lunch today. I think I'll order takeout... ...are you judging me?",
-          "style": "thought",
-          "expression": "thinking"
+          "text": "Nothing beats relaxing with a good book. Wouldn't you agree?"
         }
       ]
     },
     {
-      "id": "d19-evening",
+      "id": "d19-evening-if",
+      "trigger": {
+        "type": "time_slot",
+        "value": "evening"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 19
+        },
+        {
+          "var": "seen:d14-evening",
+          "op": "==",
+          "value": true
+        }
+      ],
+      "priority": 2,
+      "lines": [
+        {
+          "expression": "neutral",
+          "text": "So, that book my friend lent me."
+        }
+      ]
+    },
+    {
+      "id": "d19-evening-else",
       "trigger": {
         "type": "time_slot",
         "value": "evening"
@@ -486,31 +2374,8 @@
       ],
       "lines": [
         {
-          "text": "...",
-          "expression": "neutral"
-        }
-      ],
-      "prompt": "Before I start writing...",
-      "choices": [
-        {
-          "id": "A",
-          "text": "Why are you here all day, every day?",
-          "lines": [
-            {
-              "text": "Because I live here and I'm a freelance writer. No more questions. Now write.",
-              "expression": "serious"
-            }
-          ]
-        },
-        {
-          "id": "B",
-          "text": "Tell me I did a good job!",
-          "lines": [
-            {
-              "text": "Write first, then we'll talk.",
-              "expression": "muse"
-            }
-          ]
+          "expression": "neutral",
+          "text": "I just finished reading a book my friend lent me. It was... not bad. It wasn't good either but... well, perhaps I'll order the next one at some point."
         }
       ]
     },
@@ -529,8 +2394,7 @@
       ],
       "lines": [
         {
-          "text": "Good to see you. It's a bit late. Thinking of writing?",
-          "expression": "neutral"
+          "text": "It's been a long day. We should both get some sleep."
         }
       ]
     },
@@ -549,8 +2413,1359 @@
       ],
       "lines": [
         {
-          "text": "Is staying up late like this typical for you? I'm not used to people being awake at the same time as me this late.",
-          "expression": "muse"
+          "expression": "muse",
+          "text": "It's the middle of the night and I'm up trying to decide between buying an ebook or the paperback version of a book I'm interested in."
+        },
+        {
+          "text": "The paperback is more comfortable for me to use, but it costs more and I have to wait for it to arrive... the ebook is cheaper and I'll have it instantly but then I can't put it on my bookshelf..."
+        },
+        {
+          "text": "Hm..."
+        }
+      ]
+    },
+    {
+      "id": "d20-morning",
+      "trigger": {
+        "type": "time_slot",
+        "value": "morning"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 20
+        }
+      ],
+      "lines": [
+        {
+          "expression": "veryhappy",
+          "text": "Morning. I had this stupid dream last night... I don't remember the details much but you were in it and we were... skydiving? And then we... ah, never mind. Anyway! Writing."
+        }
+      ]
+    },
+    {
+      "id": "d20-late_morning",
+      "trigger": {
+        "type": "time_slot",
+        "value": "late_morning"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 20
+        }
+      ],
+      "lines": [
+        {
+          "expression": "muse",
+          "text": "I'm thinking about going to a cafe. I'm really in the mood for a cinnameg spice frappe. And you better not judge me for that."
+        }
+      ]
+    },
+    {
+      "id": "d20-evening",
+      "trigger": {
+        "type": "time_slot",
+        "value": "evening"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 20
+        }
+      ],
+      "lines": [
+        {
+          "expression": "upset",
+          "text": "Hey, I brought back food from a cafe I went to earlier. The food was wonderful but I don't think I'll be going back. When the server told me to enjoy my meal, I said \"you, too\"..."
+        }
+      ]
+    },
+    {
+      "id": "d20-midnight",
+      "trigger": {
+        "type": "time_slot",
+        "value": "midnight"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 20
+        }
+      ],
+      "lines": [
+        {
+          "expression": "muse",
+          "text": "Say... do you ever wonder how your book would be as a movie? You know, who you might cast and all that."
+        }
+      ]
+    },
+    {
+      "id": "d20-ultra_late",
+      "trigger": {
+        "type": "time_slot",
+        "value": "ultra_late"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 20
+        }
+      ],
+      "lines": [
+        {
+          "expression": "thinking",
+          "text": "I've been wondering... It's never too late to pick up a second language, is it? Maybe I'll try studying Esperanto. Or maybe I should just try sleeping."
+        }
+      ]
+    },
+    {
+      "id": "d21-morning",
+      "trigger": {
+        "type": "time_slot",
+        "value": "morning"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 21
+        }
+      ],
+      "lines": [
+        {
+          "expression": "muse",
+          "text": "Good morning. I'd really like to sleep in sometime. Maybe I should add it to my agenda."
+        }
+      ]
+    },
+    {
+      "id": "d21-late_morning",
+      "trigger": {
+        "type": "time_slot",
+        "value": "late_morning"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 21
+        }
+      ],
+      "lines": [
+        {
+          "expression": "neutral",
+          "text": "{player}. I know you must be busy right now, so would you like me to buy us lunch?"
+        }
+      ]
+    },
+    {
+      "id": "d21-evening",
+      "trigger": {
+        "type": "time_slot",
+        "value": "evening"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 21
+        }
+      ],
+      "lines": [
+        {
+          "expression": "muse",
+          "text": "Do you ever play video games? I've been trying to get into FPSs recently but my reflexes have never been the best..."
+        }
+      ],
+      "choices": [
+        {
+          "id": "A",
+          "text": "Sure",
+          "lines": [
+            {
+              "text": "Then let's play one sometime!"
+            }
+          ]
+        },
+        {
+          "id": "B",
+          "text": "Not really",
+          "lines": [
+            {
+              "text": "Could we perhaps play one together sometime? There's a really good one I've been told about."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d21-midnight",
+      "trigger": {
+        "type": "time_slot",
+        "value": "midnight"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 21
+        }
+      ],
+      "lines": [
+        {
+          "expression": "upset",
+          "text": "You know, when I was small, I had to wear my glasses with those strings they attach so you don't lose them. I always hated it, but now I'm thinking it was probably for the best."
+        },
+        {
+          "text": "Because I had to spend an hour looking for my glasses again."
+        }
+      ]
+    },
+    {
+      "id": "d21-ultra_late",
+      "trigger": {
+        "type": "time_slot",
+        "value": "ultra_late"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 21
+        }
+      ],
+      "lines": [
+        {
+          "text": "Let's go to bed soon. There's always tomorrow."
+        }
+      ]
+    },
+    {
+      "id": "d22-morning",
+      "trigger": {
+        "type": "time_slot",
+        "value": "morning"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 22
+        }
+      ],
+      "lines": [
+        {
+          "text": "Morning. Another day of work ahead of us, but we'll get it done."
+        }
+      ]
+    },
+    {
+      "id": "d22-late_morning-if",
+      "trigger": {
+        "type": "time_slot",
+        "value": "late_morning"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 22
+        },
+        {
+          "var": "seen:d16-evening",
+          "op": "==",
+          "value": true
+        }
+      ],
+      "priority": 2,
+      "lines": [
+        {
+          "expression": "thinking",
+          "text": "…"
+        }
+      ],
+      "choices": [
+        {
+          "id": "A",
+          "text": "About the cold shower thing...",
+          "lines": [
+            {
+              "text": "That. Well... I got used to it but I don't know if I'd describe it as \"worth it.\" More than anything, I was happy to have a warm bath last night. With bath bombs. And bath salts."
+            },
+            {
+              "text": "And bath oils. Did I mention I am never having a cold shower again? Because I'm not."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d22-late_morning-else",
+      "trigger": {
+        "type": "time_slot",
+        "value": "late_morning"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 22
+        }
+      ],
+      "lines": [
+        {
+          "expression": "thinking",
+          "text": "So I decided last week to challenge myself to take a cold shower every day for seven days. It wasn't exactly refreshing like the internet zealots proclaim."
+        }
+      ]
+    },
+    {
+      "id": "d22-evening",
+      "trigger": {
+        "type": "time_slot",
+        "value": "evening"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 22
+        }
+      ],
+      "lines": [
+        {
+          "expression": "neutral",
+          "text": "Sports are so complicated... I can't understand how people can follow them, much less play them, but hats off to those who can."
+        }
+      ]
+    },
+    {
+      "id": "d22-midnight",
+      "trigger": {
+        "type": "time_slot",
+        "value": "midnight"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 22
+        }
+      ],
+      "lines": [
+        {
+          "expression": "muse",
+          "text": "People often attribute nightmares to eating pizza before bed. But I really would love to have some leftover pizza right now... would it really be such a bad idea?"
+        }
+      ]
+    },
+    {
+      "id": "d22-ultra_late",
+      "trigger": {
+        "type": "time_slot",
+        "value": "ultra_late"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 22
+        }
+      ],
+      "lines": [
+        {
+          "expression": "upset",
+          "text": "What a grindfest... Hours of farming and all I have to show for it is a single spell... Oh, you're awake? I'm just playing a video game."
+        }
+      ]
+    },
+    {
+      "id": "d23-morning",
+      "trigger": {
+        "type": "time_slot",
+        "value": "morning"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 23
+        }
+      ],
+      "lines": [
+        {
+          "text": "Good morning. We have a week left, you know. I'm glad you're keeping this up."
+        }
+      ]
+    },
+    {
+      "id": "d23-late_morning",
+      "trigger": {
+        "type": "time_slot",
+        "value": "late_morning"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 23
+        }
+      ],
+      "lines": [
+        {
+          "expression": "neutral",
+          "text": "Hey, there, {player}. I'd attempted to follow a recipe for some blueberry muffins. They were meant for you, actually."
+        },
+        {
+          "text": "Well, bad news is it turns out you absolutely can NOT substitute tapioca flour for all-purpose flour. Good news is tapioca muffins make great erasers."
+        }
+      ]
+    },
+    {
+      "id": "d23-evening",
+      "trigger": {
+        "type": "time_slot",
+        "value": "evening"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 23
+        }
+      ],
+      "lines": [
+        {
+          "text": "Good evening. We may be nearing the deadline, but even so, make sure you're taking care of yourself."
+        }
+      ]
+    },
+    {
+      "id": "d23-midnight",
+      "trigger": {
+        "type": "time_slot",
+        "value": "midnight"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 23
+        }
+      ],
+      "lines": [
+        {
+          "expression": "flushed",
+          "text": "Get some rest. It's late. I'd say you need your beauty sleep, but... well, it seems you have the beauty thing down just fine already.... I'm already regretting saying a thing to you."
+        }
+      ]
+    },
+    {
+      "id": "d23-ultra_late-if",
+      "trigger": {
+        "type": "time_slot",
+        "value": "ultra_late"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 23
+        },
+        {
+          "var": "seen:d23-midnight",
+          "op": "==",
+          "value": true
+        }
+      ],
+      "priority": 2,
+      "lines": [
+        {
+          "text": "You're up still, huh. I'm going to reiterate that you should get some sleep. And by the way, let's agree to pretend what I said earlier never happened. Thanks."
+        }
+      ]
+    },
+    {
+      "id": "d23-ultra_late-else",
+      "trigger": {
+        "type": "time_slot",
+        "value": "ultra_late"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 23
+        }
+      ],
+      "lines": [
+        {
+          "text": "How anyone could want to not only be awake but voluntarily do /work/ at this time of night is beyond me. I commend you."
+        }
+      ]
+    },
+    {
+      "id": "d24-morning",
+      "trigger": {
+        "type": "time_slot",
+        "value": "morning"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 24
+        }
+      ],
+      "lines": [
+        {
+          "expression": "neutral",
+          "text": "Good morning. Have you eaten yet, {player}?"
+        }
+      ],
+      "choices": [
+        {
+          "id": "A",
+          "text": "Not yet",
+          "lines": [
+            {
+              "text": "Don't forget to; you need your energy for the day."
+            }
+          ]
+        },
+        {
+          "id": "B",
+          "text": "Yup",
+          "lines": [
+            {
+              "text": "Great to hear. I hear writers sometimes forget to eat and sleep, and I couldn't help but worry about you... Er, actually, pretend I never said that."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d24-late_morning",
+      "trigger": {
+        "type": "time_slot",
+        "value": "late_morning"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 24
+        }
+      ],
+      "lines": [
+        {
+          "text": "Do you ever go to the pet store just to look at and play with the animals? I especially love the turtles."
+        }
+      ]
+    },
+    {
+      "id": "d24-evening",
+      "trigger": {
+        "type": "time_slot",
+        "value": "evening"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 24
+        }
+      ],
+      "lines": [
+        {
+          "expression": "muse",
+          "text": "I never thought about it before, but recently I've been thinking it could be nice to have a nickname. But... Ryde? RyRy? Rydie? Somehow, none of the alternatives sound great."
+        }
+      ]
+    },
+    {
+      "id": "d24-midnight",
+      "trigger": {
+        "type": "time_slot",
+        "value": "midnight"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 24
+        }
+      ],
+      "lines": [
+        {
+          "expression": "neutral",
+          "text": "Would you believe me if I told you I was internet famous? Because you shouldn't. It's a lie. I only have five friends and zero followers."
+        }
+      ]
+    },
+    {
+      "id": "d24-ultra_late",
+      "trigger": {
+        "type": "time_slot",
+        "value": "ultra_late"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 24
+        }
+      ],
+      "lines": [
+        {
+          "expression": "tired",
+          "text": "My eyes are so tired... How do you stay up like this?"
+        }
+      ]
+    },
+    {
+      "id": "d25-morning",
+      "trigger": {
+        "type": "time_slot",
+        "value": "morning"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 25
+        }
+      ],
+      "lines": [
+        {
+          "expression": "happy",
+          "text": "Morning! You're up bright and early, aren't you? Good luck with writing today as well."
+        }
+      ]
+    },
+    {
+      "id": "d25-late_morning",
+      "trigger": {
+        "type": "time_slot",
+        "value": "late_morning"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 25
+        }
+      ],
+      "lines": [
+        {
+          "expression": "muse",
+          "text": "Hey, {player}. My friend has this very busy friend who he's been trying to support in her goal and he thinks he's fallen for her."
+        },
+        {
+          "text": "He isn't sure if she's just leaning on him because he's around or if she might reciprocate his feelings... I told him to just move on and not risk their friendship, but what do you think?"
+        }
+      ],
+      "choices": [
+        {
+          "id": "A",
+          "text": "He should go for it.",
+          "lines": [
+            {
+              "text": "You think so...?"
+            }
+          ]
+        },
+        {
+          "id": "B",
+          "text": "He shouldn't secretly ask her for advice.",
+          "lines": [
+            {
+              "text": "What? Well, y-yes, isn't that obvious?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d25-evening",
+      "trigger": {
+        "type": "time_slot",
+        "value": "evening"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 25
+        }
+      ],
+      "lines": [
+        {
+          "expression": "thinking",
+          "text": "You know, people are always so judgmental about whether others put pineapple on their pizza or not."
+        },
+        {
+          "text": "In a world where some garnish their pizzas with a school of tiny fish, isn't that the least of our concerns?"
+        }
+      ]
+    },
+    {
+      "id": "d25-midnight",
+      "trigger": {
+        "type": "time_slot",
+        "value": "midnight"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 25
+        }
+      ],
+      "lines": [
+        {
+          "expression": "muse",
+          "text": "What made you want to write, {player}? It's important to keep that in mind, I feel. Personally, I want to do something that would make 10-year-old Ryder proud for once."
+        }
+      ]
+    },
+    {
+      "id": "d25-ultra_late",
+      "trigger": {
+        "type": "time_slot",
+        "value": "ultra_late"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 25
+        }
+      ],
+      "lines": [
+        {
+          "expression": "muse",
+          "text": "Do aquariums exist in real life or are they just one of those anime things? ... Don't answer that. It's late; I'm not at my brightest right now."
+        }
+      ]
+    },
+    {
+      "id": "d26-morning",
+      "trigger": {
+        "type": "time_slot",
+        "value": "morning"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 26
+        }
+      ],
+      "lines": [
+        {
+          "expression": "veryhappy",
+          "text": "Good morning, {player}. I hope you're well-rested, because you've got another day of writing ahead of you. But the good news is that there are just four days left."
+        }
+      ]
+    },
+    {
+      "id": "d26-late_morning",
+      "trigger": {
+        "type": "time_slot",
+        "value": "late_morning"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 26
+        }
+      ],
+      "lines": [
+        {
+          "expression": "thinking",
+          "text": "... what would happen if I combined French toast and Texas toast, I wonder...? Oh! Hey there."
+        }
+      ]
+    },
+    {
+      "id": "d26-evening",
+      "trigger": {
+        "type": "time_slot",
+        "value": "evening"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 26
+        }
+      ],
+      "lines": [
+        {
+          "text": "Tonight's a good night for takeout. Actually, every night's a good night for takeout."
+        }
+      ]
+    },
+    {
+      "id": "d26-midnight",
+      "trigger": {
+        "type": "time_slot",
+        "value": "midnight"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 26
+        }
+      ],
+      "lines": [
+        {
+          "expression": "thinking",
+          "text": "A wise poet once said, \"There's only two types of people in the world. The ones that entertain, and the ones that observe.\" Which type do you think I am?"
+        }
+      ]
+    },
+    {
+      "id": "d26-ultra_late",
+      "trigger": {
+        "type": "time_slot",
+        "value": "ultra_late"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 26
+        }
+      ],
+      "lines": [
+        {
+          "text": "Usually, I find late nights lonely, but it's different with you somehow."
+        }
+      ]
+    },
+    {
+      "id": "d27-morning",
+      "trigger": {
+        "type": "time_slot",
+        "value": "morning"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 27
+        }
+      ],
+      "lines": [
+        {
+          "text": "Good morning, {player}."
+        }
+      ],
+      "choices": [
+        {
+          "id": "A",
+          "text": "Good morning, Rye.",
+          "lines": [
+            {
+              "text": "Huh? It... it sounds surprisingly nice when you call me that. I like it."
+            }
+          ]
+        },
+        {
+          "id": "B",
+          "text": "Good morning, Ryry.",
+          "lines": [
+            {
+              "text": "Did you just... call me... Agh, it's so embarrassing.... but I can't bring myself to tell you to stop... Not at all."
+            }
+          ]
+        },
+        {
+          "id": "C",
+          "text": "Morning, Ryder.",
+          "lines": [
+            {
+              "text": "Three days left, huh? You can do this. You can finish this book, I know it!"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d27-late_morning",
+      "trigger": {
+        "type": "time_slot",
+        "value": "late_morning"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 27
+        }
+      ],
+      "lines": [
+        {
+          "text": "{player}, do you like chocolate? If I woke up one day allergic to it, I don't know what I'd do..."
+        }
+      ],
+      "choices": [
+        {
+          "id": "A",
+          "text": "Yeah!",
+          "lines": [
+            {
+              "text": "Is that so? I do, too! Thanks for answering, anyway. I'll keep it in mind."
+            }
+          ]
+        },
+        {
+          "id": "B",
+          "text": "Not really",
+          "lines": [
+            {
+              "text": "Really? I'll keep that in mind then..."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d27-evening",
+      "trigger": {
+        "type": "time_slot",
+        "value": "evening"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 27
+        }
+      ],
+      "lines": [
+        {
+          "expression": "muse",
+          "text": "Cats get a bad rap for such silly reasons. They're actually quite easy to handle, so long as you remember to treat them like disgruntled employees rather than eager servants."
+        }
+      ]
+    },
+    {
+      "id": "d27-midnight",
+      "trigger": {
+        "type": "time_slot",
+        "value": "midnight"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 27
+        }
+      ],
+      "lines": [
+        {
+          "text": "You know... I'm happy I've gotten to spend all this time with you. It's been fun."
+        }
+      ]
+    },
+    {
+      "id": "d27-ultra_late",
+      "trigger": {
+        "type": "time_slot",
+        "value": "ultra_late"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 27
+        }
+      ],
+      "lines": [
+        {
+          "expression": "tired",
+          "text": "I'm tired and I'm hungry. Do we have anything in the fridge?"
+        }
+      ]
+    },
+    {
+      "id": "d28-morning",
+      "trigger": {
+        "type": "time_slot",
+        "value": "morning"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 28
+        }
+      ],
+      "lines": [
+        {
+          "text": "Morning, {player}. Did you sleep well?"
+        }
+      ]
+    },
+    {
+      "id": "d28-late_morning",
+      "trigger": {
+        "type": "time_slot",
+        "value": "late_morning"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 28
+        }
+      ],
+      "lines": [
+        {
+          "expression": "neutral",
+          "text": "I know you must be really busy right now. Do you need me to pick up anything from the store?"
+        }
+      ]
+    },
+    {
+      "id": "d28-evening",
+      "trigger": {
+        "type": "time_slot",
+        "value": "evening"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 28
+        }
+      ],
+      "lines": [
+        {
+          "expression": "blushavert",
+          "text": "It's been a long day and a long month. I hope I'm not being a bother... I... just want to support you in any way I can, I suppose."
+        }
+      ]
+    },
+    {
+      "id": "d28-midnight",
+      "trigger": {
+        "type": "time_slot",
+        "value": "midnight"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 28
+        }
+      ],
+      "lines": [
+        {
+          "expression": "neutral",
+          "text": "I know we're nearing the deadline, so I won't tell you what to do. Just try to get at least some sleep when you're done."
+        }
+      ]
+    },
+    {
+      "id": "d28-ultra_late",
+      "trigger": {
+        "type": "time_slot",
+        "value": "ultra_late"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 28
+        }
+      ],
+      "lines": [
+        {
+          "text": "I'm ready whenever you are. Shall we?"
+        }
+      ]
+    },
+    {
+      "id": "d29-morning",
+      "trigger": {
+        "type": "time_slot",
+        "value": "morning"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 29
+        }
+      ],
+      "lines": [
+        {
+          "text": "Good morning, {player}. Tomorrow's our last day. Let's make sure we're on track to finish your novel."
+        }
+      ]
+    },
+    {
+      "id": "d29-late_morning",
+      "trigger": {
+        "type": "time_slot",
+        "value": "late_morning"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 29
+        }
+      ],
+      "lines": [
+        {
+          "text": "Good morning. Just one more day left after today. I'm excited."
+        }
+      ]
+    },
+    {
+      "id": "d29-evening",
+      "trigger": {
+        "type": "time_slot",
+        "value": "evening"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 29
+        }
+      ],
+      "lines": [
+        {
+          "expression": "happy",
+          "text": "Since tomorrow's the last day, we should go out to karaoke sometime after this! ... Wait, you thought I'd participate? Heavens, no! I just wanted to watch..."
+        }
+      ]
+    },
+    {
+      "id": "d29-midnight",
+      "trigger": {
+        "type": "time_slot",
+        "value": "midnight"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 29
+        }
+      ],
+      "lines": [
+        {
+          "text": "I know you’ve got this. Just a bit more until we reach your goal!"
+        }
+      ]
+    },
+    {
+      "id": "d29-ultra_late",
+      "trigger": {
+        "type": "time_slot",
+        "value": "ultra_late"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 29
+        }
+      ],
+      "lines": [
+        {
+          "text": "I'm making some tea. Want some?"
+        }
+      ]
+    },
+    {
+      "id": "d30-morning",
+      "trigger": {
+        "type": "time_slot",
+        "value": "morning"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 30
+        }
+      ],
+      "lines": [
+        {
+          "expression": "veryhappy",
+          "text": "You're up? Excellent. As you may have noticed, it's the final day of your writing journey. Let's give it our all, shall we?"
+        }
+      ]
+    },
+    {
+      "id": "d30-late_morning",
+      "trigger": {
+        "type": "time_slot",
+        "value": "late_morning"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 30
+        }
+      ],
+      "lines": [
+        {
+          "text": "Good morning. Today's the last day. How are you feeling?"
+        }
+      ]
+    },
+    {
+      "id": "d30-evening",
+      "trigger": {
+        "type": "time_slot",
+        "value": "evening"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 30
+        }
+      ],
+      "lines": [
+        {
+          "text": "We're just finishing up tonight. Are you ready to power through it?"
+        }
+      ]
+    },
+    {
+      "id": "d30-midnight",
+      "trigger": {
+        "type": "time_slot",
+        "value": "midnight"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 30
+        }
+      ],
+      "lines": [
+        {
+          "text": "We're down to the wire now. You can do this. I believe in you!"
+        }
+      ]
+    },
+    {
+      "id": "d30-ultra_late-if",
+      "trigger": {
+        "type": "time_slot",
+        "value": "ultra_late"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 30
+        },
+        {
+          "var": "flag:visits_ultra_late",
+          "op": ">",
+          "value": 15
+        }
+      ],
+      "priority": 2,
+      "lines": [
+        {
+          "expression": "flushed",
+          "text": "Oh. Hey there. Are you awake as usual?"
+        },
+        {
+          "text": "Well, it's the last night. Let's do this!"
+        }
+      ]
+    },
+    {
+      "id": "d30-ultra_late-else",
+      "trigger": {
+        "type": "time_slot",
+        "value": "ultra_late"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 30
+        }
+      ],
+      "lines": [
+        {
+          "expression": "flushed",
+          "text": "Oh. You're sound asleep, aren't you? Know what? I'm probably too tired to think this through. But I'll say it anyway."
+        },
+        {
+          "text": "{player}... I honestly think I've fallen for you. And I don't know when it happened. Just all of a sudden, I couldn't think of anything but you anymore. And I'm worried it's not okay."
+        },
+        {
+          "text": "The way you fill my thoughts, when I know I don't fill yours. I don't want you to hate me. I don't want things to change for the worse."
+        },
+        {
+          "text": "I know I'm a complete fool for even wasting your time with this, so... if you'd like... no, if you'd be so kind, please just forget I said any of this. Good night."
+        }
+      ]
+    },
+    {
+      "id": "d31-morning",
+      "trigger": {
+        "type": "time_slot",
+        "value": "morning"
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 31
+        }
+      ],
+      "lines": [
+        {
+          "expression": "blushavert",
+          "text": "Morning. Er... do you remember anything I said to you last night?"
+        }
+      ],
+      "choices": [
+        {
+          "id": "A",
+          "text": "You said something to me?",
+          "lines": [
+            {
+              "text": "No, nothing of importance."
+            }
+          ]
+        },
+        {
+          "id": "B",
+          "text": "Yes, I do",
+          "lines": [
+            {
+              "expression": "blushavert",
+              "text": "You... heard that? Then I won't take it back. I meant every word."
+            }
+          ]
         }
       ]
     },
@@ -569,8 +3784,8 @@
       ],
       "lines": [
         {
-          "text": "It's a start. Keep going.",
-          "expression": "smile"
+          "expression": "smile",
+          "text": "It's a start. Keep going."
         }
       ]
     },
@@ -589,8 +3804,8 @@
       ],
       "lines": [
         {
-          "text": "Already a third there.",
-          "expression": "smile"
+          "expression": "smile",
+          "text": "Already a third there."
         }
       ]
     },
@@ -609,8 +3824,8 @@
       ],
       "lines": [
         {
-          "text": "Halfway there. Don't stop writing.",
-          "expression": "smile"
+          "expression": "smile",
+          "text": "Halfway there. Don't stop writing."
         }
       ]
     },
@@ -629,8 +3844,8 @@
       ],
       "lines": [
         {
-          "text": "Just a quarter left now...",
-          "expression": "neutral"
+          "expression": "neutral",
+          "text": "Just a quarter left now..."
         }
       ]
     },
@@ -649,8 +3864,68 @@
       ],
       "lines": [
         {
-          "text": "Off to a great start! Excellent progress.",
-          "expression": "veryhappy"
+          "expression": "veryhappy",
+          "text": "Off to a great start! Excellent progress."
+        }
+      ]
+    },
+    {
+      "id": "d1-daily-110",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 110
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 1
+        }
+      ],
+      "lines": [
+        {
+          "expression": "neutral",
+          "text": "On a roll, I suppose?"
+        }
+      ]
+    },
+    {
+      "id": "d1-daily-150",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 150
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 1
+        }
+      ],
+      "lines": [
+        {
+          "expression": "smile",
+          "text": "You're getting a lot of extra writing done today, aren't you?"
+        }
+      ]
+    },
+    {
+      "id": "d1-daily-200",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 200
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 1
+        }
+      ],
+      "lines": [
+        {
+          "expression": "smile",
+          "text": "You've done two days of work on your first day! Feeling extra motivated? But if you write it all now, what will we do the rest of the month?"
         }
       ]
     },
@@ -669,8 +3944,8 @@
       ],
       "lines": [
         {
-          "text": "Let's try to reach our daily goal, shall we?",
-          "expression": "smile"
+          "expression": "smile",
+          "text": "Let's try to reach our daily goal, shall we?"
         }
       ]
     },
@@ -689,8 +3964,8 @@
       ],
       "lines": [
         {
-          "text": "We're making good progress.",
-          "expression": "smile"
+          "expression": "smile",
+          "text": "We're making good progress."
         }
       ]
     },
@@ -709,8 +3984,8 @@
       ],
       "lines": [
         {
-          "text": "Very nice, you've already finished half of your daily goal!",
-          "expression": "happy"
+          "expression": "happy",
+          "text": "Very nice, you've already finished half of your daily goal!"
         }
       ]
     },
@@ -729,8 +4004,8 @@
       ],
       "lines": [
         {
-          "text": "Almost there now.",
-          "expression": "neutral"
+          "expression": "neutral",
+          "text": "Almost there now."
         }
       ]
     },
@@ -749,8 +4024,1487 @@
       ],
       "lines": [
         {
-          "text": "And you've met your writing goal for today. Well done.",
-          "expression": "happy"
+          "expression": "happy",
+          "text": "And you've met your writing goal for today. Well done."
+        }
+      ]
+    },
+    {
+      "id": "d2-daily-110",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 110
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 2
+        }
+      ],
+      "lines": [
+        {
+          "expression": "neutral",
+          "text": "You're writing even more?"
+        }
+      ]
+    },
+    {
+      "id": "d2-daily-150",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 150
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 2
+        }
+      ],
+      "lines": [
+        {
+          "expression": "happy",
+          "text": "That's half a day's worth of extra writing!"
+        }
+      ]
+    },
+    {
+      "id": "d2-daily-200",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 200
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 2
+        }
+      ],
+      "lines": [
+        {
+          "expression": "smile",
+          "text": "Incredible job! You've done a whole extra day's worth of writing! But let's not burn ourselves out either, right?"
+        }
+      ]
+    },
+    {
+      "id": "d3-daily-10",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 10
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 3
+        }
+      ],
+      "lines": [
+        {
+          "expression": "surprised",
+          "text": "You started writing? I didn't notice and you already have 10% done."
+        }
+      ]
+    },
+    {
+      "id": "d3-daily-33",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 33
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 3
+        }
+      ],
+      "lines": [
+        {
+          "expression": "smile",
+          "text": "You finished a third. Good job and remember it doesn't have to be perfect."
+        }
+      ]
+    },
+    {
+      "id": "d3-daily-50",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 50
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 3
+        }
+      ],
+      "lines": [
+        {
+          "expression": "happy",
+          "text": "You're already half done. You're making great progress."
+        }
+      ]
+    },
+    {
+      "id": "d3-daily-75",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 75
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 3
+        }
+      ],
+      "lines": [
+        {
+          "expression": "smile",
+          "text": "Another quarter and you'll be done for the day."
+        }
+      ]
+    },
+    {
+      "id": "d3-daily-100",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 100
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 3
+        }
+      ],
+      "lines": [
+        {
+          "expression": "happy",
+          "text": "All done for today. You've done a great job!"
+        }
+      ]
+    },
+    {
+      "id": "d3-daily-110",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 110
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 3
+        }
+      ],
+      "lines": [
+        {
+          "expression": "neutral",
+          "text": "Seems you're \"in the zone\" now, as they say."
+        }
+      ]
+    },
+    {
+      "id": "d3-daily-150",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 150
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 3
+        }
+      ],
+      "lines": [
+        {
+          "expression": "smile",
+          "text": "Judging by the amount of writing you've done, I'd say you really got into it this time. Am I right?"
+        }
+      ]
+    },
+    {
+      "id": "d4-daily-100",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 100
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 4
+        }
+      ],
+      "lines": [
+        {
+          "expression": "happy",
+          "text": "Good job. With diligence like this, your story will be done in no time!"
+        }
+      ]
+    },
+    {
+      "id": "d4-daily-110",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 110
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 4
+        }
+      ],
+      "lines": [
+        {
+          "expression": "surprised",
+          "text": "Oh? Feeling inspired, I take it?"
+        }
+      ]
+    },
+    {
+      "id": "d8-daily-10",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 10
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 8
+        }
+      ],
+      "lines": [
+        {
+          "expression": "happy",
+          "text": "I'm always glad to see you writing."
+        }
+      ]
+    },
+    {
+      "id": "d8-daily-33",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 33
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 8
+        }
+      ],
+      "lines": [
+        {
+          "expression": "smile",
+          "text": "Nice work, you've already got a third done."
+        }
+      ]
+    },
+    {
+      "id": "d8-daily-50",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 50
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 8
+        }
+      ],
+      "lines": [
+        {
+          "expression": "smile",
+          "text": "Good job getting half of the goal done so far."
+        }
+      ]
+    },
+    {
+      "id": "d8-daily-75",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 75
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 8
+        }
+      ],
+      "lines": [
+        {
+          "expression": "smile",
+          "text": "You're almost finished for the day."
+        }
+      ]
+    },
+    {
+      "id": "d8-daily-100",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 100
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 8
+        }
+      ],
+      "lines": [
+        {
+          "expression": "happy",
+          "text": "A worthy start to our second week. Well done."
+        }
+      ]
+    },
+    {
+      "id": "d9-daily-10",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 10
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 9
+        }
+      ],
+      "lines": [
+        {
+          "expression": "thinking",
+          "text": "Somehow I never notice when you start writing. Seems you've got ten percent done while I wasn't looking?"
+        }
+      ]
+    },
+    {
+      "id": "d9-daily-33",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 33
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 9
+        }
+      ],
+      "lines": [
+        {
+          "expression": "smile",
+          "text": "A third of today's work is done already. Keep up the good work."
+        }
+      ]
+    },
+    {
+      "id": "d9-daily-50",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 50
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 9
+        }
+      ],
+      "lines": [
+        {
+          "expression": "smile",
+          "text": "50% completed for your daily goal. No need for perfectionism, though. Just keep writing."
+        }
+      ]
+    },
+    {
+      "id": "d9-daily-75",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 75
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 9
+        }
+      ],
+      "lines": [
+        {
+          "expression": "neutral",
+          "text": "Just a little more and you'll be home free."
+        }
+      ]
+    },
+    {
+      "id": "d9-daily-100",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 100
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 9
+        }
+      ],
+      "lines": [
+        {
+          "expression": "glad",
+          "text": "Good work today, {player}. Seeing you work hard for something you want makes me smile."
+        }
+      ]
+    },
+    {
+      "id": "d10-daily-10",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 10
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 10
+        }
+      ],
+      "lines": [
+        {
+          "expression": "smile",
+          "text": "Keep it up."
+        }
+      ]
+    },
+    {
+      "id": "d10-daily-33",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 33
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 10
+        }
+      ],
+      "lines": [
+        {
+          "expression": "happy",
+          "text": "You've already written a third of your writing for today. Not bad!"
+        }
+      ]
+    },
+    {
+      "id": "d10-daily-50",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 50
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 10
+        }
+      ],
+      "lines": [
+        {
+          "expression": "smile",
+          "text": "Halfway there already, huh? That's good to see."
+        }
+      ]
+    },
+    {
+      "id": "d10-daily-75",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 75
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 10
+        }
+      ],
+      "lines": [
+        {
+          "expression": "neutral",
+          "text": "You've only got a quarter left now and you'll be done for today."
+        }
+      ]
+    },
+    {
+      "id": "d10-daily-100",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 100
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 10
+        }
+      ],
+      "lines": [
+        {
+          "expression": "thinking",
+          "text": "You're done for today. Would... it be strange if I said I was proud of you?"
+        }
+      ]
+    },
+    {
+      "id": "d11-daily-100",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 100
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 11
+        }
+      ],
+      "lines": [
+        {
+          "expression": "veryhappy",
+          "text": "And you're done. Seems like you can do anything you set your mind to, huh?"
+        }
+      ]
+    },
+    {
+      "id": "d14-daily-100",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 100
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 14
+        }
+      ],
+      "lines": [
+        {
+          "expression": "glad",
+          "text": "And that's two weeks of work down, another two to go."
+        }
+      ]
+    },
+    {
+      "id": "d15-daily-10",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 10
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 15
+        }
+      ],
+      "lines": [
+        {
+          "expression": "thinking",
+          "text": "You know, you're on your third week already. Time flies, doesn't it?"
+        }
+      ]
+    },
+    {
+      "id": "d15-daily-33",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 33
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 15
+        }
+      ],
+      "lines": [
+        {
+          "expression": "happy",
+          "text": "You've got a third done already. Very nice!"
+        }
+      ]
+    },
+    {
+      "id": "d15-daily-50",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 50
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 15
+        }
+      ],
+      "lines": [
+        {
+          "expression": "happy",
+          "text": "We're halfway to the daily goal already. Keep it up!"
+        }
+      ]
+    },
+    {
+      "id": "d15-daily-75",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 75
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 15
+        }
+      ],
+      "lines": [
+        {
+          "expression": "smile",
+          "text": "75% done for the day. Just a little more."
+        }
+      ]
+    },
+    {
+      "id": "d15-daily-100",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 100
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 15
+        }
+      ],
+      "lines": [
+        {
+          "expression": "happy",
+          "text": "Nice work, {player}. Another day done. Everything's coming together nicely!"
+        }
+      ]
+    },
+    {
+      "id": "d16-daily-10",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 10
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 16
+        }
+      ],
+      "lines": [
+        {
+          "expression": "smile",
+          "text": "I'm happy you're still going for it, {player}."
+        }
+      ]
+    },
+    {
+      "id": "d16-daily-33",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 33
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 16
+        }
+      ],
+      "lines": [
+        {
+          "expression": "smile",
+          "text": "One third down, two more to go."
+        }
+      ]
+    },
+    {
+      "id": "d16-daily-50",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 50
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 16
+        }
+      ],
+      "lines": [
+        {
+          "expression": "happy",
+          "text": "Keep up the good work, {player}. We're halfway there!"
+        }
+      ]
+    },
+    {
+      "id": "d16-daily-75",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 75
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 16
+        }
+      ],
+      "lines": [
+        {
+          "expression": "smile",
+          "text": "Just 25% left to write. Very nice progress you've made."
+        }
+      ]
+    },
+    {
+      "id": "d16-daily-100",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 100
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 16
+        }
+      ],
+      "lines": [
+        {
+          "expression": "happy",
+          "text": "And we're done for the day. Great job."
+        }
+      ]
+    },
+    {
+      "id": "d17-daily-10",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 10
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 17
+        }
+      ],
+      "lines": [
+        {
+          "expression": "veryhappy",
+          "text": "Now that's the spirit."
+        }
+      ]
+    },
+    {
+      "id": "d17-daily-33",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 33
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 17
+        }
+      ],
+      "lines": [
+        {
+          "expression": "smile",
+          "text": "We're making good progress already. Just two more thirds of the goal to go."
+        }
+      ]
+    },
+    {
+      "id": "d17-daily-50",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 50
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 17
+        }
+      ],
+      "lines": [
+        {
+          "expression": "happy",
+          "text": "You just finished half of your goal for the day. Keep writing like this and your story will be done in no time!"
+        }
+      ]
+    },
+    {
+      "id": "d17-daily-75",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 75
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 17
+        }
+      ],
+      "lines": [
+        {
+          "expression": "smile",
+          "text": "Just another quarter and we'll be done for today."
+        }
+      ]
+    },
+    {
+      "id": "d17-daily-100",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 100
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 17
+        }
+      ],
+      "lines": [
+        {
+          "expression": "happy",
+          "text": "We've made the day's goal! Very nice, {player}. I'm looking forward to seeing you write again tomorrow."
+        }
+      ]
+    },
+    {
+      "id": "d18-daily-10",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 10
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 18
+        }
+      ],
+      "lines": [
+        {
+          "expression": "smile",
+          "text": "That's a good start for the day."
+        }
+      ]
+    },
+    {
+      "id": "d18-daily-75-if",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 75
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 18
+        },
+        {
+          "var": "timeSlot",
+          "op": "==",
+          "value": "ultra_late"
+        }
+      ],
+      "priority": 1,
+      "lines": [
+        {
+          "text": "Just a quarter more and we can go to bed."
+        }
+      ]
+    },
+    {
+      "id": "d21-daily-100",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 100
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 21
+        }
+      ],
+      "lines": [
+        {
+          "expression": "glad",
+          "text": "That's the end of week three. I hope you feel proud of yourself, because I know I'm proud of you."
+        }
+      ]
+    },
+    {
+      "id": "d22-daily-10",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 10
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 22
+        }
+      ],
+      "lines": [
+        {
+          "expression": "muse",
+          "text": "We're on our fourth week already. I can hardly believe it."
+        }
+      ]
+    },
+    {
+      "id": "d22-daily-33",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 33
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 22
+        }
+      ],
+      "lines": [
+        {
+          "expression": "happy",
+          "text": "You've gotten the first third done for the day. Good work! Let's keep it up."
+        }
+      ]
+    },
+    {
+      "id": "d22-daily-50",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 50
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 22
+        }
+      ],
+      "lines": [
+        {
+          "expression": "smile",
+          "text": "We're halfway through now. Let's keep going."
+        }
+      ]
+    },
+    {
+      "id": "d22-daily-75",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 75
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 22
+        }
+      ],
+      "lines": [
+        {
+          "expression": "smile",
+          "text": "Almost done for the day, Just another quarter left to go now."
+        }
+      ]
+    },
+    {
+      "id": "d22-daily-100",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 100
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 22
+        }
+      ],
+      "lines": [
+        {
+          "expression": "veryhappy",
+          "text": "We're done! That was a great start to our final week, {player}."
+        }
+      ]
+    },
+    {
+      "id": "d23-daily-10",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 10
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 23
+        }
+      ],
+      "lines": [
+        {
+          "expression": "glad",
+          "text": "I love seeing you write, {player}."
+        }
+      ]
+    },
+    {
+      "id": "d23-daily-33",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 33
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 23
+        }
+      ],
+      "lines": [
+        {
+          "expression": "happy",
+          "text": "We have one third done already. That's quite a bit of progress!"
+        }
+      ]
+    },
+    {
+      "id": "d23-daily-50",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 50
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 23
+        }
+      ],
+      "lines": [
+        {
+          "expression": "smile",
+          "text": "50% done for the day already! Let's keep it up, shall we?"
+        }
+      ]
+    },
+    {
+      "id": "d23-daily-75",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 75
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 23
+        }
+      ],
+      "lines": [
+        {
+          "expression": "happy",
+          "text": "Just 25% left for the day. You've been doing great!"
+        }
+      ]
+    },
+    {
+      "id": "d23-daily-100",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 100
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 23
+        }
+      ],
+      "lines": [
+        {
+          "expression": "glad",
+          "text": "That's it for the day! You really gave it your all, didn't you? I knew you could."
+        }
+      ]
+    },
+    {
+      "id": "d24-daily-10",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 10
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 24
+        }
+      ],
+      "lines": [
+        {
+          "expression": "glad",
+          "text": "You've been putting so much passion into this. It's amazing."
+        }
+      ]
+    },
+    {
+      "id": "d24-daily-33",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 33
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 24
+        }
+      ],
+      "lines": [
+        {
+          "expression": "smile",
+          "text": "Great work. You have a third done for the day."
+        }
+      ]
+    },
+    {
+      "id": "d24-daily-50",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 50
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 24
+        }
+      ],
+      "lines": [
+        {
+          "expression": "smile",
+          "text": "We're half done for the day. Nice!"
+        }
+      ]
+    },
+    {
+      "id": "d24-daily-75",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 75
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 24
+        }
+      ],
+      "lines": [
+        {
+          "expression": "smile",
+          "text": "Nice work! Now we just have to write the last quarter and we'll be done for the day."
+        }
+      ]
+    },
+    {
+      "id": "d24-daily-100",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 100
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 24
+        }
+      ],
+      "lines": [
+        {
+          "expression": "glad",
+          "text": "We're all done for today. Amazing job, {player}. \"Admirable\" doesn't even begin to describe your diligence."
+        }
+      ]
+    },
+    {
+      "id": "d25-daily-10",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 10
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 25
+        }
+      ],
+      "lines": [
+        {
+          "expression": "veryhappy",
+          "text": "Good start!"
+        }
+      ]
+    },
+    {
+      "id": "d25-daily-100",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 100
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 25
+        }
+      ],
+      "lines": [
+        {
+          "expression": "happy",
+          "text": "You're all done! Excellent work."
+        }
+      ]
+    },
+    {
+      "id": "d26-daily-10",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 10
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 26
+        }
+      ],
+      "lines": [
+        {
+          "expression": "muse",
+          "text": "Can you believe it's already day 26?"
+        }
+      ]
+    },
+    {
+      "id": "d27-daily-10",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 10
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 27
+        }
+      ],
+      "lines": [
+        {
+          "expression": "muse",
+          "text": "There are only three days left after this..."
+        }
+      ]
+    },
+    {
+      "id": "d29-daily-10",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 10
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 29
+        }
+      ],
+      "lines": [
+        {
+          "expression": "muse",
+          "text": "Tomorrow's our last day, huh..."
+        }
+      ]
+    },
+    {
+      "id": "d29-daily-100",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 100
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 29
+        }
+      ],
+      "lines": [
+        {
+          "expression": "happy",
+          "text": "That's it until tomorrow. We're almost at the end of your journey, but I'm glad I was there for every step."
+        }
+      ]
+    },
+    {
+      "id": "d30-daily-10",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 10
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 30
+        }
+      ],
+      "lines": [
+        {
+          "expression": "glad",
+          "text": "It's our last day. We can pull through this."
+        }
+      ]
+    },
+    {
+      "id": "d30-daily-33",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 33
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 30
+        }
+      ],
+      "lines": [
+        {
+          "expression": "neutral",
+          "text": "You're a third through."
+        }
+      ]
+    },
+    {
+      "id": "d30-daily-50",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 50
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 30
+        }
+      ],
+      "lines": [
+        {
+          "expression": "surprised",
+          "text": "Wow, it seems we're already halfway through our last day..."
+        }
+      ]
+    },
+    {
+      "id": "d30-daily-75",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 75
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 30
+        }
+      ],
+      "lines": [
+        {
+          "expression": "smile",
+          "text": "Another quarter and we're done. \"Done\" done."
+        }
+      ]
+    },
+    {
+      "id": "d30-daily-100",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 100
+      },
+      "when": [
+        {
+          "var": "day",
+          "op": "==",
+          "value": 30
+        }
+      ],
+      "lines": [
+        {
+          "expression": "veryhappy",
+          "text": "That's everything, {player}. You pulled it off. You did it."
+        }
+      ]
+    },
+    {
+      "id": "any-daily-100",
+      "trigger": {
+        "type": "daily_pct",
+        "value": 100
+      },
+      "priority": -10,
+      "lines": [
+        {
+          "expression": "happy",
+          "text": "That's today's goal done, {player}. {todayWords} words."
         }
       ]
     },
@@ -759,18 +5513,18 @@
       "trigger": {
         "type": "session_start"
       },
-      "repeat": "once",
       "priority": 10,
       "lines": [
         {
-          "text": "You intend to finish a novel this month?",
-          "expression": "neutral"
+          "expression": "neutral",
+          "text": "You intend to finish a novel this month?"
         },
         {
-          "text": "Admirable goal. I suppose I can do my best to support you, but no promises made.",
-          "expression": "smile"
+          "expression": "smile",
+          "text": "Admirable goal. I suppose I can do my best to support you, but no promises made."
         }
-      ]
+      ],
+      "repeat": "once"
     },
     {
       "id": "total-10",
@@ -780,21 +5534,7 @@
       },
       "lines": [
         {
-          "text": "I'll give credit where it's due: you've put a sizeable dent into your goal. I look forward to seeing how things go this month.",
-          "expression": "serious"
-        }
-      ]
-    },
-    {
-      "id": "total-25",
-      "trigger": {
-        "type": "total_pct",
-        "value": 25
-      },
-      "lines": [
-        {
-          "text": "[PLACEHOLDER 25]",
-          "expression": "serious"
+          "text": "I'll give credit where it's due: you've put a sizeable dent into your goal. I look forward to seeing how things go this month."
         }
       ]
     },
@@ -806,47 +5546,27 @@
       },
       "lines": [
         {
-          "text": "[PLACEHOLDER 33]",
-          "expression": "serious"
+          "text": "A third through. Not bad."
         }
-      ]
-    },
-    {
-      "id": "total-50",
-      "trigger": {
-        "type": "total_pct",
-        "value": 50
-      },
-      "lines": [
+      ],
+      "choices": [
         {
-          "text": "[PLACEHOLDER 50]",
-          "expression": "serious"
-        }
-      ]
-    },
-    {
-      "id": "total-66",
-      "trigger": {
-        "type": "total_pct",
-        "value": 66
-      },
-      "lines": [
+          "id": "A",
+          "text": "Gee, thanks.",
+          "lines": [
+            {
+              "text": "I'm reserving my praise for when you're halfway done."
+            }
+          ]
+        },
         {
-          "text": "[PLACEHOLDER 66]",
-          "expression": "serious"
-        }
-      ]
-    },
-    {
-      "id": "total-75",
-      "trigger": {
-        "type": "total_pct",
-        "value": 75
-      },
-      "lines": [
-        {
-          "text": "[PLACEHOLDER 75]",
-          "expression": "serious"
+          "id": "B",
+          "text": "Thanks.",
+          "lines": [
+            {
+              "text": "No need to thank me for merely stating facts."
+            }
+          ]
         }
       ]
     },
@@ -858,241 +5578,12 @@
       },
       "lines": [
         {
-          "text": "[PLACEHOLDER 90]",
-          "expression": "serious"
+          "text": "You're nearing the finish line. Just 10% to go. Maybe this doesn't mean much, but... I'm proud of you."
         }
       ]
     },
     {
-      "id": "total-100",
-      "trigger": {
-        "type": "total_pct",
-        "value": 100
-      },
-      "lines": [
-        {
-          "text": "[PLACEHOLDER 100]",
-          "expression": "serious"
-        }
-      ]
-    },
-    {
-      "id": "ambient-stranger",
-      "trigger": {
-        "type": "random"
-      },
-      "when": [
-        {
-          "var": "stage",
-          "op": "==",
-          "value": "stranger"
-        }
-      ],
-      "cooldownMinutes": 30,
-      "variants": [
-        [
-          {
-            "text": "[PLACEHOLDER ambient chatter A · stranger]",
-            "expression": "neutral"
-          }
-        ],
-        [
-          {
-            "text": "[PLACEHOLDER ambient chatter B · stranger]",
-            "expression": "thinking"
-          }
-        ]
-      ]
-    },
-    {
-      "id": "stage-acquaintance",
-      "trigger": {
-        "type": "stage",
-        "value": "acquaintance"
-      },
-      "lines": [
-        {
-          "text": "[PLACEHOLDER entering acquaintance AFFINITY]",
-          "expression": "smile"
-        }
-      ]
-    },
-    {
-      "id": "ambient-acquaintance",
-      "trigger": {
-        "type": "random"
-      },
-      "when": [
-        {
-          "var": "stage",
-          "op": "==",
-          "value": "acquaintance"
-        }
-      ],
-      "cooldownMinutes": 30,
-      "variants": [
-        [
-          {
-            "text": "[PLACEHOLDER ambient chatter A · acquaintance]",
-            "expression": "smile"
-          }
-        ],
-        [
-          {
-            "text": "[PLACEHOLDER ambient chatter B · acquaintance]",
-            "expression": "thinking"
-          }
-        ]
-      ]
-    },
-    {
-      "id": "stage-friend",
-      "trigger": {
-        "type": "stage",
-        "value": "friend"
-      },
-      "lines": [
-        {
-          "text": "[PLACEHOLDER entering friend AFFINITY]",
-          "expression": "glad"
-        }
-      ]
-    },
-    {
-      "id": "ambient-friend",
-      "trigger": {
-        "type": "random"
-      },
-      "when": [
-        {
-          "var": "stage",
-          "op": "==",
-          "value": "friend"
-        }
-      ],
-      "cooldownMinutes": 30,
-      "variants": [
-        [
-          {
-            "text": "[PLACEHOLDER ambient chatter A · friend]",
-            "expression": "glad"
-          }
-        ],
-        [
-          {
-            "text": "[PLACEHOLDER ambient chatter B · friend]",
-            "expression": "thinking"
-          }
-        ]
-      ]
-    },
-    {
-      "id": "stage-close",
-      "trigger": {
-        "type": "stage",
-        "value": "close"
-      },
-      "lines": [
-        {
-          "text": "[PLACEHOLDER entering close AFFINITY]",
-          "expression": "happy"
-        }
-      ]
-    },
-    {
-      "id": "ambient-close",
-      "trigger": {
-        "type": "random"
-      },
-      "when": [
-        {
-          "var": "stage",
-          "op": "==",
-          "value": "close"
-        }
-      ],
-      "cooldownMinutes": 30,
-      "variants": [
-        [
-          {
-            "text": "[PLACEHOLDER ambient chatter A · close]",
-            "expression": "happy"
-          }
-        ],
-        [
-          {
-            "text": "[PLACEHOLDER ambient chatter B · close]",
-            "expression": "thinking"
-          }
-        ]
-      ]
-    },
-    {
-      "id": "stage-devoted",
-      "trigger": {
-        "type": "stage",
-        "value": "devoted"
-      },
-      "lines": [
-        {
-          "text": "[PLACEHOLDER entering devoted AFFINITY]",
-          "expression": "veryhappy"
-        }
-      ]
-    },
-    {
-      "id": "ambient-devoted",
-      "trigger": {
-        "type": "random"
-      },
-      "when": [
-        {
-          "var": "stage",
-          "op": "==",
-          "value": "devoted"
-        }
-      ],
-      "cooldownMinutes": 30,
-      "variants": [
-        [
-          {
-            "text": "[PLACEHOLDER ambient chatter A · devoted]",
-            "expression": "veryhappy"
-          }
-        ],
-        [
-          {
-            "text": "[PLACEHOLDER ambient chatter B · devoted]",
-            "expression": "thinking"
-          }
-        ]
-      ]
-    },
-    {
-      "id": "idle-5",
-      "trigger": {
-        "type": "idle",
-        "value": 5
-      },
-      "repeat": "always",
-      "cooldownMinutes": 20,
-      "variants": [
-        [
-          {
-            "text": "Stuck? Try writing the next sentence badly. You can fix it later.",
-            "expression": "muse"
-          }
-        ],
-        [
-          {
-            "text": "[PLACEHOLDER idle nudge B]",
-            "expression": "thinking"
-          }
-        ]
-      ]
-    },
-    {
-      "id": "date-halloween",
+      "id": "date-10-31",
       "trigger": {
         "type": "date",
         "value": "10-31"
@@ -1100,13 +5591,13 @@
       "priority": 5,
       "lines": [
         {
-          "text": "[PLACEHOLDER Halloween eve · day before the month starts]",
-          "expression": "smile"
+          "expression": "smile",
+          "text": "[PLACEHOLDER Halloween eve · day before the month starts]"
         }
       ]
     },
     {
-      "id": "last-day",
+      "id": "day-30-start",
       "trigger": {
         "type": "day_start",
         "value": 30
@@ -1114,55 +5605,266 @@
       "priority": 5,
       "lines": [
         {
-          "text": "[PLACEHOLDER last day · day 30]",
-          "expression": "serious"
+          "expression": "serious",
+          "text": "Last day, {player}. {wordsLeft} words to go. Whatever happens, I'm proud of you. Let's finish this together."
         }
-      ],
-      "note": "First visit on day 30, whatever the calendar date, so stories that don't start on November 1 get it too."
+      ]
     },
     {
-      "id": "welcome-back",
+      "id": "chatter-stranger",
       "trigger": {
-        "type": "reopen"
+        "type": "random"
       },
-      "repeat": "always",
+      "cooldownMinutes": 30,
+      "when": [
+        {
+          "var": "stage",
+          "op": "==",
+          "value": "stranger"
+        }
+      ],
       "variants": [
         [
           {
-            "text": "Back again, {player}? Good. Pick up where you left off.",
-            "expression": "smile"
+            "expression": "neutral",
+            "text": "[PLACEHOLDER ambient chatter A · stranger]"
           }
         ],
         [
           {
-            "text": "Oh, it's you. {todayWords} words so far today. Let's add a few more.",
-            "expression": "neutral"
+            "expression": "thinking",
+            "text": "[PLACEHOLDER ambient chatter B · stranger]"
+          }
+        ]
+      ]
+    },
+    {
+      "id": "chatter-acquaintance",
+      "trigger": {
+        "type": "random"
+      },
+      "cooldownMinutes": 30,
+      "when": [
+        {
+          "var": "stage",
+          "op": "==",
+          "value": "acquaintance"
+        }
+      ],
+      "variants": [
+        [
+          {
+            "expression": "smile",
+            "text": "[PLACEHOLDER ambient chatter A · acquaintance]"
           }
         ],
         [
           {
-            "text": "[PLACEHOLDER welcome back C]",
-            "expression": "glad"
+            "expression": "thinking",
+            "text": "[PLACEHOLDER ambient chatter B · acquaintance]"
+          }
+        ]
+      ]
+    },
+    {
+      "id": "chatter-friend",
+      "trigger": {
+        "type": "random"
+      },
+      "cooldownMinutes": 30,
+      "when": [
+        {
+          "var": "stage",
+          "op": "==",
+          "value": "friend"
+        }
+      ],
+      "variants": [
+        [
+          {
+            "expression": "glad",
+            "text": "[PLACEHOLDER ambient chatter A · friend]"
+          }
+        ],
+        [
+          {
+            "expression": "thinking",
+            "text": "[PLACEHOLDER ambient chatter B · friend]"
+          }
+        ]
+      ]
+    },
+    {
+      "id": "chatter-close",
+      "trigger": {
+        "type": "random"
+      },
+      "cooldownMinutes": 30,
+      "when": [
+        {
+          "var": "stage",
+          "op": "==",
+          "value": "close"
+        }
+      ],
+      "variants": [
+        [
+          {
+            "expression": "happy",
+            "text": "[PLACEHOLDER ambient chatter A · close]"
+          }
+        ],
+        [
+          {
+            "expression": "thinking",
+            "text": "[PLACEHOLDER ambient chatter B · close]"
+          }
+        ]
+      ]
+    },
+    {
+      "id": "chatter-devoted",
+      "trigger": {
+        "type": "random"
+      },
+      "cooldownMinutes": 30,
+      "when": [
+        {
+          "var": "stage",
+          "op": "==",
+          "value": "devoted"
+        }
+      ],
+      "variants": [
+        [
+          {
+            "expression": "veryhappy",
+            "text": "[PLACEHOLDER ambient chatter A · devoted]"
+          }
+        ],
+        [
+          {
+            "expression": "thinking",
+            "text": "[PLACEHOLDER ambient chatter B · devoted]"
+          }
+        ]
+      ]
+    },
+    {
+      "id": "react_stage_acquaintance",
+      "trigger": {
+        "type": "stage",
+        "value": "acquaintance"
+      },
+      "lines": [
+        {
+          "expression": "smile",
+          "text": "[PLACEHOLDER entering acquaintance AFFINITY]"
+        }
+      ]
+    },
+    {
+      "id": "react_stage_friend",
+      "trigger": {
+        "type": "stage",
+        "value": "friend"
+      },
+      "lines": [
+        {
+          "expression": "glad",
+          "text": "[PLACEHOLDER entering friend AFFINITY]"
+        }
+      ]
+    },
+    {
+      "id": "react_stage_close",
+      "trigger": {
+        "type": "stage",
+        "value": "close"
+      },
+      "lines": [
+        {
+          "expression": "happy",
+          "text": "[PLACEHOLDER entering close AFFINITY]"
+        }
+      ]
+    },
+    {
+      "id": "react_stage_devoted",
+      "trigger": {
+        "type": "stage",
+        "value": "devoted"
+      },
+      "lines": [
+        {
+          "expression": "veryhappy",
+          "text": "[PLACEHOLDER entering devoted AFFINITY]"
+        }
+      ]
+    },
+    {
+      "id": "react_idle_5_min",
+      "trigger": {
+        "type": "idle",
+        "value": 5
+      },
+      "variants": [
+        [
+          {
+            "expression": "muse",
+            "text": "Stuck? Try writing the next sentence badly. You can fix it later."
+          }
+        ],
+        [
+          {
+            "expression": "thinking",
+            "text": "[PLACEHOLDER idle nudge B]"
           }
         ]
       ],
-      "note": "Draft lines; replace with your own. Plays when the story is reopened on the same day."
+      "cooldownMinutes": 20
     },
     {
-      "id": "streak-7",
+      "id": "react_welcome_back",
+      "trigger": {
+        "type": "reopen"
+      },
+      "variants": [
+        [
+          {
+            "expression": "smile",
+            "text": "Back again, {player}? Good. Pick up where you left off."
+          }
+        ],
+        [
+          {
+            "expression": "neutral",
+            "text": "Oh, it's you. {todayWords} words so far today. Let's add a few more."
+          }
+        ],
+        [
+          {
+            "expression": "glad",
+            "text": "[PLACEHOLDER welcome back C]"
+          }
+        ]
+      ]
+    },
+    {
+      "id": "react_streak_7",
       "trigger": {
         "type": "streak",
         "value": 7
       },
       "lines": [
         {
-          "text": "[PLACEHOLDER 7 day streak]",
-          "expression": "happy"
+          "expression": "happy",
+          "text": "[PLACEHOLDER 7 day streak]"
         }
       ]
     },
     {
-      "id": "back-after-missing",
+      "id": "react_new_day",
       "trigger": {
         "type": "day_start"
       },
@@ -1173,43 +5875,740 @@
           "value": 0
         }
       ],
-      "repeat": "daily",
       "priority": -1,
       "lines": [
         {
-          "text": "[PLACEHOLDER welcome back after missed days]",
-          "expression": "muse"
+          "expression": "muse",
+          "text": "[PLACEHOLDER welcome back after missed days]"
         }
       ],
-      "note": "Low priority, so a day-specific greeting wins when there is one."
+      "repeat": "daily"
     },
     {
-      "id": "words-every-1000",
+      "id": "react_every_1000_words",
       "trigger": {
         "type": "words_every",
         "value": 1000
       },
       "lines": [
         {
-          "text": "Another thousand words. That makes {totalWords}.",
-          "expression": "smile"
+          "expression": "smile",
+          "text": "Another thousand words. That makes {totalWords}."
         }
       ]
     },
     {
-      "id": "daily-goal-generic",
+      "id": "game_night",
       "trigger": {
-        "type": "daily_pct",
-        "value": 100
+        "type": "total_pct",
+        "value": 25
       },
-      "priority": -1,
       "lines": [
         {
-          "text": "That's today's goal done, {player}. {todayWords} words.",
-          "expression": "happy"
+          "text": "Wow, you're already a quarter through. Good work. That's a substantial start, I'd say. Keep it up and you'll be done in no time. Shall we celebrate?"
+        },
+        {
+          "speaker": "player",
+          "text": "Sure! But... um... how?"
+        },
+        {
+          "text": "Hm... excellent question. How about we start by taking a break?"
+        },
+        {
+          "speaker": "player",
+          "text": "Sounds good to me."
+        },
+        {
+          "speaker": "narrator",
+          "text": "Ryder turns on a game console and sits cross-legged in front of the couch. With a tilt of the analog stick, he sorts through a surprisingly large library of games..."
+        },
+        {
+          "text": "I have got to work on this backlog."
+        },
+        {
+          "speaker": "narrator",
+          "text": "... he observes apologetically, sheepishly scratching his head before jolting to a stop on one."
+        },
+        {
+          "text": "Have you ever played a fighting game before?"
         }
       ],
-      "note": "Fallback when no day-specific line exists."
+      "display": "scene",
+      "repeat": "once",
+      "choices": [
+        {
+          "id": "A",
+          "text": "No",
+          "lines": [
+            {
+              "text": "Ah, don't worry. This one is known for being beginner-friendly."
+            },
+            {
+              "speaker": "player",
+              "text": "Alright, I'll try it."
+            }
+          ]
+        },
+        {
+          "id": "B",
+          "text": "Yes, and I'm good at them",
+          "lines": [
+            {
+              "text": "Oh, is that so? Then are you up for a challenge?"
+            },
+            {
+              "speaker": "player",
+              "text": "Sure."
+            }
+          ]
+        },
+        {
+          "id": "C",
+          "text": "Yes, but I'm not good at them",
+          "lines": [
+            {
+              "text": "Ah, don't worry. I can teach you... if you'd like that, I mean."
+            },
+            {
+              "speaker": "player",
+              "text": "Sounds good to me."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "game_night.1",
+      "trigger": {
+        "type": "after",
+        "value": "game_night"
+      },
+      "lines": [
+        {
+          "text": "Then let's get started. I'll be him..."
+        },
+        {
+          "speaker": "narrator",
+          "text": "Ryder selects a scholarly-looking mage with a stoic expression."
+        },
+        {
+          "text": "Who do you want to play?"
+        }
+      ],
+      "display": "scene"
+    },
+    {
+      "id": "game_night.2.AC",
+      "trigger": {
+        "type": "after",
+        "value": "game_night.1"
+      },
+      "priority": 1,
+      "when": [
+        {
+          "var": "flag:choice:game_night",
+          "op": "in",
+          "value": [
+            "A",
+            "C"
+          ]
+        }
+      ],
+      "lines": [
+        {
+          "text": "Naples is an easy player for beginners to get a handle of. Would you like to try him?"
+        },
+        {
+          "speaker": "player",
+          "text": "Sure."
+        },
+        {
+          "speaker": "narrator",
+          "text": "Slowly, I get used to the game."
+        },
+        {
+          "speaker": "narrator",
+          "text": "Ryder is kind, helpful, and gentle, going easy on me at first as he explains the very basics of movement, attacks, and strategy, but gradually taking off the kid gloves as I get used to the game."
+        },
+        {
+          "text": "Wow, you've gotten so good already. I'm impressed."
+        },
+        {
+          "speaker": "player",
+          "text": "Really? Thank you."
+        },
+        {
+          "text": "Alright, one last thing to show you."
+        }
+      ],
+      "display": "scene"
+    },
+    {
+      "id": "game_night.2.B",
+      "trigger": {
+        "type": "after",
+        "value": "game_night.1"
+      },
+      "priority": 1,
+      "when": [
+        {
+          "var": "flag:choice:game_night",
+          "op": "==",
+          "value": "B"
+        }
+      ],
+      "lines": [
+        {
+          "text": "Zero December is good at ranged attacks, Lysandra is best for melee--"
+        },
+        {
+          "speaker": "player",
+          "text": "I'll go with Castien."
+        },
+        {
+          "speaker": "narrator",
+          "text": "I pick up the nuances of the game quickly. Ryder turns out to be better than most people. Far better than I expected. What's more, he's also unexpectedly competitive."
+        },
+        {
+          "speaker": "narrator",
+          "text": "We each take turns playfully trash-talking one another. As he nearly knocks my character out, offhandedly, he remarks,"
+        },
+        {
+          "text": "I seem to recall someone saying they were good at fighting games?"
+        },
+        {
+          "speaker": "player",
+          "text": "Mind your own business."
+        },
+        {
+          "text": "I don't know. I asked if you were up for a challenge and I'm actually beginning to feel quite cruel for it."
+        },
+        {
+          "speaker": "narrator",
+          "text": "His special is almost completely powered up. I prepare to dodge the huge ball of energy as he activates it and..."
+        },
+        {
+          "speaker": "narrator",
+          "text": "it flies harmlessly up into the sky?"
+        },
+        {
+          "speaker": "player",
+          "text": "Did you just... waste your special?"
+        },
+        {
+          "text": "I... that was on purpose. I was just testing you."
+        },
+        {
+          "speaker": "player",
+          "text": "Liar. So you were all talk!"
+        },
+        {
+          "speaker": "narrator",
+          "text": "And as I say that, I swoop in while he's vulnerable and finish him off."
+        }
+      ],
+      "display": "scene"
+    },
+    {
+      "id": "game_night.3",
+      "trigger": {
+        "type": "after",
+        "value": "game_night.2.AC|game_night.2.B|game_night.1"
+      },
+      "lines": [
+        {
+          "speaker": "narrator",
+          "text": "[PLACEHOLDER rest of the game-night scene, after \"one last thing to show you\"]"
+        }
+      ],
+      "display": "scene"
+    },
+    {
+      "id": "the_couch",
+      "trigger": {
+        "type": "total_pct",
+        "value": 100
+      },
+      "lines": [
+        {
+          "text": "You did it. You're more determined than I imagined, honestly. Say... are you going to let me read it now?"
+        }
+      ],
+      "display": "scene",
+      "repeat": "once",
+      "choices": [
+        {
+          "id": "A",
+          "text": "Absolutely not",
+          "lines": [
+            {
+              "text": "It was worth asking. But seriously... I can't believe you did it... well, no, I always believed you could. Rather, I can't believe it happened so fast."
+            }
+          ]
+        },
+        {
+          "id": "B",
+          "text": "Sure",
+          "lines": [
+            {
+              "text": "Glad to hear. Seriously... I can't believe you did it... well, no, I always believed you could. Rather, I can't believe it happened so fast."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "the_couch.1",
+      "trigger": {
+        "type": "after",
+        "value": "the_couch"
+      },
+      "lines": [
+        {
+          "text": "I'm running out of ways to celebrate. Well, except one."
+        },
+        {
+          "speaker": "player",
+          "text": "What is it?"
+        },
+        {
+          "text": "Let's sit down first..."
+        },
+        {
+          "speaker": "player",
+          "text": "On the floor again, right?"
+        },
+        {
+          "text": "... No, on the couch."
+        },
+        {
+          "speaker": "player",
+          "text": "Really?!"
+        },
+        {
+          "text": "Yes, is that strange...?"
+        },
+        {
+          "speaker": "player",
+          "text": "Considering how weird you've been about it, yeah."
+        },
+        {
+          "text": "Ah, so you noticed my aversion to sitting on it... I suppose I wanted to keep it clean since it was the first thing I ever bought for myself..."
+        },
+        {
+          "text": "But, well, there's something more important than that now."
+        },
+        {
+          "speaker": "player",
+          "text": "Such as?"
+        },
+        {
+          "text": "Well, about that... there's something I've been wanting to tell you, but I was worried about how you'd react..."
+        },
+        {
+          "speaker": "player",
+          "text": "Go on."
+        },
+        {
+          "text": "I just... I think I may have fallen for you."
+        },
+        {
+          "text": "I feel so safe with you. And I want you to feel like that with me. I know I can be awkward, and talk too much, but... {player}, I love you. I want you to be mine, and I want to be yours. But..."
+        },
+        {
+          "text": "I understand if you don't feel the same way--"
+        },
+        {
+          "speaker": "narrator",
+          "text": "I close the distance between me and him and gently kiss him. His lips are soft and his body warm against mine."
+        },
+        {
+          "text": "I wasn't expecting that. Do you..."
+        },
+        {
+          "speaker": "player",
+          "text": "I do."
+        },
+        {
+          "text": "What?"
+        },
+        {
+          "speaker": "player",
+          "text": "I love you, too."
+        },
+        {
+          "text": "I...wasn't expecting that. Why?"
+        },
+        {
+          "speaker": "player",
+          "text": "The same reason you love me, dummy. You feel like home."
+        },
+        {
+          "speaker": "narrator",
+          "text": "I take his hands into mine."
+        },
+        {
+          "speaker": "player",
+          "text": "I want to be with you, too, Ryder. I'm just wondering.. what happened to the kuudere act you had at the beginning of the month?"
+        },
+        {
+          "text": "Huh?"
+        },
+        {
+          "speaker": "player",
+          "text": "Every few days you do this thing where you act like you're too cool for school."
+        },
+        {
+          "speaker": "player",
+          "text": "\"I suppose I can do my best to support you, but no promises made.\" \"You're incredible. ...don't let it go to your head.\" And so on."
+        },
+        {
+          "text": "Well... being an unabashed cheerleader isn't very cool, is it...?"
+        },
+        {
+          "speaker": "narrator",
+          "text": "[PLACEHOLDER rest of the confession scene]"
+        }
+      ],
+      "display": "scene"
+    },
+    {
+      "id": "movie_night",
+      "trigger": {
+        "type": "total_pct",
+        "value": 50
+      },
+      "lines": [
+        {
+          "text": "I wasn't sure you could do it, but here we are. Halfway through. You're incredible. ...don't let it go to your head. Now maybe we should take a break. Would you like to watch a movie?"
+        },
+        {
+          "speaker": "player",
+          "text": "Sure!"
+        },
+        {
+          "speaker": "narrator",
+          "text": "As I leap towards the couch, Ryder grabs my arm and pulls me back, mid-air."
+        },
+        {
+          "speaker": "player",
+          "text": "Huh?"
+        },
+        {
+          "text": "We... uh, need popcorn."
+        },
+        {
+          "speaker": "player",
+          "text": "... Right."
+        },
+        {
+          "text": "Wait there."
+        },
+        {
+          "speaker": "narrator",
+          "text": "I wait approximately five minutes as Ryder finds and prepares popcorn for us. Finally he returns."
+        },
+        {
+          "speaker": "player",
+          "text": "Can I sit now--"
+        },
+        {
+          "text": "No! I mean. Wouldn't it be more fun to sit on the ground?"
+        },
+        {
+          "speaker": "narrator",
+          "text": "He demonstrates by sitting cross-legged on the ground and patting the space next to him. Confused, I sit down."
+        },
+        {
+          "speaker": "player",
+          "text": "Okay then."
+        },
+        {
+          "text": "Anyway. What type of movie would you like to watch?"
+        }
+      ],
+      "display": "scene",
+      "repeat": "once",
+      "choices": [
+        {
+          "id": "A",
+          "text": "Romance",
+          "lines": [
+            {
+              "text": "Oh? If that's the case, then... well, there's one I've been meaning to watch..."
+            },
+            {
+              "speaker": "player",
+              "text": "What's it called?"
+            },
+            {
+              "text": "The Notepad?"
+            },
+            {
+              "speaker": "player",
+              "text": "Oh, that's a classic."
+            },
+            {
+              "text": "That's what I heard. So shall we?"
+            },
+            {
+              "speaker": "narrator",
+              "text": "I nod and he starts the movie. He and I both intently watch a story about star-crossed lovers. As the credits roll, I'm sniffling. I look around and can't find Ryder."
+            },
+            {
+              "speaker": "narrator",
+              "text": "But then there he is with a box of tissues, also looking teary eyed."
+            },
+            {
+              "speaker": "player",
+              "text": "Are you okay?"
+            },
+            {
+              "text": "I will be. Would you like a tissue?"
+            },
+            {
+              "speaker": "player",
+              "text": "Sure."
+            },
+            {
+              "text": "Not the best movie we could've picked for a celebration but it certainly was an experience, wasn't it?"
+            }
+          ]
+        },
+        {
+          "id": "B",
+          "text": "Action",
+          "lines": [
+            {
+              "text": "I wonder if they have that movie I kept hearing about... They do!"
+            },
+            {
+              "speaker": "player",
+              "text": "Superguy?"
+            },
+            {
+              "text": "Yes, it sounds fun, doesn't it? And the ratings are very good."
+            },
+            {
+              "speaker": "player",
+              "text": "Sure, let's watch it then."
+            },
+            {
+              "speaker": "narrator",
+              "text": "As we watch the movie, sitting on the uncomfortable hardwood floor, Ryder's eyebrows contort further and further. Afterwards, he has a solid frown on his face."
+            },
+            {
+              "speaker": "player",
+              "text": "You look like you have a lot of thoughts about the movie."
+            },
+            {
+              "text": "I do."
+            },
+            {
+              "speaker": "narrator",
+              "text": "What a cryptic response."
+            },
+            {
+              "speaker": "player",
+              "text": "Such as...?"
+            },
+            {
+              "text": "He's supposed to be a superhero but he's causing so much trouble! Just think about all the collateral damage he left!"
+            },
+            {
+              "text": "Even assuming nobody got hurt from when he threw the villain into that skyscraper, what about taxpayer money?!"
+            },
+            {
+              "speaker": "player",
+              "text": "It's a movie. An explosive movie, but a movie."
+            },
+            {
+              "text": "Fair enough. We won't always like the same things, I suppose."
+            }
+          ]
+        },
+        {
+          "id": "C",
+          "text": "Horror",
+          "lines": [
+            {
+              "text": "Sure. I have no problem with that. None at all."
+            },
+            {
+              "speaker": "player",
+              "text": "Then let's watch The Circle!"
+            },
+            {
+              "text": "Right."
+            },
+            {
+              "speaker": "narrator",
+              "text": "He says that but almost immediately as the movie starts..."
+            },
+            {
+              "text": "I think I should go make some popcorn."
+            },
+            {
+              "speaker": "player",
+              "text": "Nuh-uh, you're not getting out of this one."
+            },
+            {
+              "text": "But I--"
+            },
+            {
+              "speaker": "player",
+              "text": "Sit."
+            },
+            {
+              "text": "I see..."
+            },
+            {
+              "speaker": "narrator",
+              "text": "Even so, he averts his eyes the whole movie, tensing with every jumpscare... and looking terrified out of his mind. After the movie, he's skittish."
+            },
+            {
+              "speaker": "narrator",
+              "text": "As he's reaching in the fridge for a bottle of water, I start talking and he jumps."
+            },
+            {
+              "speaker": "player",
+              "text": "Ryder? You okay?"
+            },
+            {
+              "text": "Yes, I think I'll be okay. Let's just... I think I'm going to leave the light on tonight."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "froyo_date",
+      "trigger": {
+        "type": "total_pct",
+        "value": 75
+      },
+      "lines": [
+        {
+          "text": "You've got three quarters of your work done. That's the vast majority! I'm honestly impressed by your dedication."
+        },
+        {
+          "text": "I think that deserves a treat. How about we go for frozen yogurt?"
+        },
+        {
+          "speaker": "player",
+          "text": "Sure!"
+        },
+        {
+          "speaker": "narrator",
+          "text": "When we arrive at the froyo place, Ryder holds the door open for me. We get tiny sample cups and push down the levers to dispense the froyo."
+        },
+        {
+          "speaker": "narrator",
+          "text": "There are twelve different flavors and we spend time diligently sampling each and every one, trying to decide which one to put in our bowl. In the end, I decide on a flavor..."
+        },
+        {
+          "speaker": "narrator",
+          "text": "Then I see Ryder looking seriously pained, like he can't bear to part with any one flavor."
+        },
+        {
+          "speaker": "player",
+          "text": "Are you alright?"
+        },
+        {
+          "text": "I'm fine. I'll just..."
+        },
+        {
+          "speaker": "narrator",
+          "text": "He suddenly pulls a lever, releasing salted caramel froyo into his bowl."
+        },
+        {
+          "text": "Wait!"
+        },
+        {
+          "speaker": "narrator",
+          "text": "He stops and adds cake batter flavor. And then cookies and cream. He sighs with relief."
+        },
+        {
+          "text": "That should be fine."
+        },
+        {
+          "speaker": "narrator",
+          "text": "When we're adding toppings, it's clear he's been struck by a similar indecision."
+        },
+        {
+          "speaker": "narrator",
+          "text": "In the end, he piles on chocolate chips, corn flakes, caramel, marshmallow sauce, and cookie dough pieces, each neatly placed in their own section of the bowl."
+        },
+        {
+          "speaker": "narrator",
+          "text": "Ryder pays for both of us."
+        },
+        {
+          "speaker": "player",
+          "text": "Do you wanna go back home? We can sit on the couch, watch TV--"
+        },
+        {
+          "text": "A-ah, I think I'd prefer to eat here. Outside."
+        },
+        {
+          "speaker": "player",
+          "text": "No problem."
+        },
+        {
+          "speaker": "narrator",
+          "text": "Is it just me or did he get weird when I mentioned the couch?"
+        },
+        {
+          "speaker": "narrator",
+          "text": "We go outside and sit down. I dug into my frozen treat, only to eventually notice Ryder staring."
+        },
+        {
+          "speaker": "player",
+          "text": "Is there something on my face?"
+        },
+        {
+          "text": "Yes. It's right there."
+        },
+        {
+          "speaker": "narrator",
+          "text": "He points at my face."
+        },
+        {
+          "speaker": "player",
+          "text": "Right here?"
+        },
+        {
+          "text": "No, there."
+        },
+        {
+          "speaker": "player",
+          "text": "Here?"
+        },
+        {
+          "text": "Ah, no, it's here..."
+        },
+        {
+          "speaker": "narrator",
+          "text": "He reaches across the table and brushes his thumb gently near my mouth."
+        },
+        {
+          "speaker": "narrator",
+          "text": "For some reason, I can feel my face heat up."
+        },
+        {
+          "text": "Sorry, I shouldn't have done that."
+        },
+        {
+          "speaker": "player",
+          "text": "No, it's fine."
+        },
+        {
+          "speaker": "narrator",
+          "text": "But the whole time, I can't forget the way it felt when he touched me."
+        }
+      ],
+      "display": "scene",
+      "repeat": "once"
     }
   ]
 }

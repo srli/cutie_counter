@@ -29,7 +29,7 @@ function dayLabel(day: number): string {
 }
 
 /** Reveal text a few characters at a time. Click finishes it early. */
-function useTypewriter(text: string): [string, boolean, () => void] {
+export function useTypewriter(text: string): [string, boolean, () => void] {
   const [n, setN] = useState(0)
   useEffect(() => setN(reducedMotion() ? text.length : 0), [text])
   useEffect(() => {
@@ -58,7 +58,8 @@ export function CutiePane(p: Props) {
   const [shown, done, finish] = useTypewriter(line?.text ?? '')
   const placeholder = !!line && isPlaceholderText(line.text)
   const thought = line?.style === 'thought'
-  const speaker = line?.speaker === 'player' ? project.playerName : line?.speaker ?? pack.manifest.name
+  const narrator = line?.speaker === 'narrator'
+  const speaker = line?.speaker === 'player' ? project.playerName : narrator ? '' : line?.speaker ?? pack.manifest.name
   const stage = pack.manifest.stages?.find((s) => s.id === stats.stage)
 
   const onBox = () => (done ? p.onAdvance() : finish())
@@ -90,8 +91,8 @@ export function CutiePane(p: Props) {
 
       <div className={`textbox ${placeholder ? 'placeholder' : ''} ${done && p.pending > 0 && !p.choices ? 'has-more' : ''}`} onClick={onBox} role="button" tabIndex={0}
         onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onBox() } }}>
-        <div className="textbox-name">{speaker}</div>
-        <div className={`textbox-text ${thought ? 'thought' : ''}`}>
+        {speaker && <div className="textbox-name">{speaker}</div>}
+        <div className={`textbox-text ${thought ? 'thought' : ''} ${narrator ? 'narration' : ''}`}>
           {thought && shown ? `(${shown}${done ? ')' : ''}` : shown}
         </div>
         {done && p.pending > 0 && !p.choices && <span className="more">click for more ▸</span>}

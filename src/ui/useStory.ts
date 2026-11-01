@@ -112,6 +112,16 @@ export function useStory(initial: Project, pack: Pack, now: () => Date = realNow
 
   const enqueue = useCallback((scenes: Scene[], front = false) => {
     if (!scenes.length) return
+    // A full-screen scene starts right away; whatever was in the textbox waits until it's over.
+    const big = scenes.filter((s) => s.display === 'scene')
+    const cur = displayRef.current
+    if (big.length && cur?.scene.display !== 'scene') {
+      const rest = scenes.filter((s) => s.display !== 'scene')
+      const unfinished = cur && (cur.line < cur.scene.lines.length - 1 || cur.scene.choices?.length) ? [cur.scene] : []
+      queueRef.current = [...big.slice(1), ...unfinished, ...rest, ...queueRef.current]
+      setShown({ scene: big[0], line: 0 })
+      return
+    }
     queueRef.current = front ? [...scenes, ...queueRef.current] : [...queueRef.current, ...scenes]
     const d = displayRef.current
     const finished = !d || (d.line >= d.scene.lines.length - 1 && !d.scene.choices?.length)
@@ -142,6 +152,23 @@ export function useStory(initial: Project, pack: Pack, now: () => Date = realNow
     if (next) setShown({ scene: next, line: 0 })
   }, [setShown])
 
+  /** Leave a full-screen scene once it's all read: show whatever is queued next, or nothing. */
+  const endScene = useCallback(() => {
+    const d = displayRef.current
+    if (d && (d.line < d.scene.lines.length - 1 || d.scene.choices?.length)) return
+    const next = queueRef.current.shift()
+    setCg(null) // the scene's picture goes with it
+    setShown(next ? { scene: next, line: 0 } : null)
+  }, [setShown])
+
+  /** Skip the rest of a full-screen scene. */
+  const skipScene = useCallback(() => {
+    queueRef.current = queueRef.current.filter((s) => s.display !== 'scene')
+    const next = queueRef.current.shift()
+    setCg(null) // the scene's picture goes with it
+    setShown(next ? { scene: next, line: 0 } : null)
+  }, [setShown])
+
   const choose = useCallback((choiceId: string) => {
     const d = displayRef.current
     if (!d?.scene.choices) return
@@ -156,6 +183,7 @@ export function useStory(initial: Project, pack: Pack, now: () => Date = realNow
   lastLine.current = line
   const atEnd = !!display && display.line >= display.scene.lines.length - 1
   const choices = atEnd ? display?.scene.choices : undefined
+  const inScene = display?.scene.display === 'scene'
 
   // A new line sets the pose; expression-less lines keep the last one.
   useEffect(() => {
@@ -163,12 +191,16 @@ export function useStory(initial: Project, pack: Pack, now: () => Date = realNow
     if (line.expression) setExpression(line.expression)
     if (line.background) setBgOverride(line.background)
     if (line.sound) playClip(pack.sounds[line.sound])
-    setCg(line.cg ?? null) // a picture stays up for its own line only
-    if (line.cg) {
+    // In the textbox a picture shows for its own line only. In a full-screen scene it stays
+    // until a line names another picture, or "none" goes back to the cutie.
+    if (line.cg === 'none') setCg(null)
+    else if (line.cg) setCg(line.cg)
+    else if (!inScene) setCg(null)
+    if (line.cg && line.cg !== 'none') {
       const seen = projectRef.current.gallery ?? []
       if (!seen.includes(line.cg)) commit({ ...projectRef.current, gallery: [...seen, line.cg] })
     }
-  }, [line, pack, commit])
+  }, [line, pack, commit, inScene])
 
   // A soft pop when someone starts talking.
   const sceneShown = display?.scene
@@ -306,6 +338,9 @@ export function useStory(initial: Project, pack: Pack, now: () => Date = realNow
     stats,
     line,
     scene: display?.scene,
+    inScene,
+    endScene,
+    skipScene,
     choices,
     pending: queueRef.current.length + (display && !atEnd ? 1 : 0),
     expression,

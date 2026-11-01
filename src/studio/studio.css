@@ -125,3 +125,10 @@ button.cov-cell:hover { outline: 2px solid var(--lav-deep); }
   .beat-list, .preview-controls { width: auto; max-height: 50vh; }
   .preview-stage .cutie-pane { height: 70vh; }
 }
+
+/* spreadsheet import */
+.modal.sheet-import { width: min(620px, 100%); }
+.import-summary td { padding: 2px 12px 2px 0; }
+
+.preview-stage.wide { align-items: flex-start; }
+.preview-scene { position: relative; width: 100%; max-width: 900px; height: min(600px, calc(100vh - 160px)); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); }

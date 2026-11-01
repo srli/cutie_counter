@@ -24,7 +24,7 @@ export interface StepResult {
 }
 
 export const MAX_SCENES_PER_STEP = 3
-const MAX_FOLLOW_UPS = 5
+const MAX_FOLLOW_UPS = 30 // long scenes are chains of follow-ups
 
 /** Events that should show a placeholder when the script has nothing for them. */
 const PLACEHOLDER_EVENTS: TriggerType[] = ['reopen', 'time_slot', 'daily_pct', 'total_pct', 'stage']
@@ -142,7 +142,8 @@ function progressEvents(project: Project, stats: Stats, pack: Pack): EngineEvent
 function triggerMatches(beat: Beat, ev: EngineEvent): boolean {
   if (beat.trigger.type !== ev.type) return false
   if (beat.trigger.value === undefined) return true
-  return String(beat.trigger.value) === String(ev.value)
+  // "a|b" matches either; used to rejoin a scene after branches.
+  return String(beat.trigger.value).split('|').includes(String(ev.value))
 }
 
 function repeatAllows(beat: Beat, project: Project, stats: Stats): boolean {
@@ -203,6 +204,7 @@ function playBeat(beat: Beat, project: Project, stats: Stats, pack: Pack, rng: R
     lines: fill(lines, project, stats, pack),
     prompt: beat.prompt ? fillTemplate(beat.prompt, ctx) : undefined,
     choices: fillChoices(beat.choices, project, stats, pack),
+    ...(beat.display ? { display: beat.display } : {}),
   }
 }
 
@@ -302,9 +304,11 @@ export function step(prev: Project, input: Input, pack: Pack, now: Date, rng: Rn
       project.flags[`choice:${beat.id}`] = choice.id
       const scenes: Scene[] = []
       if (choice.lines?.length) {
-        scenes.push({ beatId: `${beat.id}/${choice.id}`, lines: fill(choice.lines, project, stats, pack) })
+        scenes.push({ beatId: `${beat.id}/${choice.id}`, lines: fill(choice.lines, project, stats, pack), ...(beat.display ? { display: beat.display } : {}) })
       }
-      scenes.push(...followUps(`${beat.id}/${choice.id}`, project, stats, pack, rng))
+      // A follow-up for this exact choice wins; otherwise continue with whatever follows the beat itself.
+      const exact = followUps(`${beat.id}/${choice.id}`, project, stats, pack, rng)
+      scenes.push(...(exact.length ? exact : followUps(beat.id, project, stats, pack, rng)))
       scenes.push(...resolve(startOfDay, project, stats, pack, rng))
       project.updatedAt = now.getTime()
       return { project, scenes, events: [{ type: 'after', value: `${beat.id}/${choice.id}` }, ...startOfDay] }
