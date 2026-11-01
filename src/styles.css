@@ -138,7 +138,7 @@ code { background: var(--line); padding: 0 4px; border-radius: 4px; }
 .story-title { flex: 1; margin: 0; font-family: 'Poetsen'; font-weight: normal; font-size: 1.15rem; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .toolbar-right { display: flex; align-items: center; gap: 8px; }
 .saved { color: var(--ink-soft); font-size: 0.8rem; }
-.write-main { flex: 1; display: flex; min-height: 0; }
+.write-main { flex: 1; display: flex; min-height: 0; position: relative; }
 
 .cutie-pane { position: relative; flex: 0 0 clamp(360px, 36vw, 480px); overflow: hidden; background: #e9e2f2; user-select: none; }
 .scene-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 40% center; }
@@ -235,3 +235,32 @@ code { background: var(--line); padding: 0 4px; border-radius: 4px; }
 .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
 .gallery-item.locked { display: grid; place-items: center; font-size: 2rem; color: #fff; background: linear-gradient(135deg, var(--lav), var(--blue)); opacity: 0.6; }
 .pill.icon { padding: 4px 9px; }
+
+/* full-screen scenes: dialog parts show the room and the cutie; picture parts show only the picture */
+.scene-mode { position: absolute; inset: 0; z-index: 20; overflow: hidden; background: #1d1724; outline: none; animation: scene-in 0.35s ease-out; }
+@keyframes scene-in { from { opacity: 0; } }
+.scene-mode-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.scene-mode-sprite {
+  position: absolute; left: 50%; top: 5%; height: 210%; transform: translateX(-50%);
+  filter: drop-shadow(0 10px 24px rgba(30, 10, 40, 0.35)); animation: pop 0.25s ease-out;
+}
+.scene-mode-cg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; animation: scene-in 0.5s ease-out; }
+.scene-mode-shade { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 55%, rgba(29, 23, 36, 0.45)); pointer-events: none; }
+.scene-skip { position: absolute; top: 14px; right: 14px; z-index: 3; background: rgba(255, 255, 255, 0.88); }
+.scene-mode-box {
+  position: absolute; left: 50%; bottom: 24px; transform: translateX(-50%); width: min(860px, calc(100% - 32px)); min-height: 150px;
+  z-index: 3; cursor: pointer; background: rgba(250, 250, 250, 0.96); border-radius: 4px 16px 16px 16px; padding: 20px 24px 26px;
+  box-shadow: 0 8px 30px rgba(30, 10, 40, 0.3); border-top: 4px solid var(--pink);
+}
+.scene-mode.showing-cg .scene-mode-box { background: rgba(250, 250, 250, 0.86); }
+.scene-mode-box .textbox-text { font-size: 1.3rem; }
+.scene-mode-box.placeholder { border-top-color: #e9b14e; }
+.scene-mode-box.placeholder .textbox-text { font-family: ui-monospace, monospace; font-size: 1rem; color: #9a6a12; }
+.scene-mode-choices { position: absolute; left: 0; right: 0; bottom: 200px; z-index: 4; display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 0 16px; }
+@media (prefers-reduced-motion: reduce) { .scene-mode, .scene-mode-sprite, .scene-mode-cg { animation: none; } }
+@media (max-width: 820px) {
+  .scene-mode-sprite { height: 150%; top: 4%; }
+  .scene-mode-box { bottom: 12px; min-height: 130px; }
+  .scene-mode-box .textbox-text { font-size: 1.1rem; }
+  .scene-mode-choices { bottom: 160px; }
+}

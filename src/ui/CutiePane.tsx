@@ -29,7 +29,7 @@ function dayLabel(day: number): string {
 }
 
 /** Reveal text a few characters at a time. Click finishes it early. */
-function useTypewriter(text: string): [string, boolean, () => void] {
+export function useTypewriter(text: string): [string, boolean, () => void] {
   const [n, setN] = useState(0)
   useEffect(() => setN(reducedMotion() ? text.length : 0), [text])
   useEffect(() => {
