@@ -193,10 +193,10 @@ const scenarios: Record<string, (b: Browser, base: string) => Promise<void>> = {
     await page.locator('.asset.add input').nth(2).setInputFiles({
       name: 'first_meeting.png', mimeType: 'image/png', buffer: readFileSync(join(root, 'content/ryder/images/bg_room_day.png')),
     })
-    await page.locator('.asset.kind-cg img').waitFor()
+    await page.locator('.asset.kind-cg img').first().waitFor()
     await page.getByRole('tab', { name: 'Script' }).click()
     await page.locator('.beat-item', { hasText: 'intro' }).first().click()
-    await page.getByRole('button', { name: 'More options' }).nth(1).click()
+    await page.getByRole('button', { name: 'More for this line' }).nth(1).click()
     await page.locator('.line-more .sfield', { hasText: 'Reward art' }).locator('select').selectOption('first_meeting')
     await page.waitForTimeout(700)
     await page.getByRole('button', { name: 'Try it' }).click()
@@ -273,12 +273,14 @@ const scenarios: Record<string, (b: Browser, base: string) => Promise<void>> = {
     await page.locator('.asset.add input').nth(2).setInputFiles({
       name: 'froyo.png', mimeType: 'image/png', buffer: readFileSync(join(root, 'content/ryder/images/bg_room_night.png')),
     })
-    await page.locator('.asset.kind-cg img').waitFor()
+    await page.locator('.asset.kind-cg img').first().waitFor()
     await page.getByRole('tab', { name: 'Script' }).click()
     await page.locator('.beat-item', { hasText: 'froyo_date' }).first().click()
-    await page.getByRole('button', { name: 'More options' }).nth(2).click()
+    await page.getByRole('button', { name: 'More for this line' }).nth(2).click()
     await page.locator('.line-more .sfield', { hasText: 'Reward art' }).locator('select').selectOption('froyo')
     await page.waitForTimeout(700)
+    await page.locator('.line-more').scrollIntoViewIfNeeded()
+    await shot(page, 'studio-line-more')
     await page.getByRole('tab', { name: 'Preview' }).click()
     await page.locator('.sfield', { hasText: 'Something happens' }).locator('select').selectOption('total_pct')
     await page.locator('.sfield', { hasText: 'Which one' }).locator('input').fill('75')

@@ -39,6 +39,20 @@ export function Select({ value, onChange, options, empty }: {
   )
 }
 
+/** Two side-by-side buttons for a choice between two things. */
+export function Toggle<T extends string>({ value, onChange, options }: {
+  value: T; onChange: (v: T) => void; options: [{ value: T; label: string }, { value: T; label: string }]
+}) {
+  return (
+    <span className="toggle" role="radiogroup">
+      {options.map((o) => (
+        <button key={o.value} type="button" role="radio" aria-checked={value === o.value}
+          className={value === o.value ? 'on' : ''} onClick={() => onChange(o.value)}>{o.label}</button>
+      ))}
+    </span>
+  )
+}
+
 /** Comma-separated numbers, e.g. "10, 33, 50". */
 export function NumList({ value, onChange }: { value: number[] | undefined; onChange: (v: number[]) => void }) {
   return (
