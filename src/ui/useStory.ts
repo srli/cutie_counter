@@ -157,6 +157,7 @@ export function useStory(initial: Project, pack: Pack, now: () => Date = realNow
     const d = displayRef.current
     if (d && (d.line < d.scene.lines.length - 1 || d.scene.choices?.length)) return
     const next = queueRef.current.shift()
+    setCg(null) // the scene's picture goes with it
     setShown(next ? { scene: next, line: 0 } : null)
   }, [setShown])
 
@@ -164,6 +165,7 @@ export function useStory(initial: Project, pack: Pack, now: () => Date = realNow
   const skipScene = useCallback(() => {
     queueRef.current = queueRef.current.filter((s) => s.display !== 'scene')
     const next = queueRef.current.shift()
+    setCg(null) // the scene's picture goes with it
     setShown(next ? { scene: next, line: 0 } : null)
   }, [setShown])
 
