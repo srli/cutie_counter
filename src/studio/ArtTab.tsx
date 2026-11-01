@@ -26,6 +26,15 @@ function kindOf(path: string): Kind {
 /** Logical name: file stem without folder, extension or bg_/cg_ prefix. */
 const logical = (path: string) => path.replace(/^(images|sounds)\//, '').replace(/\.\w+$/, '').replace(/^(bg|cg)_/, '')
 
+async function readable(file: File): Promise<boolean> {
+  try {
+    (await createImageBitmap(file)).close()
+    return true
+  } catch {
+    return false
+  }
+}
+
 /** Shrink big images to WebP so packs stay small. Small ones are kept as they are. */
 async function shrink(file: File, maxWidth: number): Promise<{ bytes: Uint8Array; ext: string }> {
   const original = { bytes: new Uint8Array(await file.arrayBuffer()), ext: file.name.split('.').pop()!.toLowerCase() }
@@ -92,9 +101,18 @@ export function ArtTab({ draft, update, urlCache }: { draft: Draft; update: Upda
     setBusy(true)
     const section = SECTIONS.find((s) => s.kind === kind)!
     const added: Record<string, Uint8Array> = {}
+    const refused: string[] = []
     for (const file of Array.from(files)) {
       const isSound = /\.(mp3|ogg|wav|m4a)$/i.test(file.name)
-      if (kind === 'sound' ? !isSound : !IMAGE_RE.test(file.name)) continue
+      if (kind === 'sound' ? !isSound : !IMAGE_RE.test(file.name)) {
+        refused.push(kind === 'sound' ? `${file.name} isn't an .mp3, .ogg or .wav sound.` : `${file.name} isn't a PNG or JPG. Save it as PNG or JPG first.`)
+        continue
+      }
+      // A file can be named .png but be broken or something else inside.
+      if (kind !== 'sound' && !(await readable(file))) {
+        refused.push(`${file.name} couldn't be opened as a picture. Try saving it again as PNG or JPG.`)
+        continue
+      }
       const stem = kind === 'select' ? 'select' : cleanName(file.name.replace(/\.\w+$/, '').replace(/^(bg|cg)_/i, ''))
       const { bytes, ext } = await shrink(file, section.maxWidth)
       added[`${kind === 'sound' ? 'sounds' : 'images'}/${prefix(kind)}${stem}.${ext}`] = bytes
@@ -106,6 +124,7 @@ export function ArtTab({ draft, update, urlCache }: { draft: Draft; update: Upda
       return { ...d, files: { ...keep, ...added } }
     })
     setBusy(false)
+    if (refused.length) alert(refused.join('\n'))
   }
 
   function rename(path: string, kind: Kind) {
@@ -162,10 +181,10 @@ export function ArtTab({ draft, update, urlCache }: { draft: Draft; update: Upda
               <label className={`asset add ${over === s.kind ? 'over' : ''}`}
                 onDragOver={(e) => { e.preventDefault(); setOver(s.kind) }} onDragLeave={() => setOver(null)} onDrop={onDrop}>
                 <input type="file" hidden multiple={s.kind !== 'select'}
-                  accept={s.kind === 'sound' ? 'audio/*' : 'image/*'}
+                  accept={s.kind === 'sound' ? 'audio/*,.mp3,.ogg,.wav,.m4a' : 'image/png,image/jpeg,image/webp,image/gif,.png,.jpg,.jpeg,.webp,.gif'}
                   onChange={(e) => { if (e.target.files) void add(s.kind, e.target.files); e.target.value = '' }} />
                 <span className="plus">+</span>
-                <span>Drop or choose</span>
+                <span>Drop or choose{s.kind === 'sound' ? '' : <><br /><small>PNG or JPG</small></>}</span>
               </label>
             </div>
           </section>

@@ -7,6 +7,7 @@ import { mkdirSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { zipSync, strToU8 } from 'fflate'
 import { chromium, type Browser, type Page } from 'playwright'
+import sharp from 'sharp'
 import { createServer } from 'vite'
 
 const root = join(import.meta.dirname, '..')
@@ -236,8 +237,31 @@ const scenarios: Record<string, (b: Browser, base: string) => Promise<void>> = {
     await page.locator('.studio-tabs').waitFor()
     await shot(page, 'studio-header')
     await page.getByRole('button', { name: 'Import spreadsheet' }).click()
-    const [chooser] = await Promise.all([page.waitForEvent('filechooser'), page.getByRole('button', { name: 'Choose .xlsx…' }).click()])
-    await chooser.setFiles(join(root, 'content/cutie-scripts.xlsx'))
+    const pick = async (files: Parameters<Page['setInputFiles']>[1]) => {
+      const [chooser] = await Promise.all([page.waitForEvent('filechooser'), page.getByRole('button', { name: /Choose \.xlsx|Pick another file/ }).click()])
+      await chooser.setFiles(files)
+    }
+    // Not a spreadsheet at all.
+    await pick({ name: 'script.xlsx', mimeType: 'application/octet-stream', buffer: Buffer.from('not a spreadsheet') })
+    await page.locator('.modal .error').waitFor()
+    await shot(page, 'sheet-import-not-xlsx')
+    // A spreadsheet with typos: some block the import, missing art only warns.
+    const { readXlsx, writeXlsx } = await import('../src/sheet/xlsx')
+    const sheets = readXlsx(new Uint8Array(readFileSync(join(root, 'content/cutie-scripts.xlsx'))))
+    const tab = (n: string) => sheets.find((s) => s.name === `Ryder – ${n}`)!.rows
+    tab('Whole goal')[2][0] = 'lots'
+    tab('Reactions')[2][3] = 'sometimes'
+    const scenes = tab('Scenes')
+    const h = scenes[0].map((x) => x.toLowerCase())
+    scenes[2][h.indexOf('line')] = 'Wait [if hungry] what'
+    scenes[3][h.indexOf('line')] = 'Oops [A: no end'
+    scenes[4][h.indexOf('face')] = 'grumpy'
+    scenes[5][h.indexOf('picture')] = 'beach_day'
+    await pick({ name: 'cutie-scripts (typos).xlsx', mimeType: 'application/octet-stream', buffer: Buffer.from(writeXlsx(sheets)) })
+    await page.locator('.modal .issues').first().waitFor()
+    await shot(page, 'sheet-import-problems')
+    await page.getByRole('button', { name: 'Pick another file' }).click()
+    await pick(join(root, 'content/cutie-scripts.xlsx'))
     await page.locator('.import-summary').waitFor()
     await shot(page, 'sheet-import-report')
     await page.getByRole('button', { name: 'Apply' }).click()
@@ -270,10 +294,21 @@ const scenarios: Record<string, (b: Browser, base: string) => Promise<void>> = {
     await page.goto(`${base}#/studio`)
     await page.getByRole('button', { name: 'Copy Ryder' }).click()
     await page.getByRole('tab', { name: 'Art & Sound' }).click()
+    // A JPG (with a capital extension, as phones and cameras save them) is fine.
     await page.locator('.asset.add input').nth(2).setInputFiles({
-      name: 'froyo.png', mimeType: 'image/png', buffer: readFileSync(join(root, 'content/ryder/images/bg_room_night.png')),
+      name: 'froyo.JPG', mimeType: 'image/jpeg', buffer: await sharp(join(root, 'content/ryder/images/bg_room_night.png')).jpeg().toBuffer(),
     })
     await page.locator('.asset.kind-cg img').first().waitFor()
+    // Files that aren't pictures are turned away with a reason.
+    const refused = new Promise<string>((done) => page.once('dialog', (d) => { done(d.message()); void d.accept() }))
+    await page.locator('.asset.add input').nth(2).setInputFiles([
+      { name: 'broken.png', mimeType: 'image/png', buffer: Buffer.from('not really a picture') },
+      { name: 'photo.heic', mimeType: 'image/heic', buffer: Buffer.from('heic') },
+    ])
+    console.log(`  refused: ${(await refused).replace(/\n/g, ' | ')}`)
+    await page.waitForTimeout(400)
+    await page.locator('.asset.add').nth(2).scrollIntoViewIfNeeded()
+    await shot(page, 'studio-art-jpg')
     await page.getByRole('tab', { name: 'Script' }).click()
     await page.locator('.beat-item', { hasText: 'froyo_date' }).first().click()
     await page.getByRole('button', { name: 'More for this line' }).nth(2).click()

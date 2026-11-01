@@ -163,7 +163,7 @@ export function toFriendlyVars(s: string): string {
   return s
 }
 
-const LINE_TAG = /^\[(thinks|bg [^\]]+|picture [^\]]+|sound [^\]]+)\]\s*/i
+const LINE_TAG = /\s*\[(thinks|bg [^\]]+|picture [^\]]+|sound [^\]]+)\]\s*/gi
 
 /** Split long speech at sentence ends so it fits the textbox. */
 export function chunk(text: string, max = 200): string[] {
@@ -179,6 +179,29 @@ export function chunk(text: string, max = 200): string[] {
 }
 
 /** Text (possibly several lines) -> Lines. `defaults` sets speaker from the Scenes Who column. */
+/** Brackets left in spoken text are almost always a typo: say so instead of showing them to the player. */
+function checkStray(text: string) {
+  const s = text.replace(/\[(PLACEHOLDER[^\]]*|#?NAME|PLAYER_NAME)\]/gi, '')
+  const tag = s.match(/\[[^\][]*\]/)
+  if (tag) {
+    throw new MarkupError(/^\[(if|elif|else)\b/i.test(tag[0])
+      ? `"${tag[0]}" can't go in the middle of a line. Put [if …] at the start of a cell, or use the If column.`
+      : `I don't understand "${tag[0]}". See the Cheat sheet tab for the [ ] tags I know.`)
+  }
+  for (const [o, c] of [['[', ']'], ['{', '}']]) {
+    let depth = 0
+    let start = 0
+    for (let i = 0; i < s.length; i++) {
+      if (s[i] === o) { if (!depth) start = i; depth++ }
+      else if (s[i] === c) {
+        if (!depth) throw new MarkupError(`There's a ${c} with no ${o} before it.`)
+        depth--
+      }
+    }
+    if (depth) throw new MarkupError(`"${s.slice(start, start + 30).trim()}…" is missing its closing ${c}.`)
+  }
+}
+
 export function parseLines(text: string, ctx: Context, defaults: Partial<Line> = {}): Line[] {
   const out: Line[] = []
   for (const raw of text.split(/\n+/)) {
@@ -200,16 +223,16 @@ export function parseLines(text: string, ctx: Context, defaults: Partial<Line> =
       const cur: Partial<Line> = { ...line }
       const face = piece.match(FACE_AT_START)
       if (face) { cur.expression = face[1].toLowerCase(); piece = piece.slice(face[0].length) }
-      let t
-      while ((t = piece.match(LINE_TAG))) {
-        const tag = t[1]
+      // Tags can sit anywhere in the line; they apply to the whole page.
+      piece = piece.replace(LINE_TAG, (_, tag: string) => {
         if (/^thinks$/i.test(tag)) cur.style = 'thought'
         else if (/^bg /i.test(tag)) cur.background = slug(tag.slice(3))
         else if (/^picture /i.test(tag)) cur.cg = slug(tag.slice(8))
         else if (/^sound /i.test(tag)) cur.sound = slug(tag.slice(6))
-        piece = piece.slice(t[0].length)
-      }
+        return ''
+      })
       piece = piece.trim()
+      checkStray(piece)
       if (!piece && !cur.expression) continue
       chunk(piece || '…').forEach((text, i) => out.push(i === 0
         ? { ...cur, text } as Line

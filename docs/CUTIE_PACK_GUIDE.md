@@ -56,6 +56,7 @@ my-cutie/
     giggle.mp3    a line can play it with "sound": "giggle"
 ```
 
+- **File types:** PNG or JPG (WebP and GIF work too). Use PNG for sprites, since JPG can't be see-through.
 - **Expressions:** the file name is the expression name. `blush.png` is the expression `blush`.
 - **Sprite size:** tall, full-body PNGs with a see-through background work best. Ryder's are 800 × 2851.
   The app shows the top part (head and chest), so keep faces near the top.

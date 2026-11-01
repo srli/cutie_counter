@@ -41,6 +41,61 @@ describe('cell markup', () => {
   it('explains mistakes in plain words', () => {
     expect(() => parseCell('[if moon = full and stage = Wizard] hi', ctx)).toThrow(/stage "Wizard"/)
     expect(() => parseCell('Hello [Partners?] there', ctx)).toThrow(/don't understand "\[Partners\?\]"/)
+    expect(() => parseLines('Hi [sound giggle', ctx)).toThrow(/missing its closing \]/)
+    expect(() => parseLines('{smile Hi', ctx)).toThrow(/missing its closing \}/)
+    expect(() => parseLines('Hi] there', ctx)).toThrow(/\] with no \[/)
+    expect(() => parseLines('Well [if hungry] eat', ctx)).toThrow(/can't go in the middle/)
+  })
+
+  it('lets [bg] and friends sit anywhere in a line', () => {
+    expect(parseLines('{smile} Boo! [bg room_night]', ctx)).toEqual([{ expression: 'smile', background: 'room_night', text: 'Boo!' }])
+  })
+})
+
+describe('malformed spreadsheets', () => {
+  const good = readXlsx(writeXlsx(exportCutie(ryder.manifest, ryder.script, ryder.expressions)))
+  const art = { expressions: ryder.expressions, backgrounds: ryder.backgrounds, cgs: ryder.cgs }
+  const edit = (tab: string, fn: (rows: string[][]) => void) => {
+    const sheets = good.map((s) => ({ ...s, rows: s.rows.map((r) => [...r]) }))
+    fn(sheets.find((s) => s.name === `Ryder – ${tab}`)!.rows)
+    return importCutie(sheets, ryder.manifest, art).problems
+  }
+
+  it('rejects files that are not spreadsheets', () => {
+    expect(() => readXlsx(new Uint8Array([1, 2, 3]))).toThrow(/isn't an .xlsx file/)
+  })
+
+  it('notices a deleted heading row instead of quoting dialog as headings', () => {
+    const problems = edit('Time of day', (rows) => rows.shift())
+    expect(problems).toEqual([expect.objectContaining({ where: 'Ryder – Time of day, row 1', message: expect.stringMatching(/^Row 1 should be the headings/) })])
+  })
+
+  it('reports every problem in a scene, by row', () => {
+    const problems = edit('Scenes', (rows) => {
+      const h = rows[0].map((x) => x.toLowerCase())
+      const start = rows.findIndex((r) => r[0] === 'movie_night')
+      rows[start][h.indexOf('when')] = ''
+      rows[start + 1][h.indexOf('line')] = 'Oops [A: no end'
+      rows[start + 2][h.indexOf('line')] = 'Wait [if hungry] what'
+    })
+    expect(problems.filter((p) => p.where.includes('movie_night')).map((p) => p.message)).toEqual([
+      'Say when this scene happens in the When column.',
+      expect.stringMatching(/missing its closing \]/),
+      expect.stringMatching(/can't go in the middle/),
+    ])
+  })
+
+  it('warns about faces and pictures the pack does not have, without blocking', () => {
+    const problems = edit('Scenes', (rows) => {
+      const h = rows[0].map((x) => x.toLowerCase())
+      const start = rows.findIndex((r) => r[0] === 'movie_night')
+      rows[start][h.indexOf('face')] = 'grumpy'
+      rows[start + 1][h.indexOf('picture')] = 'no_such_pic'
+    })
+    expect(problems.map((p) => [p.warning, p.message])).toEqual([
+      [true, expect.stringMatching(/no face "grumpy"/)],
+      [true, expect.stringMatching(/no picture "no_such_pic"/)],
+    ])
   })
 })
 
