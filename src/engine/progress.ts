@@ -39,6 +39,13 @@ export function todayWords(project: Project, date: string): number {
   return rec ? Math.max(0, project.wordCount - rec.startWords) : 0
 }
 
+/** Most words the story has had. Older saves didn't keep it, so their daily records help fill it in. */
+export function peakWordsOf(project: Project): number {
+  let peak = Math.max(project.peakWords ?? 0, project.wordCount)
+  for (const rec of Object.values(project.days)) peak = Math.max(peak, rec.startWords, rec.endWords)
+  return peak
+}
+
 export function computeStats(project: Project, manifest: CutieManifest, now: Date): Stats {
   const date = localDate(now)
   const today = todayWords(project, date)
@@ -80,7 +87,8 @@ export function computeStats(project: Project, manifest: CutieManifest, now: Dat
     hour: now.getHours(),
     day: sinceStart + 1,
     timeSlot: timeSlotAt(now, manifest.timeSlots),
-    stage: stageFor(totalPct, manifest.stages),
+    // Affection only grows: deleting words never moves the cutie back a stage.
+    stage: stageFor(project.totalGoal > 0 ? (peakWordsOf(project) / project.totalGoal) * 100 : 0, manifest.stages),
     totalWords: project.wordCount,
     todayWords: today,
     totalPct,

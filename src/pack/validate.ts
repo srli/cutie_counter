@@ -106,7 +106,7 @@ export function validatePack(manifestRaw: unknown, scriptRaw: unknown, files: Pa
       if (type === 'date' && value !== undefined && !/^\d{2}-\d{2}$/.test(String(value))) {
         err(where, `Date should look like 10-31 (got "${value}").`)
       }
-      if (['daily_pct', 'total_pct', 'words_today', 'words_total', 'words_every', 'idle', 'streak', 'day_start'].includes(type)
+      if (['daily_pct', 'total_pct', 'words_today', 'words_total', 'words_every', 'words_deleted', 'idle', 'streak', 'day_start'].includes(type)
         && value !== undefined && !Number.isFinite(Number(value))) {
         err(where, `Trigger value should be a number (got "${value}").`)
       }

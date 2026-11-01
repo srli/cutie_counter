@@ -17,6 +17,7 @@ export const TRIGGER_LABELS: Record<TriggerType, string> = {
   words_today: 'Words today reach',
   words_total: 'Total words reach',
   words_every: 'Every N words',
+  words_deleted: 'Deleted N words in one go',
   date: 'Calendar date',
   stage: 'Moves up to stage',
   streak: 'Writing streak reaches (days)',
@@ -33,7 +34,7 @@ const VAR_LABELS: Record<string, string> = {
 }
 
 const NO_VALUE: TriggerType[] = ['session_start', 'reopen', 'random']
-const NUMERIC: TriggerType[] = ['day_start', 'daily_pct', 'total_pct', 'words_today', 'words_total', 'words_every', 'streak', 'idle']
+const NUMERIC: TriggerType[] = ['day_start', 'daily_pct', 'total_pct', 'words_today', 'words_total', 'words_every', 'words_deleted', 'streak', 'idle']
 
 function parseValue(raw: string): string | number | boolean {
   if (raw === 'true') return true

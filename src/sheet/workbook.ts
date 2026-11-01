@@ -63,6 +63,7 @@ export function parseWhen(phrase: string, ctx: Context): { trigger: Trigger; day
   if ((m = p.match(/^streak (\d+)$/i))) return { trigger: { type: 'streak', value: Number(m[1]) } }
   if ((m = p.match(/^idle (\d+)(?: min(?:utes)?)?$/i))) return { trigger: { type: 'idle', value: Number(m[1]) } }
   if ((m = p.match(/^every (\d+) words$/i))) return { trigger: { type: 'words_every', value: Number(m[1]) } }
+  if ((m = p.match(/^deleted (\d+) words$/i))) return { trigger: { type: 'words_deleted', value: Number(m[1]) } }
   if ((m = p.match(/^words today (\d+)$/i))) return { trigger: { type: 'words_today', value: Number(m[1]) } }
   if ((m = p.match(/^total words (\d+)$/i))) return { trigger: { type: 'words_total', value: Number(m[1]) } }
   if (/^random$/i.test(p)) return { trigger: { type: 'random' } }
@@ -87,6 +88,7 @@ export function formatWhen(t: Trigger, day: number | undefined, ctx: Context): s
     case 'streak': return `Streak ${t.value}`
     case 'idle': return `Idle ${t.value} min`
     case 'words_every': return `Every ${t.value} words`
+    case 'words_deleted': return `Deleted ${t.value} words`
     case 'words_today': return `Words today ${t.value}`
     case 'words_total': return `Total words ${t.value}`
     case 'random': return 'Random'
@@ -746,7 +748,7 @@ export function helpSheets(): WriteSheet[] {
     ['Day 8 Morning   ·   Any Evening', 'A time of day'],
     ['Daily goal 50%   ·   Day 3 Daily goal 100%   ·   Whole goal 25%', 'Word goals'],
     ['Story opened   ·   Welcome back   ·   New day   ·   Date 10-31', 'Visits and dates'],
-    ['Stage Friend   ·   Streak 7   ·   Idle 5 min   ·   Every 1000 words   ·   Random', 'Other moments'],
+    ['Stage Friend   ·   Streak 7   ·   Idle 5 min   ·   Every 1000 words   ·   Deleted 100 words   ·   Random', 'Other moments'],
     ['After <scene name>   ·   After whole goal 25%', 'Right after another moment finishes'],
     [''],
     ['Scenes tab', ''],
