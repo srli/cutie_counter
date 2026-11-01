@@ -2,9 +2,9 @@ import type { ReactNode } from 'react'
 
 /** Small form controls shared by the Studio tabs. */
 
-export function Field({ label, hint, children, wide }: { label: string; hint?: ReactNode; children: ReactNode; wide?: boolean }) {
+export function Field({ label, hint, children, wide, span2 }: { label: string; hint?: ReactNode; children: ReactNode; wide?: boolean; span2?: boolean }) {
   return (
-    <label className={`sfield ${wide ? 'wide' : ''}`}>
+    <label className={`sfield ${wide ? 'wide' : ''} ${span2 ? 'span2' : ''}`}>
       <span className="sfield-label">{label}</span>
       {children}
       {hint && <small>{hint}</small>}
@@ -36,6 +36,20 @@ export function Select({ value, onChange, options, empty }: {
       {!known && <option value={value}>{value} (missing!)</option>}
       {opts.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
     </select>
+  )
+}
+
+/** Two side-by-side buttons for a choice between two things. */
+export function Toggle<T extends string>({ value, onChange, options }: {
+  value: T; onChange: (v: T) => void; options: [{ value: T; label: string }, { value: T; label: string }]
+}) {
+  return (
+    <span className="toggle" role="radiogroup">
+      {options.map((o) => (
+        <button key={o.value} type="button" role="radio" aria-checked={value === o.value}
+          className={value === o.value ? 'on' : ''} onClick={() => onChange(o.value)}>{o.label}</button>
+      ))}
+    </span>
   )
 }
 

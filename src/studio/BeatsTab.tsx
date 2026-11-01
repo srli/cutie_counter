@@ -4,7 +4,7 @@ import {
   type Beat, type Choice, type Condition, type ConditionVar, type FlagEffect, type Line, type Pack, type Repeat, type TriggerType,
 } from '../engine/types'
 import { assetLists, type Draft } from './draft'
-import { BlurText, cleanName, Field, IconBtn, move, Num, Select, Text } from './fields'
+import { BlurText, cleanName, Field, IconBtn, move, Num, Select, Text, Toggle } from './fields'
 import type { UpdateDraft } from './Studio'
 
 export const TRIGGER_LABELS: Record<TriggerType, string> = {
@@ -198,6 +198,7 @@ function BeatEditor({ beat, draft, onChange, onRename, onDuplicate, onDelete, on
 
       <section>
         <h3>Say</h3>
+        <p className="shint">What they say, one textbox page per line. Click <b>⋯</b> on a line for more: who's talking, thinking, the room, a picture, a sound.</p>
         <label className="check">
           <input type="checkbox" checked={usesVariants} onChange={(e) => set(e.target.checked
             ? { variants: [beat.lines ?? []], lines: undefined }
@@ -211,13 +212,13 @@ function BeatEditor({ beat, draft, onChange, onRename, onDuplicate, onDelete, on
                   <div className="variant-head">Version {i + 1}
                     <IconBtn title="Remove version" danger onClick={() => set({ variants: beat.variants!.filter((_, j) => j !== i) })}>✕</IconBtn>
                   </div>
-                  <Lines lines={v} assets={assets} defaultExpr={m.defaultExpression}
+                  <Lines lines={v} assets={assets} defaultExpr={m.defaultExpression} name={m.name}
                     onChange={(ls) => set({ variants: beat.variants!.map((x, j) => (j === i ? ls : x)) })} />
                 </div>
               ))}
               <button className="pill" onClick={() => set({ variants: [...beat.variants!, [{ text: '' }]] })}>+ Version</button>
             </>
-          : <Lines lines={beat.lines ?? []} assets={assets} defaultExpr={m.defaultExpression} onChange={(lines) => set({ lines })} />}
+          : <Lines lines={beat.lines ?? []} assets={assets} defaultExpr={m.defaultExpression} name={m.name} onChange={(lines) => set({ lines })} />}
       </section>
 
       <section>
@@ -225,7 +226,7 @@ function BeatEditor({ beat, draft, onChange, onRename, onDuplicate, onDelete, on
         {beat.choices?.length ? (
           <Field label="Player says first (optional)" wide><Text value={beat.prompt} onChange={(prompt) => set({ prompt: prompt || undefined })} placeholder="Before I start writing…" /></Field>
         ) : null}
-        <Choices choices={beat.choices ?? []} assets={assets} defaultExpr={m.defaultExpression}
+        <Choices choices={beat.choices ?? []} assets={assets} defaultExpr={m.defaultExpression} name={m.name}
           onChange={(choices) => set({ choices: choices.length ? choices : undefined, prompt: choices.length ? beat.prompt : undefined })} />
       </section>
 
@@ -287,7 +288,7 @@ function Conditions({ conds, draft, onChange }: { conds: Condition[]; draft: Dra
 
 type Assets = ReturnType<typeof assetLists>
 
-function Lines({ lines, assets, defaultExpr, onChange }: { lines: Line[]; assets: Assets; defaultExpr: string; onChange: (l: Line[]) => void }) {
+function Lines({ lines, assets, defaultExpr, name, onChange }: { lines: Line[]; assets: Assets; defaultExpr: string; name: string; onChange: (l: Line[]) => void }) {
   const [open, setOpen] = useState<number | null>(null)
   const setAt = (i: number, patch: Partial<Line>) => onChange(lines.map((l, j) => (j === i ? { ...l, ...patch } : l)))
   return (
@@ -298,20 +299,29 @@ function Lines({ lines, assets, defaultExpr, onChange }: { lines: Line[]; assets
             <Select value={l.expression} empty="(same face)" options={assets.expressions} onChange={(expression) => setAt(i, { expression })} />
             <textarea rows={2} value={l.text} placeholder="What they say… use {player} for the player's name" onChange={(e) => setAt(i, { text: e.target.value })} />
             <div className="row-btns">
-              <IconBtn title="More options" onClick={() => setOpen(open === i ? null : i)}>⋯</IconBtn>
+              <IconBtn title="More for this line" onClick={() => setOpen(open === i ? null : i)}>⋯</IconBtn>
               <IconBtn title="Move up" onClick={() => onChange(move(lines, i, i - 1))}>↑</IconBtn>
               <IconBtn title="Remove line" danger onClick={() => onChange(lines.filter((_, j) => j !== i))}>✕</IconBtn>
             </div>
           </div>
           {open === i && (
-            <div className="line-more sgrid">
-              <Field label="Background"><Select value={l.background} empty="(no change)" options={assets.backgrounds} onChange={(background) => setAt(i, { background })} /></Field>
-              <Field label="Reward art"><Select value={l.cg} empty="(none)" options={assets.cgs} onChange={(cg) => setAt(i, { cg })} /></Field>
-              <Field label="Sound"><Select value={l.sound} empty="(none)" options={assets.sounds} onChange={(sound) => setAt(i, { sound })} /></Field>
-              <Field label="Style"><Select value={l.style ?? 'speech'} options={[{ value: 'speech', label: 'Speaking' }, { value: 'thought', label: 'Thinking (italic)' }]}
-                onChange={(v) => setAt(i, { style: v === 'thought' ? 'thought' : undefined })} /></Field>
-              <Field label="Speaker" hint="Blank = the cutie. “player” = the player.">
-                <Text value={l.speaker} onChange={(speaker) => setAt(i, { speaker: speaker || undefined })} /></Field>
+            <div className="line-more">
+              <Field label="Who's talking" hint="Narrator has no name box. Use it for scene descriptions.">
+                <Select value={l.speaker ?? ''} options={[
+                  { value: '', label: name }, { value: 'player', label: 'You' }, { value: 'narrator', label: 'Narrator' },
+                  ...(l.speaker && !['player', 'narrator'].includes(l.speaker) ? [{ value: l.speaker, label: l.speaker }] : []),
+                ]} onChange={(speaker) => setAt(i, { speaker })} /></Field>
+              <Field label="Style" hint="Thinking shows in italics, in (brackets).">
+                <Toggle value={l.style === 'thought' ? 'thought' : 'speech'} options={[{ value: 'speech', label: 'Speaking' }, { value: 'thought', label: 'Thinking' }]}
+                  onChange={(v) => setAt(i, { style: v === 'thought' ? 'thought' : undefined })} /></Field>
+              <Field label="Sound" hint="Plays once when this line shows.">
+                <Select value={l.sound} empty="(none)" options={assets.sounds} onChange={(sound) => setAt(i, { sound })} /></Field>
+              <Field label="Background" hint="Changes the room from this line on.">
+                <Select value={l.background} empty="(no change)" options={assets.backgrounds} onChange={(background) => setAt(i, { background })} /></Field>
+              <Field label="Reward art" span2 hint={assets.cgs.length
+                ? 'Fills the screen with this picture. In a scene it stays until another picture or Back to the room. Saved in the Gallery.'
+                : 'No pictures yet. Add one on the Art tab, named cg_something.'}>
+                <Select value={l.cg} empty="(none)" options={[...assets.cgs, { value: 'none', label: 'Back to the room' }]} onChange={(cg) => setAt(i, { cg })} /></Field>
             </div>
           )}
         </div>
@@ -321,7 +331,7 @@ function Lines({ lines, assets, defaultExpr, onChange }: { lines: Line[]; assets
   )
 }
 
-function Choices({ choices, assets, defaultExpr, onChange }: { choices: Choice[]; assets: Assets; defaultExpr: string; onChange: (c: Choice[]) => void }) {
+function Choices({ choices, assets, defaultExpr, name, onChange }: { choices: Choice[]; assets: Assets; defaultExpr: string; name: string; onChange: (c: Choice[]) => void }) {
   const setAt = (i: number, patch: Partial<Choice>) => onChange(choices.map((c, j) => (j === i ? { ...c, ...patch } : c)))
   const nextId = () => {
     const ids = new Set(choices.map((c) => c.id))
@@ -341,7 +351,7 @@ function Choices({ choices, assets, defaultExpr, onChange }: { choices: Choice[]
           </div>
           <div className="choice-inner">
             <span className="shint">They answer:</span>
-            <Lines lines={c.lines ?? []} assets={assets} defaultExpr={defaultExpr} onChange={(lines) => setAt(i, { lines })} />
+            <Lines lines={c.lines ?? []} assets={assets} defaultExpr={defaultExpr} name={name} onChange={(lines) => setAt(i, { lines })} />
             <span className="shint">Flags:</span>
             <Effects effects={c.effects ?? []} onChange={(effects) => setAt(i, { effects: effects.length ? effects : undefined })} />
           </div>

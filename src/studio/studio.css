@@ -85,7 +85,10 @@
 .line-row { border-left: 3px solid var(--pink); padding-left: 8px; }
 .line-main { display: flex; gap: 6px; align-items: flex-start; }
 .line-main > select { width: 140px; flex: none; }
-.line-more { margin: 6px 0 4px; padding: 8px; background: #faf6fc; border-radius: 8px; }
+.line-more { margin: 6px 0 4px; padding: 10px 12px; background: #faf6fc; border-radius: 8px;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px 16px; align-items: start; }
+.line-more .span2 { grid-column: span 2; }
+@media (max-width: 700px) { .line-more { grid-template-columns: 1fr; } .line-more .span2 { grid-column: auto; } }
 .variant { width: 100%; border: 1.5px dashed var(--line); border-radius: 10px; padding: 8px; }
 .variant-head { display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; font-weight: 600; color: var(--ink-soft); margin-bottom: 4px; }
 .choice-block { border: 1.5px solid var(--line); border-radius: 10px; padding: 8px; }
@@ -132,3 +135,8 @@ button.cov-cell:hover { outline: 2px solid var(--lav-deep); }
 
 .preview-stage.wide { align-items: flex-start; }
 .preview-scene { position: relative; width: 100%; max-width: 900px; height: min(600px, calc(100vh - 160px)); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); }
+
+/* Two-way switch (Speaking / Thinking) */
+.toggle { display: flex; border: 1px solid var(--line, #e6dcef); border-radius: 8px; overflow: hidden; background: #fff; }
+.toggle button { flex: 1; border: 0; background: transparent; padding: 7px 12px; font: inherit; font-size: 0.85rem; color: var(--ink-soft); cursor: pointer; }
+.toggle button.on { background: var(--accent, #b48ce6); color: #fff; }
