@@ -27,7 +27,7 @@ export const MAX_SCENES_PER_STEP = 3
 const MAX_FOLLOW_UPS = 30 // long scenes are chains of follow-ups
 
 /** Events that should show a placeholder when the script has nothing for them. */
-const PLACEHOLDER_EVENTS: TriggerType[] = ['reopen', 'time_slot', 'daily_pct', 'total_pct', 'stage']
+const PLACEHOLDER_EVENTS: TriggerType[] = ['reopen', 'time_slot', 'daily_pct', 'total_pct', 'stage', 'words_deleted']
 
 // ---------------------------------------------------------------- thresholds
 
@@ -118,6 +118,16 @@ function stageEvent(project: Project, stats: Stats): EngineEvent | null {
   return { type: 'stage', value: stats.stage }
 }
 
+/** Deleting words adds up until the writer types again; each threshold fires once per stretch of deleting. */
+function deletedEvent(project: Project, before: number, pack: Pack): EngineEvent | null {
+  if (project.wordCount > before) { project.deletedRun = 0; return null }
+  const was = project.deletedRun ?? 0
+  const now = was + (before - project.wordCount)
+  project.deletedRun = now
+  const hit = thresholds(pack, 'words_deleted').filter((t) => was < t && now >= t)
+  return hit.length ? { type: 'words_deleted', value: hit[hit.length - 1] } : null
+}
+
 function progressEvents(project: Project, stats: Stats, pack: Pack): EngineEvent[] {
   const out: (EngineEvent | null)[] = [
     crossed(stats.dailyPct, thresholds(pack, 'daily_pct'), project.firedToday.keys, 'daily_pct'),
@@ -174,6 +184,7 @@ function placeholderText(ev: EngineEvent, stats: Stats, pack: Pack): string {
     case 'daily_pct': return `[PLACEHOLDER daily ${ev.value}% · day ${stats.day}]`
     case 'total_pct': return `[PLACEHOLDER total ${ev.value}% · ${stageName || 'any stage'}]`
     case 'stage': return `[PLACEHOLDER entering ${stageName}]`
+    case 'words_deleted': return `[PLACEHOLDER deleted ${ev.value} words]`
     default: return `[PLACEHOLDER ${ev.type} ${ev.value ?? ''}]`
   }
 }
@@ -275,7 +286,10 @@ export function step(prev: Project, input: Input, pack: Pack, now: Date, rng: Rn
 
     case 'words': {
       events.push(...startOfDay)
+      const before = project.wordCount
       project.wordCount = Math.max(0, input.count)
+      project.peakWords = Math.max(project.peakWords ?? 0, before, project.wordCount)
+      push(deletedEvent(project, before, pack))
       project.days[stats.date].endWords = project.wordCount
       stats = computeStats(project, pack.manifest, now)
       events.push(...progressEvents(project, stats, pack))

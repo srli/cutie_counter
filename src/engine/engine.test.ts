@@ -226,6 +226,35 @@ describe('director', () => {
     expect(texts[3]).toEqual([])
   })
 
+  it('never lowers affection when words are deleted', () => {
+    const pack = makePack([])
+    const { p } = run(project(), pack, [
+      [{ kind: 'words', count: 600 }, '2026-11-02T09:00'],
+      [{ kind: 'words', count: 100 }, '2026-11-02T09:05'],
+    ])
+    expect(p.stage).toBe('high')
+    expect(computeStats(p, pack.manifest, at('2026-11-02T09:06')).stage).toBe('high')
+    // Older saves without peakWords still remember their best day.
+    const old = { ...p, peakWords: undefined, days: { '2026-11-01': { startWords: 0, endWords: 600 }, '2026-11-02': { startWords: 600, endWords: 100 } } }
+    expect(computeStats(old, pack.manifest, at('2026-11-02T09:06')).stage).toBe('high')
+  })
+
+  it('fires words_deleted once per stretch of deleting', () => {
+    const pack = makePack([
+      { id: 'd100', trigger: { type: 'words_deleted', value: 100 }, lines: [{ text: 'snip' }] },
+      { id: 'd1000', trigger: { type: 'words_deleted', value: 1000 }, lines: [{ text: 'whoa' }] },
+    ])
+    const { ids } = run(project(), pack, [
+      [{ kind: 'words', count: 2000 }, '2026-11-02T09:00'],
+      [{ kind: 'words', count: 1950 }, '2026-11-02T09:01'], // 50 so far
+      [{ kind: 'words', count: 1890 }, '2026-11-02T09:02'], // 110: 100
+      [{ kind: 'words', count: 1850 }, '2026-11-02T09:03'], // 150: nothing new
+      [{ kind: 'words', count: 1860 }, '2026-11-02T09:04'], // typing resets
+      [{ kind: 'words', count: 700 }, '2026-11-02T09:05'], // 1160 at once: 1000 wins
+    ])
+    expect(ids.slice(1).map((x) => x.filter((id) => id.startsWith('d')))).toEqual([[], ['d100'], [], [], ['d1000']])
+  })
+
   it("waits for day 1 before playing day 1's lines", () => {
     const pack = makePack([
       { id: 'd1', trigger: { type: 'time_slot', value: 'morning' }, when: [{ var: 'day', op: '==', value: 1 }], lines: [{ text: 'day one' }] },

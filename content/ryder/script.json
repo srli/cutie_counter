@@ -5898,6 +5898,34 @@
       ]
     },
     {
+      "id": "react_deleted_100_words",
+      "trigger": {
+        "type": "words_deleted",
+        "value": 100
+      },
+      "lines": [
+        {
+          "expression": "surprised",
+          "text": "[PLACEHOLDER Ryder reacts: you deleted 100 words in one go]"
+        }
+      ],
+      "cooldownMinutes": 10
+    },
+    {
+      "id": "react_deleted_1000_words",
+      "trigger": {
+        "type": "words_deleted",
+        "value": 1000
+      },
+      "lines": [
+        {
+          "expression": "shocked",
+          "text": "[PLACEHOLDER Ryder reacts: you deleted 1000 words in one go]"
+        }
+      ],
+      "repeat": "daily"
+    },
+    {
       "id": "game_night",
       "trigger": {
         "type": "total_pct",

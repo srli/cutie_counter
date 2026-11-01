@@ -100,7 +100,7 @@ If something is wrong, the app lists each problem in plain words, for example:
 |---|---|
 | `id` | Short name, lowercase, no spaces. A pack with the same id replaces the old one. |
 | `timeSlots` | Times of day. **The first one in the list starts the day.** Slots after midnight but before it (`midnight`, `ultra_late`) belong to the night before, so day 18's 2 a.m. line plays after day 18's 11 p.m. line, and writing past midnight doesn't start `midnight` over. |
-| `stages` | Affinity levels. As total words grow past `minTotalPct`% of the goal, the cutie moves up a stage. A stage's `defaultExpression` becomes their resting face (idle fidgets use it in place of the main `defaultExpression`). |
+| `stages` | Affinity levels. As total words grow past `minTotalPct`% of the goal, the cutie moves up a stage. Stages never go down: deleting words doesn't cost affection. A stage's `defaultExpression` becomes their resting face (idle fidgets use it in place of the main `defaultExpression`). |
 | `milestones` | Percentages that always "fire". If you haven't written a line for one, a `[PLACEHOLDER …]` shows instead, so you can see what's missing. |
 | `ambient` | Every N minutes, a `chance` (0 to 1) of random chatter. |
 | `idle` | Every N seconds with nothing happening, swap to a random expression (weights = odds). |
@@ -139,6 +139,7 @@ The script is a list of **beats**. A beat says: *when this happens, and these th
 | `words_today` | e.g. `500` | today's words pass 500 |
 | `words_total` | e.g. `10000` | total words pass 10,000 |
 | `words_every` | e.g. `1000` | every 1,000 words |
+| `words_deleted` | e.g. `100` | after deleting that many words in one go (counted until they type again) |
 | `date` | `"10-31"` | a calendar date (month-day). For "the last day" use `day_start` `30`: stories can start any day |
 | `stage` | stage id | moving up to that stage |
 | `streak` | e.g. `7` | a 7-day writing streak |

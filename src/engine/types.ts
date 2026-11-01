@@ -67,6 +67,7 @@ export type TriggerType =
   | 'words_today' // today's words crossed value
   | 'words_total' // total words crossed value
   | 'words_every' // total words crossed a multiple of value
+  | 'words_deleted' // value words were deleted in one go (since the writer last typed)
   | 'date' // calendar date "MM-DD" seen on open or at midnight
   | 'stage' // entered affinity stage; value = stage id
   | 'streak' // writing streak reached value days (fires on day_start)
@@ -76,7 +77,7 @@ export type TriggerType =
 
 export const TRIGGER_TYPES: readonly TriggerType[] = [
   'session_start', 'reopen', 'day_start', 'time_slot', 'daily_pct', 'total_pct',
-  'words_today', 'words_total', 'words_every', 'date', 'stage', 'streak',
+  'words_today', 'words_total', 'words_every', 'words_deleted', 'date', 'stage', 'streak',
   'idle', 'random', 'after',
 ]
 
@@ -201,6 +202,10 @@ export interface Project {
   startDate: string
   doc: string
   wordCount: number
+  /** Most words the story has ever had. Affection follows this, so cutting words never costs any. */
+  peakWords?: number
+  /** Words deleted since the writer last typed, for `words_deleted`. */
+  deletedRun?: number
   days: Record<string, DayRecord>
   flags: Record<string, FlagValue>
   beatLog: Record<string, BeatLogEntry>

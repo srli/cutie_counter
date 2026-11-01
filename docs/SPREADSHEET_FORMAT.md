@@ -76,7 +76,7 @@ Inside `[if …]` or the **If** column. Join with `and`.
 ### When (Reactions and Scenes)
 
 `Day 8 Morning` · `Any Evening` · `Daily goal 50%` · `Day 3 Daily goal 100%` · `Whole goal 25%` · `Story opened` ·
-`Welcome back` · `New day` · `Date 10-31` · `Stage Friend` · `Streak 7` · `Idle 5 min` · `Every 1000 words` ·
+`Welcome back` · `New day` · `Date 10-31` · `Stage Friend` · `Streak 7` · `Idle 5 min` · `Every 1000 words` · `Deleted 100 words` ·
 `Words today 500` · `Total words 10000` · `Random` · `After <scene name>` · `After whole goal 25%`
 
 ### Options

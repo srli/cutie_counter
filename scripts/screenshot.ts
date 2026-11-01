@@ -338,6 +338,39 @@ const scenarios: Record<string, (b: Browser, base: string) => Promise<void>> = {
     await ctx.close()
   },
 
+  async deleting(browser, base) {
+    // Cut most of the story: Ryder reacts, and stays at the stage the words earned.
+    const ctx = await browser.newContext({ viewport: DESKTOP })
+    const page = await ctx.newPage()
+    page.on('pageerror', (e) => console.error('  page error:', e.message))
+    await page.clock.setFixedTime(new Date('2026-11-03T15:00:00'))
+    await page.goto(`${base}#/setup`)
+    await page.getByPlaceholder('What should they call you?').fill('Sophie')
+    await page.getByLabel('Goal Word Count').fill('1000')
+    await page.getByLabel('Day 1').fill('2026-11-01')
+    await page.getByRole('button', { name: "Let's Start!" }).click()
+    await page.locator('.textbox').waitFor()
+    await typeWords(page, 450)
+    const skip = page.getByRole('button', { name: /Skip scene|Back to writing/ })
+    if (await skip.count()) await skip.click()
+    const stage = async () => (await page.locator('.heart-chip').textContent())?.trim()
+    const before = await stage()
+    await page.locator('.tiptap').click()
+    await page.keyboard.press('ControlOrMeta+a')
+    await page.keyboard.insertText('Starting over. ')
+    await page.waitForTimeout(1500)
+    for (let i = 0; i < 30 && !(await page.locator('.textbox-text', { hasText: 'deleted' }).count()); i++) {
+      if (await skip.count()) await skip.click()
+      else if (await page.locator('.choice').count()) await page.locator('.choice').first().click()
+      else await page.locator('.textbox').click()
+      await page.waitForTimeout(200)
+    }
+    await page.waitForTimeout(800)
+    console.log(`  stage before: ${before}, after deleting: ${await stage()}`)
+    await shot(page, 'deleted-words')
+    await ctx.close()
+  },
+
   async cutscene(browser, base) {
     // A small goal so the 25% cutscene arrives after a few lines of typing.
     const ctx = await browser.newContext({ viewport: DESKTOP })
