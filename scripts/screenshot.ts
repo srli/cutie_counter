@@ -317,9 +317,15 @@ const scenarios: Record<string, (b: Browser, base: string) => Promise<void>> = {
     await page.locator('.scene-mode').waitFor()
     await page.waitForTimeout(1500)
     await shot(page, 'cutscene-start')
+    let sawCg = false
     for (let i = 0; i < 40 && !(await page.locator('.choice').count()); i++) {
       await page.locator('.scene-mode-box').click()
       await page.waitForTimeout(150)
+      if (!sawCg && (await page.locator('.scene-mode-cg').count())) {
+        sawCg = true
+        await page.waitForTimeout(900)
+        await shot(page, 'cutscene-cg')
+      }
     }
     await page.waitForTimeout(600)
     await shot(page, 'cutscene-choices')
@@ -327,6 +333,18 @@ const scenarios: Record<string, (b: Browser, base: string) => Promise<void>> = {
     await page.locator('.scene-mode').waitFor({ state: 'detached' })
     await page.waitForTimeout(800)
     await shot(page, 'cutscene-after')
+    // The picture seen in the scene is now in the gallery; the others are still locked.
+    await page.getByRole('button', { name: 'Gallery' }).click()
+    await page.locator('.gallery-item').first().waitFor()
+    await page.waitForTimeout(500)
+    await shot(page, 'cutscene-gallery')
+    await page.locator('button.gallery-item').first().click()
+    await page.waitForTimeout(500)
+    await shot(page, 'cutscene-gallery-big')
+    await page.reload()
+    await page.getByRole('button', { name: 'Gallery' }).click()
+    await page.waitForTimeout(500)
+    console.log(`  gallery after reload: ${await page.locator('button.gallery-item').count()} found`)
     await ctx.close()
   },
 

@@ -5920,14 +5920,16 @@
         },
         {
           "speaker": "narrator",
-          "text": "Ryder turns on a game console and sits cross-legged in front of the couch. With a tilt of the analog stick, he sorts through a surprisingly large library of games..."
+          "text": "Ryder turns on a game console and sits cross-legged in front of the couch. With a tilt of the analog stick, he sorts through a surprisingly large library of games...",
+          "cg": "game_night"
         },
         {
           "text": "I have got to work on this backlog."
         },
         {
           "speaker": "narrator",
-          "text": "... he observes apologetically, sheepishly scratching his head before jolting to a stop on one."
+          "text": "... he observes apologetically, sheepishly scratching his head before jolting to a stop on one.",
+          "cg": "none"
         },
         {
           "text": "Have you ever played a fighting game before?"
@@ -6220,14 +6222,16 @@
         },
         {
           "speaker": "narrator",
-          "text": "I close the distance between me and him and gently kiss him. His lips are soft and his body warm against mine."
+          "text": "I close the distance between me and him and gently kiss him. His lips are soft and his body warm against mine.",
+          "cg": "the_couch"
         },
         {
           "text": "I wasn't expecting that. Do you..."
         },
         {
           "speaker": "player",
-          "text": "I do."
+          "text": "I do.",
+          "cg": "none"
         },
         {
           "text": "What?"
@@ -6317,14 +6321,16 @@
         },
         {
           "speaker": "narrator",
-          "text": "He demonstrates by sitting cross-legged on the ground and patting the space next to him. Confused, I sit down."
+          "text": "He demonstrates by sitting cross-legged on the ground and patting the space next to him. Confused, I sit down.",
+          "cg": "movie_night"
         },
         {
           "speaker": "player",
           "text": "Okay then."
         },
         {
-          "text": "Anyway. What type of movie would you like to watch?"
+          "text": "Anyway. What type of movie would you like to watch?",
+          "cg": "none"
         }
       ],
       "display": "scene",
@@ -6589,14 +6595,16 @@
         },
         {
           "speaker": "narrator",
-          "text": "He reaches across the table and brushes his thumb gently near my mouth."
+          "text": "He reaches across the table and brushes his thumb gently near my mouth.",
+          "cg": "froyo_date"
         },
         {
           "speaker": "narrator",
           "text": "For some reason, I can feel my face heat up."
         },
         {
-          "text": "Sorry, I shouldn't have done that."
+          "text": "Sorry, I shouldn't have done that.",
+          "cg": "none"
         },
         {
           "speaker": "player",
