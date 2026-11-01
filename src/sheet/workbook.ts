@@ -333,7 +333,7 @@ function sceneEnds(beats: Beat[]): Map<string, string> {
   return ends
 }
 
-interface SceneRow { r: number; who: string; face: string; line: string; choice: string }
+interface SceneRow { r: number; who: string; face: string; picture: string; line: string; choice: string }
 interface RawScene { name: string; when: string; cond: string; opts: string; startRow: number; rows: SceneRow[] }
 
 /**
@@ -345,14 +345,18 @@ function importScenes(sheet: Sheet, ctx: Context, problems: Problem[]): Beat[] {
   const beats: Beat[] = []
   const scenes: RawScene[] = []
   let current = null as RawScene | null
+  // Columns are found by their header, so older sheets without "Picture" still work.
+  const header = (sheet.rows[0] ?? []).map((h) => slug(h))
+  const col = (name: string) => header.indexOf(slug(name))
   sheet.rows.slice(1).forEach((row, r) => {
-    const [name, when, cond, who, face, line, choice, opts] = [0, 1, 2, 3, 4, 5, 6, 7].map((c) => cellText(row, c))
+    const [name, when, cond, who, face, picture, line, choice, opts] =
+      ['Scene', 'When', 'If', 'Who', 'Face', 'Picture', 'Line', 'Choice', 'Options'].map((h) => (col(h) < 0 ? '' : cellText(row, col(h))))
     if (name) { current = { name, when, cond, opts, startRow: r, rows: [] }; scenes.push(current) }
     if (!current) {
       if (who || line || choice) problems.push({ where: `${sheet.name}, row ${r + 2}`, message: 'This row has no Scene name above it.' })
       return
     }
-    if (who || line || choice || face) current.rows.push({ r, who, face, line, choice })
+    if (who || line || choice || face || picture) current.rows.push({ r, who, face, picture, line, choice })
   })
 
   for (const sc of scenes) {
@@ -370,7 +374,10 @@ function importScenes(sheet: Sheet, ctx: Context, problems: Problem[]): Beat[] {
         const speaker = !who || slug(who) === slug(ctx.cutieName) || slug(who) === first || /^cutie$/i.test(who) ? undefined
           : /^(you|mc)$/i.test(who) ? 'player' : /^narrator$/i.test(who) ? 'narrator' : who
         const lines = parseLines(row.line, ctx, speaker ? { speaker } : {})
+        if (row.picture && !lines.length) lines.push({ text: '…' })
         if (row.face && lines[0]) lines[0] = { ...lines[0], expression: row.face.trim().toLowerCase() }
+        // A picture stays up for the rest of the scene, until another picture or "none".
+        if (row.picture && lines[0]) lines[0] = { ...lines[0], cg: slug(row.picture) }
         return lines
       }
 
@@ -446,7 +453,7 @@ const HEADERS: Record<TabName, string[]> = {
   'Special days': ['Date or day', 'Line'],
   'Random chatter': ['Stage', 'Line'],
   'Reactions': ['When', 'If', 'Line', 'Options', 'Notes'],
-  'Scenes': ['Scene', 'When', 'If', 'Who', 'Face', 'Line', 'Choice', 'Options', 'Notes'],
+  'Scenes': ['Scene', 'When', 'If', 'Who', 'Face', 'Picture', 'Line', 'Choice', 'Options', 'Notes'],
 }
 
 const dayCond = (b: Beat) => (b.when ?? []).filter((c) => c.var === 'day' && c.op === '==' && typeof c.value === 'number')
@@ -469,7 +476,7 @@ function cellOf(group: Beat[], extraWhen: (b: Beat) => Condition[] = otherConds)
   }))
 }
 
-export function exportCutie(manifest: CutieManifest, script: Script, expressions: string[]): WriteSheet[] {
+export function exportCutie(manifest: CutieManifest, script: Script, expressions: string[], pictures: string[] = []): WriteSheet[] {
   const ctx = contextFor(manifest)
   const left = new Set(script.beats)
   const take = (b: Beat) => left.delete(b)
@@ -599,8 +606,8 @@ export function exportCutie(manifest: CutieManifest, script: Script, expressions
     { name: name('Special days'), rows: [HEADERS['Special days'], ...specialRows], widths: [14, 100], freezeFirstColumn: true, tabColor: color },
     { name: name('Random chatter'), rows: [HEADERS['Random chatter'], ...chatterRows], widths: [16, 100], tabColor: color, dropdowns: { 0: ctx.stages.map((s) => s.name) } },
     { name: name('Reactions'), rows: [HEADERS.Reactions, ...reactionRows], widths: [22, 28, 80, 22, 40], tabColor: color },
-    { name: name('Scenes'), rows: [HEADERS.Scenes, ...sceneRows], widths: [22, 22, 26, 12, 12, 80, 28, 16, 30], tabColor: color,
-      dropdowns: { 3: [manifest.name, 'You', 'Narrator'], 4: faces } },
+    { name: name('Scenes'), rows: [HEADERS.Scenes, ...sceneRows], widths: [22, 22, 26, 12, 12, 16, 80, 28, 16, 30], tabColor: color,
+      dropdowns: { 3: [manifest.name, 'You', 'Narrator'], 4: faces, 5: [...pictures, 'none'] } },
   ]
 }
 
@@ -608,23 +615,23 @@ function sceneToRows(head: Beat, chain: Beat[], ctx: Context): string[][] {
   const day = dayCond(head)[0]?.value as number | undefined
   const lineRows = (lines: Line[], tag = ''): string[][] => lines.map((l) => {
     const who = l.speaker === 'player' ? 'You' : l.speaker === 'narrator' ? 'Narrator' : l.speaker ?? ''
-    return ['', '', '', who, l.expression ?? '', formatLines([{ ...l, expression: undefined, speaker: undefined }], { speakerInText: false }), tag, '', '']
+    return ['', '', '', who, l.expression ?? '', l.cg ?? '', formatLines([{ ...l, expression: undefined, speaker: undefined, cg: undefined }], { speakerInText: false }), tag, '', '']
   })
   const segRows = (b: Beat, tag = ''): string[][] => {
     const versions = b.variants?.length ? b.variants : [b.lines ?? []]
     const out = versions.length > 1
-      ? [['', '', '', '', '', versions.map((v) => formatLines(v)).join('\n[or]\n'), tag, '', '']]
+      ? [['', '', '', '', '', '', versions.map((v) => formatLines(v)).join('\n[or]\n'), tag, '', '']]
       : lineRows(versions[0], tag)
-    ;(b.choices ?? []).forEach((c, i) => out.push(['', '', '', 'You', '', i === 0 && b.prompt ? b.prompt : '', `${c.id}: ${c.text}`, '', '']))
+    ;(b.choices ?? []).forEach((c, i) => out.push(['', '', '', 'You', '', '', i === 0 && b.prompt ? b.prompt : '', `${c.id}: ${c.text}`, '', '']))
     for (const c of b.choices ?? []) out.push(...lineRows(c.lines ?? [], c.id))
     return out
   }
   const rows = segRows(head)
-  if (!rows.length) rows.push(Array(9).fill(''))
+  if (!rows.length) rows.push(Array(10).fill(''))
   rows[0] = [head.id, formatWhen(head.trigger, day, ctx), otherConds(head).map((c) => formatCondition(c, ctx)).join(' and '),
-    ...rows[0].slice(3, 7), formatOptions(head, true), head.note ?? '']
+    ...rows[0].slice(3, 8), formatOptions(head, true), head.note ?? '']
   for (const b of chain) rows.push(...segRows(b, [...(b.id.match(SCENE_ID)?.[3] ?? '')].join(', ')))
-  rows.push(Array(9).fill(''))
+  rows.push(Array(10).fill(''))
   return rows
 }
 
@@ -694,6 +701,7 @@ export function helpSheets(): WriteSheet[] {
     ['When · If · Options', 'On the first row: when it plays, what must be true, and options (once, daily, wait 30 min, priority 2, odds 3).'],
     ['Who', 'The cutie, You, Narrator, or anyone else\'s name'],
     ['Face', 'Expression for this line'],
+    ['Picture', 'Reward art (CG). The scene shows only the picture, with the dialog on top, until another picture or "none".'],
     ['Choice', 'On a You row, "A: button text" makes a choice. On later rows a letter (A) means "only if A was picked". Empty means everyone sees it, so paths rejoin.'],
   ]
   return [
@@ -714,13 +722,14 @@ export function templateSheets(slots = DEFAULT_TIME_SLOTS): WriteSheet[] {
     { name: n('Random chatter'), rows: [['Stage', 'Line'], ['', '{thinking} Do you think cats dream?'], ['Friend', '{smile} I like having you around, you know.']], widths: [16, 100], tabColor: color },
     { name: n('Reactions'), rows: [HEADERS.Reactions, ['Welcome back', '', 'Back again, {player}?\n[or]\nOh, hi! {words today} words so far today.', '', ''], ['Idle 5 min', '', '{thinking} Stuck? Write the next sentence badly. Fix it later.', 'wait 20 min', '']], widths: [22, 28, 80, 22, 40], tabColor: color },
     { name: n('Scenes'), rows: [HEADERS.Scenes,
-      ['Movie night', 'Whole goal 50%', '', 'Template', 'smile', 'Halfway! Want to watch a movie?', '', 'once', ''],
-      ['', '', '', 'You', '', '', 'A: Romance', '', ''],
-      ['', '', '', 'You', '', '', 'B: Horror', '', ''],
-      ['', '', '', 'Template', 'blush', 'Oh? A romance, then...', 'A', '', ''],
-      ['', '', '', 'Template', 'upset', "I'm fine. Totally fine.", 'B', '', ''],
-      ['', '', '', 'Narrator', '', 'The credits roll.', '', '', ''],
-      ['', '', '', 'Template', 'happy', 'That was fun. Back to writing?', '', '', ''],
-    ], widths: [22, 22, 26, 12, 12, 80, 28, 16, 30], tabColor: color },
+      ['Movie night', 'Whole goal 50%', '', 'Template', 'smile', '', 'Halfway! Want to watch a movie?', '', 'once', ''],
+      ['', '', '', 'You', '', '', '', 'A: Romance', '', ''],
+      ['', '', '', 'You', '', '', '', 'B: Horror', '', ''],
+      ['', '', '', 'Template', 'blush', '', 'Oh? A romance, then...', 'A', '', ''],
+      ['', '', '', 'Template', 'upset', '', "I'm fine. Totally fine.", 'B', '', ''],
+      ['', '', '', 'Narrator', '', 'movie_night', 'The two of you curl up as the movie starts.', '', '', 'Picture: shows only the CG, until "none"'],
+      ['', '', '', 'Narrator', '', '', 'The credits roll.', '', '', ''],
+      ['', '', '', 'Template', 'happy', 'none', 'That was fun. Back to writing?', '', '', ''],
+    ], widths: [22, 22, 26, 12, 12, 16, 80, 28, 16, 30], tabColor: color },
   ]
 }

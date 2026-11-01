@@ -113,6 +113,22 @@ describe('scenes', () => {
     expect(play('B')).toEqual(['R: Movie?', "R: I'm fine.", 'narrator: The credits roll.', 'R: Lights stay on tonight.', 'R: Back to writing.'])
   })
 
+  it('reads the Picture column and keeps it on the way back out', () => {
+    const pics: Sheet = { name: 'Ryder – Scenes', rows: [
+      ['Scene', 'When', 'If', 'Who', 'Face', 'Picture', 'Line', 'Choice', 'Options'],
+      ['Stargazing', 'Whole goal 90%', '', 'Ryder', 'smile', '', 'Come look.'],
+      ['', '', '', 'Narrator', '', 'stars', 'The sky is full of stars.'],
+      ['', '', '', 'Ryder', '', '', 'Beautiful, right?'],
+      ['', '', '', 'Ryder', 'happy', 'none', 'Back to work, then.'],
+    ] }
+    const { beats, problems } = importCutie([pics], ryder.manifest)
+    expect(problems).toEqual([])
+    expect(beats[0].display).toBe('scene')
+    expect(beats[0].lines!.map((l) => l.cg ?? '')).toEqual(['', 'stars', '', 'none'])
+    const again = importCutie(exportCutie(ryder.manifest, { formatVersion: 1, beats }, ryder.expressions), ryder.manifest)
+    expect(again.beats).toEqual(beats)
+  })
+
   it('round-trips', () => {
     const once = importCutie([sheet], ryder.manifest).beats
     const again = importCutie(exportCutie(ryder.manifest, { formatVersion: 1, beats: once }, ryder.expressions), ryder.manifest)
