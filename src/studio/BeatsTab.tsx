@@ -305,7 +305,7 @@ function Lines({ lines, assets, defaultExpr, name, onChange }: { lines: Line[]; 
             </div>
           </div>
           {open === i && (
-            <div className="line-more sgrid">
+            <div className="line-more">
               <Field label="Who's talking" hint="Narrator has no name box. Use it for scene descriptions.">
                 <Select value={l.speaker ?? ''} options={[
                   { value: '', label: name }, { value: 'player', label: 'You' }, { value: 'narrator', label: 'Narrator' },
@@ -314,14 +314,14 @@ function Lines({ lines, assets, defaultExpr, name, onChange }: { lines: Line[]; 
               <Field label="Style" hint="Thinking shows in italics, in (brackets).">
                 <Toggle value={l.style === 'thought' ? 'thought' : 'speech'} options={[{ value: 'speech', label: 'Speaking' }, { value: 'thought', label: 'Thinking' }]}
                   onChange={(v) => setAt(i, { style: v === 'thought' ? 'thought' : undefined })} /></Field>
+              <Field label="Sound" hint="Plays once when this line shows.">
+                <Select value={l.sound} empty="(none)" options={assets.sounds} onChange={(sound) => setAt(i, { sound })} /></Field>
               <Field label="Background" hint="Changes the room from this line on.">
                 <Select value={l.background} empty="(no change)" options={assets.backgrounds} onChange={(background) => setAt(i, { background })} /></Field>
-              <Field label="Reward art" hint={assets.cgs.length
+              <Field label="Reward art" span2 hint={assets.cgs.length
                 ? 'Fills the screen with this picture. In a scene it stays until another picture or Back to the room. Saved in the Gallery.'
                 : 'No pictures yet. Add one on the Art tab, named cg_something.'}>
                 <Select value={l.cg} empty="(none)" options={[...assets.cgs, { value: 'none', label: 'Back to the room' }]} onChange={(cg) => setAt(i, { cg })} /></Field>
-              <Field label="Sound" hint="Plays once when this line shows.">
-                <Select value={l.sound} empty="(none)" options={assets.sounds} onChange={(sound) => setAt(i, { sound })} /></Field>
             </div>
           )}
         </div>

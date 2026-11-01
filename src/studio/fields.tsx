@@ -2,9 +2,9 @@ import type { ReactNode } from 'react'
 
 /** Small form controls shared by the Studio tabs. */
 
-export function Field({ label, hint, children, wide }: { label: string; hint?: ReactNode; children: ReactNode; wide?: boolean }) {
+export function Field({ label, hint, children, wide, span2 }: { label: string; hint?: ReactNode; children: ReactNode; wide?: boolean; span2?: boolean }) {
   return (
-    <label className={`sfield ${wide ? 'wide' : ''}`}>
+    <label className={`sfield ${wide ? 'wide' : ''} ${span2 ? 'span2' : ''}`}>
       <span className="sfield-label">{label}</span>
       {children}
       {hint && <small>{hint}</small>}
