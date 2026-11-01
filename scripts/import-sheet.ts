@@ -10,6 +10,7 @@ import { join } from 'node:path'
 import { importCutie, cutiesIn } from '../src/sheet/workbook'
 import { readXlsx } from '../src/sheet/xlsx'
 import type { CutieManifest } from '../src/engine/types'
+import { classifyImages } from '../src/pack/load'
 
 const root = join(import.meta.dirname, '..')
 const file = process.argv[2] ?? join(root, 'content/cutie-scripts.xlsx')
@@ -22,7 +23,11 @@ for (const id of readdirSync(join(root, 'content'))) {
   if (!existsSync(manifestPath)) continue
   const manifest = JSON.parse(readFileSync(manifestPath, 'utf8')) as CutieManifest
   if (!cutiesIn(sheets).some((c) => c.toLowerCase() === manifest.name.toLowerCase())) continue
-  const { beats, problems } = importCutie(sheets, manifest)
+  const imgDir = join(root, 'content', id, 'images')
+  const art = classifyImages(existsSync(imgDir) ? readdirSync(imgDir) : [])
+  const { beats, problems: all } = importCutie(sheets, manifest, art)
+  for (const w of all.filter((p) => p.warning)) console.log(`  ! ${w.where}: ${w.message}`)
+  const problems = all.filter((p) => !p.warning)
   if (problems.length) {
     failed = true
     console.log(`  ✗ ${manifest.name}: ${problems.length} problem(s), script not changed`)

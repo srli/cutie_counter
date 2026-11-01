@@ -11,7 +11,13 @@ import {
 } from './markup'
 import type { Sheet, WriteSheet } from './xlsx'
 
-export interface Problem { where: string; message: string }
+/** `warning`s don't block an import (e.g. art that hasn't been added yet). */
+export interface Problem { where: string; message: string; warning?: boolean }
+
+/** Art the pack already has, so the import can point out typos in faces and pictures. */
+export interface KnownArt { expressions: string[]; backgrounds: string[]; cgs: string[] }
+
+const short = (s: string, n = 40) => (s.length > n ? `${s.slice(0, n).trim()}…` : s)
 
 export const TAB_NAMES = ['Time of day', 'Daily goal', 'Whole goal', 'Special days', 'Random chatter', 'Reactions', 'Scenes'] as const
 type TabName = typeof TAB_NAMES[number]
@@ -169,9 +175,35 @@ function branchBeats(
   })
 }
 
+/** Faces, rooms and pictures the pack doesn't have yet: usually a typo, sometimes art still to come. */
+function checkArt(beats: Beat[], art: KnownArt, cutie: string, origin: Map<Beat, string>, problems: Problem[]) {
+  const said = new Set<string>()
+  const list = (names: string[]) => (names.length > 12 ? `${names.slice(0, 12).join(', ')} and ${names.length - 12} more` : names.join(', '))
+  for (const b of beats) {
+    const lines = [...(b.lines ?? []), ...(b.variants ?? []).flat(), ...(b.choices ?? []).flatMap((c) => c.lines ?? [])]
+    for (const l of lines) {
+      const where = origin.get(b) ?? b.id
+      const flag = (key: string, message: string) => {
+        if (said.has(`${where}|${key}`)) return
+        said.add(`${where}|${key}`)
+        problems.push({ where, message, warning: true })
+      }
+      if (l.expression && !art.expressions.includes(l.expression)) {
+        flag(`face:${l.expression}`, `${cutie} has no face "${l.expression}" yet. Faces: ${list(art.expressions)}.`)
+      }
+      if (l.background && !art.backgrounds.includes(l.background)) {
+        flag(`bg:${l.background}`, `There's no room "${l.background}" yet. Add bg_${l.background}.png or .jpg on the Art tab, or check the spelling.`)
+      }
+      if (l.cg && l.cg !== 'none' && !art.cgs.includes(l.cg)) {
+        flag(`cg:${l.cg}`, `There's no picture "${l.cg}" yet. Add cg_${l.cg}.png or .jpg on the Art tab, or check the spelling.`)
+      }
+    }
+  }
+}
+
 export interface ImportResult { beats: Beat[]; problems: Problem[]; tabs: string[] }
 
-export function importCutie(sheets: Sheet[], manifest: CutieManifest): ImportResult {
+export function importCutie(sheets: Sheet[], manifest: CutieManifest, art?: KnownArt): ImportResult {
   const ctx = contextFor(manifest)
   const beats: Beat[] = []
   const problems: Problem[] = []
@@ -188,8 +220,12 @@ export function importCutie(sheets: Sheet[], manifest: CutieManifest): ImportRes
     return { beats, problems, tabs: used }
   }
 
+  // Where each beat came from, so later checks can point at the right row.
+  const origin = new Map<Beat, string>()
   const tryCell = (where: string, fn: () => void) => {
+    const n = beats.length
     try { fn() } catch (e) { problems.push({ where, message: e instanceof MarkupError ? e.message : `Something went wrong: ${(e as Error).message}` }) }
+    for (const b of beats.slice(n)) origin.set(b, where)
   }
 
   for (const sheet of mine) {
@@ -197,6 +233,10 @@ export function importCutie(sheets: Sheet[], manifest: CutieManifest): ImportRes
     used.push(sheet.name)
     const header = sheet.rows[0] ?? []
     const rows = sheet.rows.slice(1)
+    if (slug(header[0] ?? '') !== slug(HEADERS[tab][0])) {
+      problems.push({ where: `${sheet.name}, row 1`, message: `Row 1 should be the headings: ${tab === 'Time of day' ? 'Day, then one column per time of day' : tab === 'Daily goal' ? 'Day, then one column per %' : HEADERS[tab].filter((h) => h !== 'Notes').join(', ')}. Was it deleted or moved?` })
+      continue
+    }
     const at = (r: number, label: string) => `${sheet.name}, row ${r + 2}${label ? `, ${label}` : ''}`
 
     if (tab === 'Time of day' || tab === 'Daily goal') {
@@ -204,19 +244,19 @@ export function importCutie(sheets: Sheet[], manifest: CutieManifest): ImportRes
         if (c === 0 || !h.trim()) return null
         if (tab === 'Time of day') {
           const slot = findSlot(h, ctx)
-          if (!slot) problems.push({ where: `${sheet.name}, column "${h}"`, message: `"${h}" isn't one of ${manifest.name}'s times of day (${ctx.slots.map((s) => slotLabel(s.id)).join(', ')}).` })
+          if (!slot) problems.push({ where: `${sheet.name}, column "${short(h)}"`, message: `"${short(h)}" isn't one of ${manifest.name}'s times of day (${ctx.slots.map((s) => slotLabel(s.id)).join(', ')}).` })
           return slot ? { kind: 'slot' as const, slot, label: h } : null
         }
         if (/^missed/i.test(h.trim())) return { kind: 'missed' as const, label: h }
         const pct = pctOf(h)
-        if (pct === null) problems.push({ where: `${sheet.name}, column "${h}"`, message: `"${h}" should be a percentage like 50%.` })
+        if (pct === null) problems.push({ where: `${sheet.name}, column "${short(h)}"`, message: `"${short(h)}" should be a percentage like 50%.` })
         return pct === null ? null : { kind: 'pct' as const, pct, label: h }
       })
       rows.forEach((row, r) => {
         const label = cellText(row, 0)
         const day = dayOf(label)
         if (day === null) {
-          if (row.slice(1).some((c) => c.trim())) problems.push({ where: at(r, ''), message: `"${label}" should be a day number or Any.` })
+          if (row.slice(1).some((c) => c.trim())) problems.push({ where: at(r, ''), message: `"${short(label)}" should be a day number or Any.` })
           return
         }
         const d = day === 'any' ? undefined : day
@@ -271,10 +311,12 @@ export function importCutie(sheets: Sheet[], manifest: CutieManifest): ImportRes
         })
       })
       for (const [stage, variants] of byStage) {
-        beats.push({
+        const b: Beat = {
           id: `chatter-${stage || 'any'}`, trigger: { type: 'random' }, cooldownMinutes: 30,
           ...(stage ? { when: [{ var: 'stage', op: '==', value: stage }] } : {}), variants,
-        })
+        }
+        beats.push(b)
+        origin.set(b, `${sheet.name}, ${stage ? ctx.stages.find((s) => s.id === stage)?.name ?? stage : 'any stage'}`)
       }
     } else if (tab === 'Reactions') {
       const ids = new Map<string, number>()
@@ -293,7 +335,7 @@ export function importCutie(sheets: Sheet[], manifest: CutieManifest): ImportRes
         })
       })
     } else if (tab === 'Scenes') {
-      beats.push(...importScenes(sheet, ctx, problems))
+      beats.push(...importScenes(sheet, ctx, problems, origin))
     }
   }
 
@@ -303,6 +345,8 @@ export function importCutie(sheets: Sheet[], manifest: CutieManifest): ImportRes
     if (b.trigger.type !== 'after' || SCENE_ID.test(b.id)) continue // links inside a scene are already exact
     b.trigger = { ...b.trigger, value: String(b.trigger.value).split('|').map((ref) => ends.get(ref) ?? ref).join('|') }
   }
+
+  if (art) checkArt(beats, art, manifest.name, origin, problems)
 
   const seen = new Set<string>()
   for (const b of beats) {
@@ -341,7 +385,7 @@ interface RawScene { name: string; when: string; cond: string; opts: string; sta
  * rows marked with a letter right after are that button's answer; later lettered rows become branch beats;
  * unlettered rows after a branch rejoin everyone. Ids: head, head.1, head.2.A …
  */
-function importScenes(sheet: Sheet, ctx: Context, problems: Problem[]): Beat[] {
+function importScenes(sheet: Sheet, ctx: Context, problems: Problem[], origin: Map<Beat, string>): Beat[] {
   const beats: Beat[] = []
   const scenes: RawScene[] = []
   let current = null as RawScene | null
@@ -361,12 +405,22 @@ function importScenes(sheet: Sheet, ctx: Context, problems: Problem[]): Beat[] {
 
   for (const sc of scenes) {
     const where = `${sheet.name}, scene "${sc.name}" (row ${sc.startRow + 2})`
-    try {
-      if (!sc.when) throw new MarkupError('Say when this scene happens in the When column.')
+    const n0 = beats.length
+    // Check everything, so the artist sees every problem in a scene at once.
+    const attempt = <T,>(at: string, fallback: T, fn: () => T): T => {
+      try { return fn() } catch (e) {
+        problems.push({ where: at, message: e instanceof MarkupError ? e.message : (e as Error).message })
+        return fallback
+      }
+    }
+    {
+      const w = attempt(where, { trigger: { type: 'random' } as Trigger, day: undefined as number | undefined }, () => {
+        if (!sc.when) throw new MarkupError('Say when this scene happens in the When column.')
+        return parseWhen(sc.when, ctx)
+      })
       const head = sceneId(sc.name)
-      const w = parseWhen(sc.when, ctx)
-      const o = parseOptions(sc.opts)
-      const cond = sc.cond ? parseCondition(sc.cond, ctx) : []
+      const o = attempt(where, {} as ReturnType<typeof parseOptions>, () => parseOptions(sc.opts))
+      const cond = attempt(where, [] as Condition[], () => (sc.cond ? parseCondition(sc.cond, ctx) : []))
 
       const toLines = (row: SceneRow): Line[] => {
         const who = row.who.trim()
@@ -400,7 +454,7 @@ function importScenes(sheet: Sheet, ctx: Context, problems: Problem[]): Beat[] {
         return b
       }
 
-      for (const row of sc.rows) {
+      for (const row of sc.rows) attempt(`${sheet.name}, scene "${sc.name}", row ${row.r + 2}`, undefined, () => {
         const button = row.choice.match(/^([A-Z])\s*[:.)]\s*(.+)$/)
         // "A" or "A, C": only for those choices
         const tag = /^[A-Z](\s*[,/&]\s*[A-Z])*$/.test(row.choice) ? row.choice.replace(/[^A-Z]/g, '') : undefined
@@ -409,7 +463,7 @@ function importScenes(sheet: Sheet, ctx: Context, problems: Problem[]): Beat[] {
           seg.choices = [...(seg.choices ?? []), { id: button[1], text: button[2].trim() }]
           if (row.line && !seg.prompt) seg.prompt = row.line
           asker = seg
-          continue
+          return
         }
         if (tag) {
           if (!asker) throw new MarkupError(`Row ${row.r + 2} is marked "${row.choice}", but no choice was asked before it.`)
@@ -419,7 +473,7 @@ function importScenes(sheet: Sheet, ctx: Context, problems: Problem[]): Beat[] {
           if (seg === asker && !branchRun.length) { // straight after the buttons: the answer
             answering = true
             for (const c of picked) c!.lines = [...(c!.lines ?? []), ...toLines(row)]
-            continue
+            return
           }
           let b = branchRun.find((x) => x.id.endsWith(`.${tag}`))
           if (!b) {
@@ -431,15 +485,14 @@ function importScenes(sheet: Sheet, ctx: Context, problems: Problem[]): Beat[] {
             branchRun.push(b)
           }
           b.lines = [...(b.lines ?? []), ...toLines(row)]
-          continue
+          return
         }
         if (answering || branchRun.length || seg.choices?.length) seg = next()
         seg.lines = [...(seg.lines ?? []), ...toLines(row)]
         anchor = seg.id
-      }
-    } catch (e) {
-      problems.push({ where, message: e instanceof MarkupError ? e.message : (e as Error).message })
+      })
     }
+    for (const b of beats.slice(n0)) origin.set(b, where)
   }
   return beats
 }

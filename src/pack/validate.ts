@@ -45,15 +45,15 @@ export function validatePack(manifestRaw: unknown, scriptRaw: unknown, files: Pa
   const hasBg = (b: string) => files.backgrounds.includes(b)
   const exprHint = () => `Available: ${files.expressions.join(', ') || 'none'}.`
 
-  if (!files.expressions.length) err('images/', 'No expression sprites found. Add files like neutral.png.')
+  if (!files.expressions.length) err('images/', 'No expression sprites found. Add files like neutral.png or neutral.jpg.')
   if (m.defaultExpression && !hasExpr(m.defaultExpression)) {
     err('cutie.json', `Default expression "${m.defaultExpression}" has no image. ${exprHint()}`)
   }
   if (m.defaultBackground && !hasBg(m.defaultBackground)) {
-    err('cutie.json', `Default background "${m.defaultBackground}" needs images/bg_${m.defaultBackground}.png.`)
+    err('cutie.json', `Default background "${m.defaultBackground}" needs images/bg_${m.defaultBackground}.png or .jpg.`)
   }
   for (const [slot, bg] of Object.entries(m.backgroundBySlot ?? {})) {
-    if (!hasBg(bg)) err('cutie.json', `Background for ${slot} "${bg}" needs images/bg_${bg}.png.`)
+    if (!hasBg(bg)) err('cutie.json', `Background for ${slot} "${bg}" needs images/bg_${bg}.png or .jpg.`)
   }
   for (const s of m.stages ?? []) {
     if (s.defaultExpression && !hasExpr(s.defaultExpression)) {
@@ -80,9 +80,9 @@ export function validatePack(manifestRaw: unknown, scriptRaw: unknown, files: Pa
       err(where, `Expression "${line.expression}" has no image. ${exprHint()}`)
     }
     if (line.background && !hasBg(line.background)) {
-      err(where, `Background "${line.background}" needs images/bg_${line.background}.png.`)
+      err(where, `Background "${line.background}" needs images/bg_${line.background}.png or .jpg.`)
     }
-    if (line.cg && line.cg !== 'none' && !files.cgs.includes(line.cg)) err(where, `Reward art "${line.cg}" needs images/cg_${line.cg}.png.`)
+    if (line.cg && line.cg !== 'none' && !files.cgs.includes(line.cg)) err(where, `Reward art "${line.cg}" needs images/cg_${line.cg}.png or .jpg.`)
     if (line.sound && !(files.sounds ?? []).includes(line.sound)) err(where, `Sound "${line.sound}" needs sounds/${line.sound}.mp3 (or .ogg/.wav).`)
   }
 

@@ -18,7 +18,8 @@ interface Plan {
 
 /** Download this cutie's script as a workbook the artist can edit in Google Sheets. */
 export function downloadSheet(draft: Draft) {
-  const tabs = exportCutie(draft.manifest, draft.script, assetLists(draft).expressions)
+  const art = assetLists(draft)
+  const tabs = exportCutie(draft.manifest, draft.script, art.expressions, art.cgs)
   download(`${draft.manifest.id}-script.xlsx`, writeXlsx([...helpSheets(), ...tabs]) as BlobPart,
     'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
 }
@@ -34,7 +35,7 @@ export function SheetImport({ draft, update, onClose }: { draft: Draft; update: 
     setError('')
     try {
       const sheets = readXlsx(new Uint8Array(await file.arrayBuffer()))
-      const res = importCutie(sheets, draft.manifest)
+      const res = importCutie(sheets, draft.manifest, assetLists(draft))
       if (!res.tabs.length) {
         const found = cutiesIn(sheets)
         setError(found.length
@@ -62,7 +63,9 @@ export function SheetImport({ draft, update, onClose }: { draft: Draft; update: 
     onClose()
   }
 
-  const blocked = !!plan?.problems.length
+  const errors = plan?.problems.filter((p) => !p.warning) ?? []
+  const warnings = plan?.problems.filter((p) => p.warning) ?? []
+  const blocked = errors.length > 0
   return (
     <div className="modal-backdrop" onClick={onClose}>
       <div className="modal sheet-import" role="dialog" aria-label="Import spreadsheet" onClick={(e) => e.stopPropagation()}>
@@ -90,8 +93,15 @@ export function SheetImport({ draft, update, onClose }: { draft: Draft; update: 
           )}
           {blocked && (
             <div className="issues">
-              <p>Fix {plan.problems.length === 1 ? 'this' : `these ${plan.problems.length}`} in the spreadsheet, then import again:</p>
-              <ul>{plan.problems.map((p, i) => <li key={i}><b>{p.where}</b>: {p.message}</li>)}</ul>
+              <p>Fix {errors.length === 1 ? 'this' : `these ${errors.length}`} in the spreadsheet, then import again:</p>
+              <ProblemList problems={errors} />
+            </div>
+          )}
+          {warnings.length > 0 && (
+            <div className="issues warn">
+              <p>{blocked ? 'Also check' : 'Heads up'}: {warnings.length === 1 ? 'this line uses' : `${warnings.length} lines use`} art that isn't here yet.
+                {!blocked && ' You can still apply; they show as missing until the art is added.'}</p>
+              <ProblemList problems={warnings} />
             </div>
           )}
           <div className="modal-actions">
@@ -101,5 +111,19 @@ export function SheetImport({ draft, update, onClose }: { draft: Draft; update: 
         </>}
       </div>
     </div>
+  )
+}
+
+/** Long lists are cut short: the first few are enough to spot a pattern (like a deleted heading row). */
+function ProblemList({ problems }: { problems: Problem[] }) {
+  const [all, setAll] = useState(false)
+  const shown = all ? problems : problems.slice(0, 15)
+  return (
+    <ul>
+      {shown.map((p, i) => <li key={i}><b>{p.where}</b>: {p.message}</li>)}
+      {shown.length < problems.length && (
+        <li><button className="link" onClick={() => setAll(true)}>…and {problems.length - shown.length} more</button></li>
+      )}
+    </ul>
   )
 }
