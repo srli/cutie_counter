@@ -34,7 +34,7 @@ To start a new cutie, duplicate the `Template – …` tabs and rename them.
 | **Special days** | `10-31`, or `Day 7` | Line | on that date, or on that project day |
 | **Random chatter** | one line per row | Stage (blank = any) · Line | at random while writing (every 30 minutes at most) |
 | **Reactions** | one per row | When · If · Line · Options · Notes | anything else: `Welcome back`, `Idle 5 min`, `Streak 7`, `Every 1000 words`… |
-| **Scenes** | one line per row | Scene · When · If · Who · Face · Line · Choice · Options · Notes | long moments with several people and choices |
+| **Scenes** | one line per row | Scene · When · If · Who · Face · Picture · Line · Choice · Options · Notes | cutscenes: full screen over the writing area |
 
 `Any` rows are the fallback: a day's own line wins when there is one.
 
@@ -81,25 +81,34 @@ Inside `[if …]` or the **If** column. Join with `and`.
 
 ### Options
 
-`once` · `daily` · `wait 30 min` · `priority 2` · `odds 3`, separated by commas.
+`once` · `daily` · `wait 30 min` · `priority 2` · `odds 3` · `textbox` (Scenes only: play in the cutie's textbox instead of full screen), separated by commas.
 
 ## The Scenes tab
 
-| Scene | When | If | Who | Face | Line | Choice | Options |
-|---|---|---|---|---|---|---|---|
-| Movie night | Whole goal 50% | | Ryder | smile | Want to watch a movie? | | once |
-| | | | You | | | A: Romance | |
-| | | | You | | | B: Horror | |
-| | | | Ryder | blush | Oh? A romance, then... | A | |
-| | | | Ryder | upset | I'm fine. Totally fine. | B | |
-| | | | Narrator | | The credits roll. | | |
-| | | | Ryder | | Tissues? | A | |
-| | | | Ryder | | I'm leaving the light on tonight. | B | |
-| | | | Ryder | happy | Back to writing? | | |
+Scenes take over the whole writing area until they end. The writer can also skip them.
+They have two kinds of parts:
+
+| Part | Shows |
+|---|---|
+| Dialog | the room, the cutie in the middle, and the dialog box |
+| Picture (CG) | only the picture, with the dialog box on top |
+
+| Scene | When | If | Who | Face | Picture | Line | Choice | Options |
+|---|---|---|---|---|---|---|---|---|
+| Movie night | Whole goal 50% | | Ryder | smile | | Want to watch a movie? | | once |
+| | | | You | | | | A: Romance | |
+| | | | You | | | | B: Horror | |
+| | | | Ryder | blush | | Oh? A romance, then... | A | |
+| | | | Ryder | upset | | I'm fine. Totally fine. | B | |
+| | | | Narrator | | movie_night | We settle in as the movie starts. | | |
+| | | | Narrator | | | The credits roll. | | |
+| | | | Ryder | happy | none | Back to writing? | | |
 
 - **Scene** names it, on the first row only. Rows below with the Scene cell empty belong to it.
 - **When / If / Options** go on the first row.
 - **Who**: the cutie's name (or blank), `You`, `Narrator` (no name box), or anyone else's name.
+- **Picture**: a reward-art name (`images/cg_<name>.png`). From that row on, only the picture shows,
+  until another picture or `none` brings back the room and the cutie. Pictures seen go in the Gallery.
 - **Choice**: on a `You` row, `A: button text` makes a button. A letter (`A`, or `A, C`) on a later row means
   "only if that was picked". Rows with an empty Choice are seen by everyone, so the paths rejoin.
 - Dropdowns on **Who** and **Face** keep the spelling right.
